@@ -1,77 +1,74 @@
-# Syncode Portfolio
+# Portfolio Web - Enzo Federico Bruno
 
-Portfolio web moderno y profesional para Syncode, construido con Next.js, TypeScript y Tailwind CSS.
+Portfolio personal con diseño moderno y oscuro, utilizando Next.js, TypeScript y Tailwind CSS.
 
-## 🚀 Inicio Rápido
+## 🚀 Despliegue en Vercel
 
-### Instalación
+### Opción 1: Desde GitHub (Recomendado)
+
+1. **Crear repositorio en GitHub:**
+   - Ve a [github.com](https://github.com) y crea un nuevo repositorio
+   - No inicialices con README, .gitignore o licencia (ya los tenemos)
+
+2. **Subir el código a GitHub:**
+   ```bash
+   git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+3. **Conectar con Vercel:**
+   - Ve a [vercel.com](https://vercel.com)
+   - Inicia sesión con tu cuenta de GitHub
+   - Haz clic en "Add New Project"
+   - Importa tu repositorio de GitHub
+   - Vercel detectará automáticamente que es un proyecto Next.js
+   - Haz clic en "Deploy"
+   - ¡Listo! Tu sitio estará en línea en minutos
+
+### Opción 2: Desde Vercel CLI
+
+1. **Iniciar sesión:**
+   ```bash
+   npx vercel login
+   ```
+
+2. **Desplegar:**
+   ```bash
+   npx vercel
+   ```
+
+3. **Seguir las instrucciones en pantalla**
+
+## 🛠️ Desarrollo Local
 
 ```bash
+# Instalar dependencias
 npm install
-```
 
-### Desarrollo
-
-```bash
+# Ejecutar servidor de desarrollo
 npm run dev
+
+# El sitio estará disponible en http://localhost:3001
 ```
 
-Abre [http://localhost:3001](http://localhost:3001) en tu navegador para ver el resultado.
-
-**Nota:** Este proyecto usa el puerto 3001 para evitar conflictos con otros proyectos que puedan estar usando el puerto 3000.
-
-### Producción
+## 📦 Build de Producción
 
 ```bash
 npm run build
 npm start
 ```
 
-## 📁 Estructura del Proyecto
+## 🎨 Características
 
-```
-Portfolio web/
-├── app/
-│   ├── globals.css      # Estilos globales
-│   ├── layout.tsx       # Layout principal
-│   └── page.tsx         # Página de inicio
-├── components/
-│   ├── Header.tsx       # Componente de navegación
-│   └── EnzoHero.tsx     # Sección hero de Enzo
-├── public/
-│   └── images/          # Imágenes del portfolio
-└── package.json
-```
+- Diseño oscuro moderno
+- Paleta de colores: Amarillo (#FFC400), Carbón (#212121), Azul petróleo (#004E64), Blanco (#FFFFFF)
+- Efectos de gradiente y animaciones
+- Responsive design
+- Secciones: Hero, Sobre Mí, Servicios, Socios, Portfolio, Contacto
 
-## 📸 Agregar tu Foto
+## 📝 Notas
 
-1. Coloca tu foto en la carpeta `public/images/`
-2. Nómbrala `enzo.jpg` o `enzo.png`
-3. La imagen se mostrará automáticamente en la sección hero
-
-## 🎨 Personalización
-
-El diseño utiliza un tema oscuro con gradientes en púrpura, rosa y azul. Puedes personalizar los colores en:
-- `tailwind.config.ts` - Configuración de Tailwind
-- `app/globals.css` - Variables CSS globales
-- Componentes individuales - Colores inline
-
-## 📝 Próximos Pasos
-
-- [ ] Agregar sección de servicios
-- [ ] Agregar sección de portfolio/proyectos
-- [ ] Agregar sección de socios
-- [ ] Agregar formulario de contacto
-- [ ] Agregar página de Marco
-
-## 🛠️ Tecnologías
-
-- **Next.js 14** - Framework React
-- **TypeScript** - Tipado estático
-- **Tailwind CSS** - Estilos utility-first
-- **React 18** - Biblioteca UI
-
-## 📄 Licencia
-
-Este proyecto es privado.
-
+- El proyecto está configurado para usar el puerto 3001 en desarrollo
+- Las imágenes deben estar en la carpeta `public/images/`
+- El proyecto usa Next.js 14 con App Router
