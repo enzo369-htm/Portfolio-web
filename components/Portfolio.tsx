@@ -656,15 +656,9 @@ export default function Portfolio() {
                     TypeScript
                   </Badge>
                 </div>
-                <a 
-                  href="https://entramado-webreal.vercel.app/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm font-medium hover:underline"
-                  style={{ color: '#FFC400' }}
-                >
-                  Ver proyecto →
-                </a>
+                <p className="mt-4 text-sm font-medium" style={{ color: '#FFC400' }}>
+                  Proyecto en desarrollo
+                </p>
               </CardContent>
             </Card>
 
@@ -707,6 +701,9 @@ export default function Portfolio() {
                     Productivity
                   </Badge>
                 </div>
+                <p className="mt-4 text-sm font-medium" style={{ color: '#FFC400' }}>
+                  Proyecto en desarrollo
+                </p>
               </CardContent>
             </Card>
 
@@ -800,6 +797,9 @@ export default function Portfolio() {
                     Scheduling
                   </Badge>
                 </div>
+                <p className="mt-4 text-sm font-medium" style={{ color: '#FFC400' }}>
+                  Proyecto en desarrollo
+                </p>
               </CardContent>
             </Card>
           </div>
