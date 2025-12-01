@@ -657,7 +657,7 @@ export default function Portfolio() {
                   </Badge>
                 </div>
                 <a 
-                  href="https://entramado-web.vercel.app/" 
+                  href="https://entramado-webreal.vercel.app/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="mt-4 inline-block text-sm font-medium hover:underline"
