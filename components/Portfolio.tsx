@@ -811,7 +811,7 @@ export default function Portfolio() {
               <div className="relative">
                 <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
                   <img
-                    src={encodeURI("/images/Sun Salvavor festival.png")}
+                    src="/images/Sun Salvador festival.png"
                     alt="Sun Salvador Festival Preview"
                     className="w-full h-full object-cover"
                     loading="lazy"
