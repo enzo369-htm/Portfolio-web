@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 
 export default function OfertaPage() {
   const whatsappNumber = "5493885246095"
-  const whatsappMessage = encodeURIComponent("Hola! Me interesa la oferta de landing page a $100.000. ¿Podemos hablar?")
+  const whatsappMessage = encodeURIComponent("Hola! Me interesa la oferta de landing page a $99.000. ¿Podemos hablar?")
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
 
@@ -113,7 +113,7 @@ export default function OfertaPage() {
                 animation: 'shimmer 3s linear infinite'
               }}
             >
-              $100.000 ARS
+              $99.000 ARS
             </span>
           </h1>
 
@@ -260,7 +260,7 @@ export default function OfertaPage() {
         <div className="max-w-5xl mx-auto text-center opacity-0 relative z-10">
           <p className="text-xl md:text-2xl mb-6 opacity-95 font-medium">Antes: <span className="line-through">$230.000</span></p>
           <h2 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold mb-10 tracking-tight drop-shadow-2xl">
-            $100.000 ARS
+            $99.000 ARS
           </h2>
           <p className="text-xl md:text-2xl lg:text-3xl mb-8 font-semibold">
             Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">lunes 15</span>.
