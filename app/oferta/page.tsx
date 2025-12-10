@@ -383,9 +383,18 @@ export default function OfertaPage() {
             Sobre mí
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-700 text-center mb-16 leading-relaxed max-w-4xl mx-auto font-medium">
+          <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 leading-relaxed max-w-4xl mx-auto font-medium">
             Soy desarrollador y estratega digital. Creo páginas web y landings enfocadas en conversión, no solo en diseño. Trabajo con marcas, emprendimientos y proyectos que quieren vender en serio por internet, no depender solo de redes sociales.
           </p>
+
+          <div className="text-center mb-16">
+            <a
+              href="/"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            >
+              Ver mi portfolio completo →
+            </a>
+          </div>
 
           <p className="text-lg md:text-xl text-gray-600 text-center mb-12 font-semibold">
             Mi enfoque combina:
