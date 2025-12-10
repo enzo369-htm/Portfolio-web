@@ -57,7 +57,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background" style={{ backgroundColor: '#000000', color: '#FFFFFF' }}>
       <Navbar />
       {/* Hero Section */}
-      <section id="inicio" className="relative overflow-hidden pt-32 pb-20 px-4 min-h-screen flex items-center" style={{ backgroundColor: '#000000' }}>
+      <section id="inicio" className="relative overflow-hidden pt-40 pb-20 px-4 min-h-screen flex items-center" style={{ backgroundColor: '#000000' }}>
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 border rounded-lg opacity-30" style={{ borderColor: 'rgba(124, 58, 237, 0.2)' }}></div>
@@ -833,7 +833,7 @@ export default function Portfolio() {
               </p>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-8 flex flex-col sm:flex-row gap-6 items-center justify-center">
               <Button
                 asChild
                 size="lg"
@@ -847,6 +847,25 @@ export default function Portfolio() {
                   className="flex items-center justify-center"
                 >
                   Iniciar Contacto
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </a>
+              </Button>
+              
+              <Button
+                asChild
+                size="lg"
+                className="text-xl px-12 py-6 hover:opacity-90 font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
+                style={{ 
+                  background: 'linear-gradient(to right, #EC4899, #F97316, #EC4899)', 
+                  boxShadow: '0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3)',
+                  border: '2px solid rgba(255, 196, 0, 0.3)'
+                }}
+              >
+                <a
+                  href="/oferta"
+                  className="flex items-center justify-center"
+                >
+                  ✨ Adquirir oferta limitada
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </a>
               </Button>

@@ -42,14 +42,29 @@ export default function Navbar() {
   }
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-[hsl(0,0%,4%)]/95 backdrop-blur-md border-b border-white/10 shadow-lg" 
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+    <>
+      {/* Banner de oferta */}
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white py-2 px-4">
+        <div className="container mx-auto flex items-center justify-center">
+          <a 
+            href="/oferta"
+            className="text-sm md:text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+          >
+            <span>✨</span>
+            <span>Oferta activa: Landing pages a $100.000 hasta el lunes 15</span>
+            <span className="font-bold">→ Ver más</span>
+          </a>
+        </div>
+      </div>
+
+      <nav 
+        className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? "bg-[hsl(0,0%,4%)]/95 backdrop-blur-md border-b border-white/10 shadow-lg" 
+            : "bg-transparent"
+        }`}
+      >
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <button 
           onClick={() => scrollToSection("inicio")}
@@ -140,7 +155,8 @@ export default function Navbar() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </>
   )
 }
