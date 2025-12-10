@@ -159,7 +159,7 @@ export default function OfertaPage() {
             className="inline-block mt-16 px-10 py-5 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white text-lg md:text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 relative overflow-hidden group"
           >
             <span className="relative z-10 flex items-center gap-2">
-              👉 Quiero mi landing con descuento
+              👉 Quiero mi Web con descuento
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
@@ -218,7 +218,7 @@ export default function OfertaPage() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
             {[
-              "Landing page completa (una sola página)",
+              "Landing page (web de venta)",
               "Diseño 100% personalizado a tu marca",
               "Adaptada a celular y desktop",
               "Botón directo a WhatsApp",
@@ -330,7 +330,7 @@ export default function OfertaPage() {
           </div>
 
           <p className="text-center text-xl md:text-2xl lg:text-3xl text-gray-800 font-bold max-w-4xl mx-auto p-8 bg-gradient-to-r from-pink-100/80 to-purple-100/80 backdrop-blur-sm rounded-2xl border border-pink-200/50 shadow-lg">
-            Pasás de "responder mensajes" a tener un sistema que vende solo.
+            Estas implementando un sistema de venta, no solo mensajes o videos
           </p>
         </div>
       </section>
@@ -368,7 +368,7 @@ export default function OfertaPage() {
           </div>
 
           <p className="text-center text-xl md:text-2xl text-gray-600 mt-16 font-semibold">
-            Simple, rápido y sin vueltas.
+            En un plazo de 3 dias tenes tu web funcionando
           </p>
         </div>
       </section>
