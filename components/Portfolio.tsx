@@ -802,6 +802,57 @@ export default function Portfolio() {
                 </p>
               </CardContent>
             </Card>
+
+            {/* Proyecto 7: Sun Salvador Festival */}
+            <Card className="group border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2" style={{ 
+              backgroundColor: '#0a0a0a',
+              borderColor: '#1a1a1a'
+            }}>
+              <div className="relative">
+                <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
+                  <img
+                    src="/images/Sun Salvavor festival.png"
+                    alt="Sun Salvador Festival Preview"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <Badge className="absolute top-3 left-3 text-xs font-semibold px-2 py-1 z-10" style={{ 
+                  backgroundColor: '#FFC400',
+                  color: '#FFFFFF'
+                }}>
+                  Festival
+                </Badge>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="font-montserrat font-bold text-xl mb-3" style={{ color: '#FFFFFF' }}>
+                  Sun Salvador Festival
+                </h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#B0B0B0' }}>
+                  Landing page para festival de música. Diseño moderno y atractivo con información del evento, artistas y venta de entradas.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
+                    Next.js
+                  </Badge>
+                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
+                    TypeScript
+                  </Badge>
+                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
+                    Event
+                  </Badge>
+                </div>
+                <a 
+                  href="https://sun-salvador.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block text-sm font-medium hover:underline"
+                  style={{ color: '#FFC400' }}
+                >
+                  Ver proyecto →
+                </a>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
