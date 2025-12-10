@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -580,13 +579,11 @@ export default function Portfolio() {
             }}>
               <div className="relative">
                 <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
-                  <Image
-                    src="/images/Sun Salvador festival.png"
+                  <img
+                    src={encodeURI("/images/Sun Salvador festival.png")}
                     alt="Sun Salvador Festival Preview"
-                    width={800}
-                    height={450}
                     className="w-full h-full object-cover"
-                    unoptimized
+                    loading="lazy"
                   />
                 </div>
                 <Badge className="absolute top-3 left-3 text-xs font-semibold px-2 py-1 z-10" style={{ 
