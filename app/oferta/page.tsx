@@ -136,7 +136,7 @@ export default function OfertaPage() {
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 flex items-center justify-center text-white font-bold text-lg shadow-sm">
                 ✓
               </div>
-              <span className="text-gray-800 font-medium text-base leading-relaxed">Diseño femenino, limpio y profesional</span>
+              <span className="text-gray-800 font-medium text-base leading-relaxed">Diseño limpio y profesional</span>
             </div>
             <div className="flex items-start gap-4 text-left p-6 bg-white/80 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl border border-pink-100/50 transition-all duration-300 hover:-translate-y-1">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 flex items-center justify-center text-white font-bold text-lg shadow-sm">
@@ -298,9 +298,46 @@ export default function OfertaPage() {
         </div>
       </section>
 
-      {/* Cómo es el proceso */}
+      {/* Por qué una web vende mejor */}
       <section 
         ref={(el) => { sectionsRef.current[4] = el }}
+        className="py-24 px-6 bg-white"
+      >
+        <div className="max-w-5xl mx-auto opacity-0">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 text-center mb-16 tracking-tight">
+            ¿Por qué una web vende mejor que solo responder mensajes?
+          </h2>
+          
+          <div className="space-y-5 mb-12">
+            {[
+              "Te ahorrás responder siempre las mismas preguntas por WhatsApp.",
+              "Los clientes llegan al chat ya informados y convencidos de comprar.",
+              "Transmitís confianza, orden y profesionalismo.",
+              "Podés mostrar servicios, precios, resultados y testimonios en un solo lugar.",
+              "Vendés incluso mientras estás atendiendo clientes.",
+              "No dependés solo del algoritmo de Instagram."
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-5 p-7 bg-gradient-to-r from-pink-50/80 to-purple-50/80 backdrop-blur-sm rounded-2xl border border-pink-100/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-pink-300/50"
+              >
+                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 flex items-center justify-center text-white font-bold text-sm shadow-sm mt-0.5">
+                  ✓
+                </div>
+                <span className="text-lg md:text-xl text-gray-800 font-semibold leading-relaxed">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xl md:text-2xl lg:text-3xl text-gray-800 font-bold max-w-4xl mx-auto p-8 bg-gradient-to-r from-pink-100/80 to-purple-100/80 backdrop-blur-sm rounded-2xl border border-pink-200/50 shadow-lg">
+            Pasás de "responder mensajes" a tener un sistema que vende solo.
+          </p>
+        </div>
+      </section>
+
+      {/* Cómo es el proceso */}
+      <section 
+        ref={(el) => { sectionsRef.current[5] = el }}
         className="py-24 px-6 bg-white"
       >
         <div className="max-w-5xl mx-auto opacity-0">
@@ -332,43 +369,6 @@ export default function OfertaPage() {
 
           <p className="text-center text-xl md:text-2xl text-gray-600 mt-16 font-semibold">
             Simple, rápido y sin vueltas.
-          </p>
-        </div>
-      </section>
-
-      {/* Por qué una web vende mejor */}
-      <section 
-        ref={(el) => { sectionsRef.current[5] = el }}
-        className="py-24 px-6 bg-white"
-      >
-        <div className="max-w-5xl mx-auto opacity-0">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 text-center mb-16 tracking-tight">
-            ¿Por qué una web vende mejor que solo responder mensajes?
-          </h2>
-          
-          <div className="space-y-5 mb-12">
-            {[
-              "Te ahorrás responder siempre las mismas preguntas por WhatsApp.",
-              "Los clientes llegan al chat ya informados y convencidos de comprar.",
-              "Transmitís confianza, orden y profesionalismo.",
-              "Podés mostrar servicios, precios, resultados y testimonios en un solo lugar.",
-              "Vendés incluso mientras estás atendiendo clientes.",
-              "No dependés solo del algoritmo de Instagram."
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-5 p-7 bg-gradient-to-r from-pink-50/80 to-purple-50/80 backdrop-blur-sm rounded-2xl border border-pink-100/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-pink-300/50"
-              >
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 flex items-center justify-center text-white font-bold text-sm shadow-sm mt-0.5">
-                  ✓
-                </div>
-                <span className="text-lg md:text-xl text-gray-800 font-semibold leading-relaxed">{item}</span>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-xl md:text-2xl lg:text-3xl text-gray-800 font-bold max-w-4xl mx-auto p-8 bg-gradient-to-r from-pink-100/80 to-purple-100/80 backdrop-blur-sm rounded-2xl border border-pink-200/50 shadow-lg">
-            Pasás de "responder mensajes" a tener un sistema que vende solo.
           </p>
         </div>
       </section>
