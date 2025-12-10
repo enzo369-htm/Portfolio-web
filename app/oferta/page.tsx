@@ -451,6 +451,15 @@ export default function OfertaPage() {
             </div>
           </div>
 
+          {/* Cartel de oferta especial */}
+          <div className="mb-12 max-w-2xl mx-auto">
+            <div className="bg-yellow-400/95 backdrop-blur-sm rounded-2xl px-6 py-5 border-2 border-yellow-300 shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse">
+              <p className="text-base md:text-lg font-bold text-gray-900 text-center leading-tight">
+                🎁 <span className="underline">Los primeros 3 negocios</span> que me escriban al WhatsApp reciben: <span className="font-extrabold">actualizaciones + servicio de mantenimiento gratuito</span> en su web durante 1 mes y un <span className="font-extrabold">documento personalizado de venta</span> aplicada a su rubro
+              </p>
+            </div>
+          </div>
+
           <p className="text-xl md:text-2xl lg:text-3xl mb-16 opacity-95 max-w-3xl mx-auto font-medium leading-relaxed">
             Si querés profesionalizar tu negocio y empezar a recibir más consultas desde Instagram, esta oferta es para vos.
           </p>
