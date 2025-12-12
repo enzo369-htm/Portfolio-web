@@ -649,7 +649,7 @@ export default function Portfolio() {
                   Entramado
                 </h3>
                 <p className="text-sm leading-relaxed mb-4" style={{ color: '#B0B0B0' }}>
-                  Plataforma web con arquitectura moderna y diseño intuitivo.
+                  Plataforma web con arquitectura moderna y diseño intuitivo. Creada para divulgadores de Arte.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
