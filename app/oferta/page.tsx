@@ -15,8 +15,8 @@ export default function OfertaPage() {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date()
-      // 15 de diciembre 2025, 18:00 (mes 11 = diciembre, ya que los meses van de 0-11)
-      const targetDate = new Date(2025, 11, 15, 18, 0, 0)
+      // 8 de enero 2026, 18:00 (mes 0 = enero, ya que los meses van de 0-11)
+      const targetDate = new Date(2026, 0, 8, 18, 0, 0)
       const difference = targetDate.getTime() - now.getTime()
 
       if (difference > 0) {
@@ -122,7 +122,7 @@ export default function OfertaPage() {
           </p>
 
           <p className="text-lg md:text-xl text-pink-600 font-bold tracking-wide">
-            ⏰ Oferta válida solo hasta el lunes 15
+            ⏰ Oferta válida solo hasta el jueves 8 de enero
           </p>
 
           <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mt-16">
@@ -263,7 +263,7 @@ export default function OfertaPage() {
             $99.000 ARS
           </h2>
           <p className="text-xl md:text-2xl lg:text-3xl mb-8 font-semibold">
-            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">lunes 15</span>.
+            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">jueves 8 de enero</span>.
           </p>
           
           {/* Contador regresivo */}
@@ -431,7 +431,7 @@ export default function OfertaPage() {
         ></div>
         <div className="max-w-5xl mx-auto text-center opacity-0 relative z-10" data-content="true">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-10 tracking-tight drop-shadow-2xl">
-            Aprovechá la oferta antes del lunes 15
+            Aprovechá la oferta antes del jueves 8 de enero
           </h2>
           
           {/* Contador regresivo */}
@@ -451,15 +451,6 @@ export default function OfertaPage() {
             </div>
           </div>
 
-          {/* Cartel de oferta especial */}
-          <div className="mb-12 max-w-2xl mx-auto">
-            <div className="bg-yellow-400/95 backdrop-blur-sm rounded-2xl px-6 py-5 border-2 border-yellow-300 shadow-2xl transform hover:scale-105 transition-all duration-300">
-              <p className="text-base md:text-lg font-bold text-gray-900 text-center leading-tight">
-                🎁 <span className="underline">Los primeros 3 negocios</span> que me escriban al WhatsApp reciben: <span className="font-extrabold">actualizaciones + servicio de mantenimiento gratuito</span> en su web durante 1 mes y un <span className="font-extrabold">documento personalizado de venta</span> aplicada a su rubro
-              </p>
-            </div>
-          </div>
-
           <p className="text-xl md:text-2xl lg:text-3xl mb-16 opacity-95 max-w-3xl mx-auto font-medium leading-relaxed">
             Si querés profesionalizar tu negocio y empezar a recibir más consultas desde Instagram, esta oferta es para vos.
           </p>
@@ -474,6 +465,20 @@ export default function OfertaPage() {
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-pink-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
+          
+          <div className="mt-8">
+            <a
+              href="https://www.instagram.com/enzo.z4?igsh=Mm05MnA0enB2eXlk&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+            >
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>Seguime en Instagram</span>
+            </a>
+          </div>
         </div>
       </section>
     </div>

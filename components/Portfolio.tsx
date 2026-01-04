@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Sparkles, Target, Rocket, Code, TrendingUp, Zap, Globe } from "lucide-react"
+import { ArrowRight, Sparkles, Target, Rocket, Code, TrendingUp, Zap, Globe, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 
 export default function Portfolio() {
@@ -931,6 +931,17 @@ export default function Portfolio() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
               <h3 className="font-montserrat font-bold text-xl" style={{ color: '#FFFFFF' }}>Enzo Federico Bruno</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://www.instagram.com/enzo.z4?igsh=Mm05MnA0enB2eXlk&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                <Instagram className="w-5 h-5 text-white" />
+                <span className="font-semibold text-white">Instagram</span>
+              </a>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground" style={{ borderColor: '#1a1a1a', color: '#A0A0A0' }}>

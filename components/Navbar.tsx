@@ -51,7 +51,7 @@ export default function Navbar() {
             className="text-sm md:text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
           >
             <span>✨</span>
-            <span>Oferta activa: Landing pages a $100.000 hasta el lunes 15</span>
+            <span>Oferta activa: Landing pages a $100.000 hasta el jueves 8 de enero</span>
             <span className="font-bold">→ Ver más</span>
           </a>
         </div>
