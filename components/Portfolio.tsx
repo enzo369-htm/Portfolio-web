@@ -236,7 +236,8 @@ export default function Portfolio() {
                   <img
                     src="/images/foto personal.JPG"
                     alt="Enzo - Creador de experiencias digitales"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    style={{ objectPosition: 'center center' }}
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-12 h-12 rounded-full opacity-60 animate-bounce delay-300" style={{ background: 'linear-gradient(to bottom right, #7C3AED, #FFC400)' }}></div>
