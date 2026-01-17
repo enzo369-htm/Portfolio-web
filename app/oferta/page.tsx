@@ -15,8 +15,8 @@ export default function OfertaPage() {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date()
-      // 17 de enero 2026, 18:00 (mes 0 = enero, ya que los meses van de 0-11)
-      const targetDate = new Date(2026, 0, 17, 18, 0, 0)
+      // 22 de enero 2026, 18:00 (mes 0 = enero, ya que los meses van de 0-11)
+      const targetDate = new Date(2026, 0, 22, 18, 0, 0)
       const difference = targetDate.getTime() - now.getTime()
 
       if (difference > 0) {
@@ -122,7 +122,7 @@ export default function OfertaPage() {
           </p>
 
           <p className="text-lg md:text-xl text-pink-600 font-bold tracking-wide">
-            ⏰ Oferta válida solo hasta el 17 de enero
+            ⏰ Oferta válida solo hasta el 22 de enero
           </p>
 
           <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mt-16">
@@ -263,7 +263,7 @@ export default function OfertaPage() {
             $99.000 ARS
           </h2>
           <p className="text-xl md:text-2xl lg:text-3xl mb-8 font-semibold">
-            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">17 de enero</span>.
+            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">22 de enero</span>.
           </p>
           
           {/* Contador regresivo */}
@@ -431,7 +431,7 @@ export default function OfertaPage() {
         ></div>
         <div className="max-w-5xl mx-auto text-center opacity-0 relative z-10" data-content="true">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-10 tracking-tight drop-shadow-2xl">
-            Aprovechá la oferta antes del 17 de enero
+            Aprovechá la oferta antes del 22 de enero
           </h2>
           
           {/* Contador regresivo */}
