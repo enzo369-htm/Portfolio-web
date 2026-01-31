@@ -15,8 +15,8 @@ export default function OfertaPage() {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date()
-      // 22 de enero 2026, 18:00 (mes 0 = enero, ya que los meses van de 0-11)
-      const targetDate = new Date(2026, 0, 22, 18, 0, 0)
+      // 10 de febrero 2026, 18:00 (mes 1 = febrero, ya que los meses van de 0-11)
+      const targetDate = new Date(2026, 1, 10, 18, 0, 0)
       const difference = targetDate.getTime() - now.getTime()
 
       if (difference > 0) {
@@ -173,7 +173,7 @@ export default function OfertaPage() {
       >
         <div className="max-w-5xl mx-auto opacity-0">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 text-center mb-6 tracking-tight">
-            ¿Para quién es esta landing?
+            ¿Para quién es esta Web?
           </h2>
           <p className="text-xl md:text-2xl text-gray-600 text-center mb-16 font-medium">
             Esta oferta está pensada especialmente para:
@@ -186,7 +186,7 @@ export default function OfertaPage() {
               "Spa y masajes",
               "Cosmiatras",
               "Peluquerías",
-              "Marcas de belleza y cuidado femenino"
+              "Marcas de belleza y cuidado"
             ].map((item, index) => (
               <div
                 key={index}
@@ -201,7 +201,7 @@ export default function OfertaPage() {
           </div>
 
           <p className="text-center text-lg md:text-xl text-gray-700 mt-16 max-w-3xl mx-auto font-medium leading-relaxed">
-            Si hoy vendés solo por Instagram o WhatsApp, esta landing es el paso que te falta para verte más profesional y vender más. Tus conversaciones van a empezar en un nivel mucho más cercano a la reserva o la compra.
+            Si hoy vendés solo por Instagram o WhatsApp, tu web es el paso que te falta para verte más profesional y vender más. Tus conversaciones van a empezar en un nivel mucho más cercano a la reserva o la compra.
           </p>
         </div>
       </section>
@@ -218,7 +218,7 @@ export default function OfertaPage() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
             {[
-              "Landing page (web de venta)",
+              "Landing page (web)",
               "Diseño 100% personalizado a tu marca",
               "Adaptada a celular y desktop",
               "Botón directo a WhatsApp",
@@ -263,7 +263,7 @@ export default function OfertaPage() {
             $99.000 ARS
           </h2>
           <p className="text-xl md:text-2xl lg:text-3xl mb-8 font-semibold">
-            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">22 de enero</span>.
+            Esta promoción es por tiempo limitado y vence el <span className="font-bold underline decoration-2">10 de febrero</span>.
           </p>
           
           {/* Contador regresivo */}
@@ -313,9 +313,7 @@ export default function OfertaPage() {
               "Te ahorrás responder siempre las mismas preguntas por WhatsApp.",
               "Los clientes llegan al chat ya informados y convencidos de comprar.",
               "Transmitís confianza, orden y profesionalismo.",
-              "Podés mostrar servicios, precios, resultados y testimonios en un solo lugar.",
-              "Vendés incluso mientras estás atendiendo clientes.",
-              "No dependés solo del algoritmo de Instagram."
+              "Podés mostrar servicios, precios, resultados y testimonios en un solo lugar."
             ].map((item, index) => (
               <div
                 key={index}
@@ -352,7 +350,7 @@ export default function OfertaPage() {
               "Armo el diseño a medida",
               "Te muestro el avance",
               "Ajustamos detalles",
-              "Publicamos tu landing",
+              "Publicamos tu Web",
               "Empezás a recibir consultas"
             ].map((step, index) => (
               <div
@@ -368,7 +366,7 @@ export default function OfertaPage() {
           </div>
 
           <p className="text-center text-xl md:text-2xl text-gray-600 mt-16 font-semibold">
-            En un plazo de 3 dias tenes tu web funcionando
+            En un plazo de 7 dias tenes tu web funcionando
           </p>
         </div>
       </section>
@@ -384,7 +382,7 @@ export default function OfertaPage() {
           </h2>
           
           <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 leading-relaxed max-w-4xl mx-auto font-medium">
-            Soy desarrollador y estratega digital. Creo páginas web y landings enfocadas en conversión, no solo en diseño. Trabajo con marcas, emprendimientos y proyectos que quieren vender en serio por internet, no depender solo de redes sociales.
+            Soy desarrollador y estratega digital. Creo páginas web y landings enfocadas en conversión, no solo en diseño. Trabajo con marcas, emprendimientos y proyectos que quieren vender usando internet.
           </p>
 
           <div className="text-center mb-16">
@@ -431,7 +429,7 @@ export default function OfertaPage() {
         ></div>
         <div className="max-w-5xl mx-auto text-center opacity-0 relative z-10" data-content="true">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-10 tracking-tight drop-shadow-2xl">
-            Aprovechá la oferta antes del 22 de enero
+            Aprovechá la oferta antes del 10 de febrero
           </h2>
           
           {/* Contador regresivo */}
