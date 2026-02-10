@@ -674,7 +674,7 @@ export default function Portfolio() {
               <div className="relative">
                 <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
                   <img
-                    src="/images/Captura de Pantalla 2025-11-25 a la(s) 18.37.59.png"
+                    src="/images/diplemm.png"
                     alt="DIPLEM Preview"
                     className="w-full h-full object-cover"
                     loading="lazy"
