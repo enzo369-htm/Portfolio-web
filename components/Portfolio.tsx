@@ -669,7 +669,7 @@ export default function Portfolio() {
               </CardContent>
             </Card>
 
-            {/* Proyecto 4: DIPLEM */}
+            {/* Proyecto 4: DIPLEMM */}
             <Card className="group border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2" style={{ 
               backgroundColor: '#0a0a0a',
               borderColor: '#1a1a1a'
@@ -678,7 +678,7 @@ export default function Portfolio() {
                 <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
                   <img
                     src="/images/diplemm.png"
-                    alt="DIPLEM Preview"
+                    alt="DIPLEMM Preview"
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -692,7 +692,7 @@ export default function Portfolio() {
               </div>
               <CardContent className="p-6">
                 <h3 className="font-montserrat font-bold text-xl mb-3" style={{ color: '#FFFFFF' }}>
-                  DIPLEM
+                  DIPLEMM
                 </h3>
                 <p className="text-sm leading-relaxed mb-4" style={{ color: '#B0B0B0' }}>
                   Dispositivo de Planeación y Estructuración Metódica. Sistema metodológico para organizar y estructurar proyectos de forma sistemática.
@@ -714,58 +714,7 @@ export default function Portfolio() {
               </CardContent>
             </Card>
 
-            {/* Proyecto 5: DIPLEM Dashboard */}
-            <Card className="group border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2" style={{ 
-              backgroundColor: '#0a0a0a',
-              borderColor: '#1a1a1a'
-            }}>
-              <div className="relative">
-                <div className="aspect-video bg-black overflow-hidden relative rounded-t-xl">
-                  <img
-                    src="/images/Cuadrado magico .png"
-                    alt="DIPLEM Dashboard Preview"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <Badge className="absolute top-3 left-3 text-xs font-semibold px-2 py-1 z-10" style={{ 
-                  backgroundColor: '#FFC400',
-                  color: '#FFFFFF'
-                }}>
-                  Dashboard
-                </Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="font-montserrat font-bold text-xl mb-3" style={{ color: '#FFFFFF' }}>
-                  DIPLEM Dashboard
-                </h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#B0B0B0' }}>
-                  Interfaz de administración del sistema DIPLEM. Dashboard completo para gestión de proyectos, plantillas y referentes metodológicos.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
-                    Next.js
-                  </Badge>
-                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
-                    TypeScript
-                  </Badge>
-                  <Badge variant="outline" className="text-xs" style={{ borderColor: '#FFC400', color: '#FFC400' }}>
-                    Dashboard
-                  </Badge>
-                </div>
-                <a 
-                  href="https://v0-yellow-rombo-webpage.vercel.app/doc_el1xmks89mif2l00v" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm font-medium hover:underline"
-                  style={{ color: '#FFC400' }}
-                >
-                  Ver proyecto →
-                </a>
-              </CardContent>
-            </Card>
-
-            {/* Proyecto 6: Turnos In */}
+            {/* Proyecto 5: Turnos In */}
             <Card className="group border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2" style={{ 
               backgroundColor: '#0a0a0a',
               borderColor: '#1a1a1a'
@@ -810,7 +759,7 @@ export default function Portfolio() {
               </CardContent>
             </Card>
 
-            {/* Proyecto 7: Magnificent Monstera */}
+            {/* Proyecto 6: Magnificent Monstera */}
             <Card className="group border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2" style={{ 
               backgroundColor: '#0a0a0a',
               borderColor: '#1a1a1a'
