@@ -41,24 +41,29 @@ export default function Navbar() {
     }
   }
 
+  // Oferta especial: cambiar a true para mostrar de nuevo el banner
+  const SHOW_OFFER_BANNER = false
+
   return (
     <>
-      {/* Banner de oferta */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white py-2 px-4">
-        <div className="container mx-auto flex items-center justify-center">
-          <a 
-            href="/oferta"
-            className="text-sm md:text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
-          >
-            <span>✨</span>
-            <span>Oferta activa: Landing pages a $100.000 hasta el 10 de febrero</span>
-            <span className="font-bold">→ Ver más</span>
-          </a>
+      {/* Banner de oferta (oculto por ahora, se puede reactivar con SHOW_OFFER_BANNER) */}
+      {SHOW_OFFER_BANNER && (
+        <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white py-2 px-4">
+          <div className="container mx-auto flex items-center justify-center">
+            <a 
+              href="/oferta"
+              className="text-sm md:text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+            >
+              <span>✨</span>
+              <span>Oferta activa: Landing pages a $100.000 hasta el 10 de febrero</span>
+              <span className="font-bold">→ Ver más</span>
+            </a>
+          </div>
         </div>
-      </div>
+      )}
 
       <nav 
-        className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${SHOW_OFFER_BANNER ? 'top-10' : 'top-0'} ${
           isScrolled 
             ? "bg-[hsl(0,0%,4%)]/95 backdrop-blur-md border-b border-white/10 shadow-lg" 
             : "bg-transparent"

@@ -9,6 +9,9 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Sparkles, Target, Rocket, Code, TrendingUp, Zap, Globe, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 
+// Oferta especial: cambiar a true para mostrar de nuevo el botón de la landing de oferta
+const SHOW_OFFER_LANDING = false
+
 export default function Portfolio() {
   const [formData, setFormData] = useState({
     name: "",
@@ -903,24 +906,26 @@ export default function Portfolio() {
                 </a>
               </Button>
               
-              <Button
-                asChild
-                size="lg"
-                className="text-xl px-12 py-6 hover:opacity-90 font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
-                style={{ 
-                  background: 'linear-gradient(to right, #EC4899, #F97316, #EC4899)', 
-                  boxShadow: '0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3)',
-                  border: '2px solid rgba(255, 196, 0, 0.3)'
-                }}
-              >
-                <a
-                  href="/oferta"
-                  className="flex items-center justify-center"
+              {SHOW_OFFER_LANDING && (
+                <Button
+                  asChild
+                  size="lg"
+                  className="text-xl px-12 py-6 hover:opacity-90 font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
+                  style={{ 
+                    background: 'linear-gradient(to right, #EC4899, #F97316, #EC4899)', 
+                    boxShadow: '0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3)',
+                    border: '2px solid rgba(255, 196, 0, 0.3)'
+                  }}
                 >
-                  ✨ Adquirir oferta limitada
-                  <ArrowRight className="ml-3 h-6 w-6" />
-                </a>
-              </Button>
+                  <a
+                    href="/oferta"
+                    className="flex items-center justify-center"
+                  >
+                    ✨ Adquirir oferta limitada
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
         </div>
