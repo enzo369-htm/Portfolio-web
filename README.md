@@ -1,4 +1,4 @@
-# Portfolio Web - Enzo Federico Bruno
+# Portfolio Web - Enzo Federico
 
 Portfolio personal con diseño moderno y oscuro, utilizando Next.js, TypeScript y Tailwind CSS.
 

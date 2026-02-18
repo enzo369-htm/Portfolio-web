@@ -86,7 +86,7 @@ export default function Navbar() {
               animation: 'gradient-shift 3s ease infinite'
             }}
           >
-            Enzo Federico Bruno
+            Enzo Federico
           </span>
         </button>
 

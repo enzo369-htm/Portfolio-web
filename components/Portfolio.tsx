@@ -885,7 +885,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
-              <h3 className="font-montserrat font-bold text-xl" style={{ color: '#FFFFFF' }}>Enzo Federico Bruno</h3>
+              <h3 className="font-montserrat font-bold text-xl" style={{ color: '#FFFFFF' }}>Enzo Federico</h3>
             </div>
             <div className="flex items-center gap-2">
               <a
@@ -900,7 +900,7 @@ export default function Portfolio() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground" style={{ borderColor: '#1a1a1a', color: '#A0A0A0' }}>
-            <p>&copy; 2024 Enzo Federico Bruno. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Enzo Federico. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
