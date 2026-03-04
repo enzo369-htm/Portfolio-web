@@ -42,7 +42,7 @@ export default function Navbar() {
   }
 
   // Oferta especial: cambiar a true para mostrar de nuevo el banner
-  const SHOW_OFFER_BANNER = true
+  const SHOW_OFFER_BANNER = false
 
   return (
     <>

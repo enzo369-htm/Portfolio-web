@@ -10,7 +10,7 @@ import { ArrowRight, Sparkles, Target, Rocket, Code, TrendingUp, Zap, Globe, Ins
 import Navbar from "@/components/Navbar"
 
 // Oferta especial: cambiar a true para mostrar de nuevo el botón de la landing de oferta
-const SHOW_OFFER_LANDING = true
+const SHOW_OFFER_LANDING = false
 
 export default function Portfolio() {
   const [formData, setFormData] = useState({
