@@ -78,17 +78,14 @@ export default function Portfolio() {
             Enzo Federico — Growth & Development
           </p>
           <h1 className="leading-[0.9] tracking-[-0.03em]">
-            <span className="font-heading font-light block text-[clamp(3rem,10vw,9rem)] uppercase" style={{ color: '#FFC400' }}>
-              Growth
+            <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
+              AI-Assisted Fullstack Builder
             </span>
-            <span className="font-heading font-light block text-[clamp(3rem,10vw,9rem)] uppercase text-white">
-              Operator
-            </span>
-            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mt-6 mb-6" style={{ color: '#A78BFA' }}>
+            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-6" style={{ color: '#A78BFA' }}>
               &mdash;&mdash;
             </span>
             <span className="font-heading font-medium block text-[clamp(1.5rem,4vw,3.5rem)] text-white/90 tracking-[-0.02em]">
-              AI-Assisted Fullstack Builder
+              Growth Operator
             </span>
           </h1>
         </div>
@@ -118,13 +115,11 @@ export default function Portfolio() {
           </div>
           {/* Text side */}
           <div className="flex flex-col justify-center px-6 md:px-16 lg:px-20 py-20 lg:py-0 relative">
-            <h2 className="font-heading font-light text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] mb-8 uppercase">
-              <span style={{ color: '#C4B8D6' }}>Combino visión creativa</span><br />
-              <span className="text-white">y solidez tecnológica</span>
+            <h2 className="font-heading font-light text-[clamp(2rem,5vw,3.5rem)] leading-[1.2] mb-8 uppercase">
+              <span style={{ color: '#C4B8D6' }}>Conecto creatividad</span><br />
+              <span className="text-white">Sistemas robustos en desarrollo Full Stack y estrategias de crecimiento</span><br />
+              <span style={{ color: '#FFC400' }}>para transformar ideas en Realidades</span>
             </h2>
-            <p className="text-base md:text-lg leading-[1.8] max-w-md" style={{ color: '#B8ADCC' }}>
-              Desarrollo Full Stack con IA y estrategia de crecimiento para transformar ideas en productos que generan impacto.
-            </p>
           </div>
         </div>
       </section>
