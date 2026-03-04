@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("inicio")
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,7 @@ export default function Navbar() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
+    setIsMenuOpen(false)
     const section = document.getElementById(sectionId)
     if (section) {
       const offset = 80
@@ -46,8 +48,8 @@ export default function Navbar() {
     { id: "inicio", label: "Inicio" },
     { id: "sobre-mi", label: "Sobre Mí" },
     { id: "servicios", label: "Servicios" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "socios", label: "Socios" },
+    { id: "socios", label: "Colaboraciones" },
+    { id: "portfolio", label: "Proyectos" },
     { id: "contacto", label: "Contacto" },
   ]
 
@@ -70,8 +72,8 @@ export default function Navbar() {
 
       <nav
         className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-out ${SHOW_OFFER_BANNER ? 'top-10' : 'top-0'} ${
-          isScrolled
-            ? "bg-[#0A0A0A]/90 backdrop-blur-md border-b border-white/5"
+          isScrolled || isMenuOpen
+            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/5"
             : "bg-transparent"
         }`}
       >
@@ -101,11 +103,40 @@ export default function Navbar() {
             ))}
           </div>
 
-          <button className="md:hidden text-white/60 hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 text-white/60 hover:text-white transition-colors"
+            aria-label="Menú"
+          >
+            {isMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
           </button>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${isMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="px-6 py-4 pb-6 bg-[#0A0A0A] border-t border-white/5 flex flex-col gap-4">
+            {navItems.map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-left text-sm uppercase tracking-[0.15em] font-medium py-2 transition-colors duration-300 ${
+                  activeSection === item.id
+                    ? "text-[#FFC400]"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
     </>

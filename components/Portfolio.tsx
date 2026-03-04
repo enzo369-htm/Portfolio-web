@@ -78,8 +78,9 @@ export default function Portfolio() {
             Enzo Federico — Growth & Development
           </p>
           <h1 className="leading-[0.9] tracking-[-0.03em]">
-            <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
-              AI-Assisted Fullstack Builder
+            <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6">
+              <span className="text-white">AI-Assisted </span>
+              <span style={{ color: '#FFC400' }}>Fullstack Builder</span>
             </span>
             <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-6" style={{ color: '#A78BFA' }}>
               &mdash;&mdash;
@@ -104,11 +105,12 @@ export default function Portfolio() {
       <section id="sobre-mi" className="relative">
         <div className="grid lg:grid-cols-2 min-h-screen">
           {/* Photo side — edge to edge, cropped bottom */}
-          <div className="relative h-[55vh] lg:h-auto overflow-hidden" style={{ clipPath: 'inset(0 0 24% 0)' }}>
+          <div className="relative h-[70vh] md:h-[60vh] lg:h-auto overflow-hidden" style={{ clipPath: 'inset(0 0 24% 0)' }}>
             <img
               src="/images/foto personal.JPG"
               alt="Enzo Federico"
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center 35%' }}
             />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #0A0A0A 100%)' }} />
             <div className="absolute inset-0 lg:hidden" style={{ background: 'linear-gradient(to bottom, transparent 50%, #0A0A0A 100%)' }} />
@@ -195,17 +197,17 @@ export default function Portfolio() {
 
           {/* Featured — full width hero project */}
           <div className="group relative mb-6 overflow-hidden cursor-default">
-            <div className="aspect-[21/9] overflow-hidden">
+            <div className="aspect-video md:aspect-[21/9] overflow-hidden">
               <img src={projects[0].img} alt={projects[0].name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
             </div>
-            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)' }}>
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-12" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)' }}>
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 md:gap-4">
                 <div>
-                  <h3 className="font-heading font-light text-3xl md:text-5xl text-white uppercase">{projects[0].name}</h3>
-                  <p className="text-sm mt-2 max-w-md" style={{ color: '#C4B8D6' }}>{projects[0].desc}</p>
+                  <h3 className="font-heading font-light text-2xl md:text-5xl text-white uppercase">{projects[0].name}</h3>
+                  <p className="text-xs md:text-sm mt-1 md:mt-2 max-w-md" style={{ color: '#C4B8D6' }}>{projects[0].desc}</p>
                 </div>
                 {projects[0].url && (
-                  <a href={projects[0].url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium shrink-0 transition-all duration-300 hover:gap-3" style={{ color: '#FFC400' }}>
+                  <a href={projects[0].url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium shrink-0 transition-all duration-300 hover:gap-3 py-2" style={{ color: '#FFC400' }}>
                     Ver proyecto <ArrowRight className="w-4 h-4" />
                   </a>
                 )}
@@ -250,28 +252,35 @@ export default function Portfolio() {
         <div className="w-full max-w-[1400px] mx-auto">
           <p className="font-heading font-light text-[clamp(1.8rem,4.5vw,4rem)] leading-[1.15] text-white/90 max-w-4xl uppercase">
             Desarrollo web, estrategia de producto y crecimiento.{' '}
-            <span style={{ color: '#FFC400' }}>Construyo soluciones que generan impacto.</span>
+            <span style={{ color: '#FFC400' }}>Construyo soluciones que generan caminos.</span>
           </p>
         </div>
       </section>
 
-      {/* ═══════════════════ CONTACT ═══════════════════ */}
-      <section id="contacto" className="relative py-40 md:py-52 px-6 md:px-16 lg:px-24 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center bottom, rgba(124, 58, 237, 0.1) 0%, transparent 60%)' }} />
-        <div className="w-full max-w-[1400px] mx-auto relative z-10">
-          <h2 className="font-heading font-light text-[clamp(3rem,9vw,8rem)] leading-[0.9] tracking-[-0.02em] mb-8 uppercase" style={{ color: '#FFC400' }}>
-            Hablemos
-          </h2>
-          <p className="text-base md:text-xl mb-12 max-w-md" style={{ color: '#C4B8D6' }}>
-            ¿Tenés un proyecto en mente?<br />Escribime por WhatsApp.
+      {/* ═══════════════════ CONTACT — hero style ═══════════════════ */}
+      <section id="contacto" className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24">
+        <div className="w-full max-w-[1400px] mx-auto">
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] mb-12" style={{ color: '#A78BFA' }}>
+            Contacto
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <h2 className="leading-[0.9] tracking-[-0.03em]">
+            <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
+              Hablemos
+            </span>
+            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-6" style={{ color: '#A78BFA' }}>
+              &mdash;&mdash;
+            </span>
+            <p className="font-heading font-medium text-[clamp(1.5rem,4vw,3.5rem)] text-white/90 tracking-[-0.02em] mb-12">
+              ¿Tenés un proyecto en mente? Escribime por WhatsApp.
+            </p>
+          </h2>
+          <div className="flex flex-wrap items-center gap-6">
             <a
               href="https://wa.me/5493885246095"
               target="_blank"
               rel="noopener noreferrer"
-              className="animate-glow inline-flex items-center justify-center gap-3 px-10 py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #9333EA, #7C3AED)' }}
+              className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-4 border-b pb-1"
+              style={{ color: '#FFC400', borderColor: 'rgba(255, 196, 0, 0.4)' }}
             >
               WhatsApp
               <ArrowRight className="w-4 h-4" />
@@ -279,7 +288,7 @@ export default function Portfolio() {
             {SHOW_OFFER_LANDING && (
               <a
                 href="/oferta"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium border border-white/20 text-white hover:bg-white/5 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/60 hover:text-white/90 transition-colors"
               >
                 Ver oferta
                 <ArrowRight className="w-4 h-4" />
