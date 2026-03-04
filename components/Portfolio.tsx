@@ -52,10 +52,10 @@ export default function Portfolio() {
   }
 
   const socios = [
-    { name: 'Cresciente', desc: 'Teoría Musical & Composición', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.36.03-WM8iB5C8DxacSUyMH46aBPCmqRTnq4.png' },
-    { name: 'Ikigai', desc: 'Vivero Orgánico', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.58-w0rBkAAqeFsIFswE7SrpAc6LXupbac.png' },
-    { name: 'Maxi Sanchez', desc: 'Bioconstrucción', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.33.13-YD7yZMCUxQMSdlBMLXrO0dLzsfAJJO.png' },
-    { name: 'Francolini', desc: 'Mitología & Arquitectura', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.01-rV9CYkNS11faZBYsy2ypnvzEkEWy3N.png' }
+    { name: 'Cresciente', desc: 'Teoría Musical & Composición', stats: '115 k suscriptores · 443 videos', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.36.03-WM8iB5C8DxacSUyMH46aBPCmqRTnq4.png' },
+    { name: 'Ikigai Vivero Orgánico', desc: 'Viveros y jardinería, plantas nativas', stats: '7k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.58-w0rBkAAqeFsIFswE7SrpAc6LXupbac.png' },
+    { name: 'Maxi Sanchez', desc: 'Bioconstrucción y permacultura', stats: '275k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.33.13-YD7yZMCUxQMSdlBMLXrO0dLzsfAJJO.png' },
+    { name: 'Juan Pablo Francolini', desc: 'Mitología, simbología y arquitectura', stats: '154k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.01-rV9CYkNS11faZBYsy2ypnvzEkEWy3N.png' }
   ]
 
   const projects = [
@@ -174,16 +174,16 @@ export default function Portfolio() {
           <p className="text-sm mb-16" style={{ color: '#B8ADCC' }}>Creadores y marcas con los que he trabajado.</p>
           <div className="grid md:grid-cols-2 gap-6">
             {socios.map((item, i) => (
-              <div key={i} className="group relative overflow-hidden cursor-default rounded-lg">
-                {/* Mobile: fixed aspect so all cards same size. Desktop: natural image size */}
-                <div className="relative max-md:aspect-[4/3] max-md:min-h-[240px] md:block">
-                  <img src={item.img} alt={item.name} className="max-md:absolute max-md:inset-0 max-md:w-full max-md:h-full max-md:object-cover md:relative md:w-full md:h-auto md:object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
+              <div key={i} className="border border-white/15 rounded-lg overflow-hidden bg-white/[0.04] hover:border-white/20 transition-colors">
+                <div className="bg-black overflow-hidden">
+                  <img src={item.img} alt={item.name} className="w-full h-auto object-contain" />
                 </div>
-                <div className="absolute inset-0 max-md:bg-gradient-to-t max-md:from-black/70 max-md:to-transparent md:bg-transparent md:group-hover:bg-black/50 transition-all duration-500 flex flex-col justify-end p-5 md:p-6">
-                  <div className="max-md:opacity-100 max-md:translate-y-0 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500">
-                    <h3 className="font-heading font-medium text-lg md:text-xl text-white uppercase max-md:text-xl">{item.name}</h3>
-                    <p className="text-xs mt-1 md:mt-1" style={{ color: '#C4B8D6' }}>{item.desc}</p>
-                  </div>
+                <div className="p-5">
+                  <h3 className="font-heading font-medium text-lg text-white uppercase">{item.name}</h3>
+                  <p className="text-sm mt-1" style={{ color: '#B8ADCC' }}>{item.desc}</p>
+                  {item.stats && (
+                    <p className="text-xs mt-2" style={{ color: '#A78BFA' }}>{item.stats}</p>
+                  )}
                 </div>
               </div>
             ))}
