@@ -11,20 +11,27 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      const sections = ["inicio", "sobre-mi", "servicios", "portfolio", "socios", "contacto"]
+      // Mismo orden que en el DOM (arriba → abajo) para marcar bien la sección actual
+      const sections = ["inicio", "sobre-mi", "servicios", "socios", "portfolio", "contacto"]
       const scrollPosition = window.scrollY + 100
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i])
+      let current = "inicio"
+      for (const id of sections) {
+        const section = document.getElementById(id)
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i])
-          break
+          current = id
         }
       }
+      setActiveSection(current)
     }
 
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {
