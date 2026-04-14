@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { ArrowRight, Code, TrendingUp, Zap, Globe, Instagram } from "lucide-react"
+import { ArrowRight, Code, TrendingUp, Zap, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 
 const SHOW_OFFER_LANDING = false
@@ -103,23 +103,23 @@ export default function Portfolio() {
 
       {/* ═══════════════════ ABOUT — photo + large statement ═══════════════════ */}
       <section id="sobre-mi" className="relative">
-        <div className="grid lg:grid-cols-2 min-h-screen">
-          {/* Photo side — edge to edge, cropped bottom */}
-          <div className="relative h-[70vh] md:h-[60vh] lg:h-auto overflow-hidden" style={{ clipPath: 'inset(0 0 24% 0)' }}>
+        <div className="grid lg:grid-cols-2 lg:min-h-[calc(100svh-5.5rem)] lg:items-stretch">
+          {/* Photo side — full frame on desktop, no bottom clip */}
+          <div className="relative h-[52vh] min-h-[240px] sm:min-h-[280px] md:h-[48vh] lg:h-full lg:min-h-0 overflow-hidden">
             <img
-              src="/images/foto personal.JPG"
+              src="/images/foto.jpg"
               alt="Enzo Federico"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: 'center 35%' }}
+              className="w-full h-full object-cover object-center"
+              style={{ objectPosition: "center 28%" }}
             />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #0A0A0A 100%)' }} />
             <div className="absolute inset-0 lg:hidden" style={{ background: 'linear-gradient(to bottom, transparent 50%, #0A0A0A 100%)' }} />
           </div>
-          {/* Text side */}
-          <div className="flex flex-col justify-center px-6 md:px-16 lg:px-20 py-20 lg:py-0 relative">
-            <h2 className="font-heading font-light text-[clamp(2rem,5vw,3.5rem)] leading-[1.2] mb-8 uppercase">
-              <span style={{ color: '#C4B8D6' }}>Conecto creatividad</span><br />
-              <span className="text-white">Sistemas robustos en desarrollo Full Stack y estrategias de crecimiento</span><br />
+          {/* Text side — un solo párrafo continuo; centrado en la altura de la columna */}
+          <div className="flex flex-col justify-center px-6 md:px-12 lg:px-14 xl:px-20 py-12 md:py-16 lg:h-full lg:min-h-0 lg:py-6 relative">
+            <h2 className="font-heading font-light uppercase text-balance text-[clamp(1.65rem,calc(2.15vw+2dvh),3.75rem)] leading-[1.08]">
+              <span style={{ color: '#C4B8D6' }}>Conecto creatividad </span>
+              <span className="text-white">Sistemas robustos en desarrollo Full Stack y estrategias de crecimiento </span>
               <span style={{ color: '#FFC400' }}>para transformar ideas en Realidades</span>
             </h2>
           </div>
@@ -139,7 +139,6 @@ export default function Portfolio() {
               { icon: Code, name: "Desarrollo Web", desc: "Aplicaciones web de alto nivel, desarrolladas con tecnología de vanguardia y diseño escalable.", color: "#A78BFA" },
               { icon: Zap, name: "Lanzamiento de productos", desc: "Planificación, creación y lanzamiento con mensaje claro y atractivo para tu audiencia.", color: "#FFC400" },
               { icon: TrendingUp, name: "Embudos de venta", desc: "Embudos que atraen, nutren y convierten. Cada paso fluido y efectivo.", color: "#A78BFA" },
-              { icon: Globe, name: "Integración de IA", desc: "Automatizaciones inteligentes, análisis predictivo y experiencias personalizadas.", color: "#FFC400" },
             ].map((service, i) => {
               const Icon = service.icon
               return (
@@ -250,16 +249,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* ═══════════════════ STATEMENT — large editorial quote ═══════════════════ */}
-      <section className="relative py-32 md:py-40 px-6 md:px-16 lg:px-24">
-        <div className="w-full max-w-[1400px] mx-auto">
-          <p className="font-heading font-light text-[clamp(1.8rem,4.5vw,4rem)] leading-[1.15] text-white/90 max-w-4xl uppercase">
-            Desarrollo web, estrategia de producto y crecimiento.{' '}
-            <span style={{ color: '#FFC400' }}>Construyo soluciones que generan caminos.</span>
-          </p>
-        </div>
-      </section>
-
       {/* ═══════════════════ CONTACT — hero style ═══════════════════ */}
       <section id="contacto" className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24">
         <div className="w-full max-w-[1400px] mx-auto">
@@ -267,15 +256,12 @@ export default function Portfolio() {
             Contacto
           </p>
           <h2 className="leading-[0.9] tracking-[-0.03em]">
-            <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
-              Hablemos
+            <span className="font-heading font-light block text-[clamp(2.14rem,6.65vw,6.175rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
+              ¿Hablamos?
             </span>
-            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-6" style={{ color: '#A78BFA' }}>
+            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-12" style={{ color: '#A78BFA' }}>
               &mdash;&mdash;
             </span>
-            <p className="font-heading font-medium text-[clamp(1.5rem,4vw,3.5rem)] text-white/90 tracking-[-0.02em] mb-12">
-              ¿Tenés un proyecto en mente? Escribime por WhatsApp.
-            </p>
           </h2>
           <div className="flex flex-wrap items-center gap-6">
             <a
