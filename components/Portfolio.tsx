@@ -65,6 +65,7 @@ export default function Portfolio() {
     { name: 'DIPLEMM', desc: 'Sistema de planeación y estructuración metodológica para proyectos.', tech: 'Next.js, TypeScript', img: '/images/diplemm.png', url: '', status: 'En desarrollo' },
     { name: 'Turnos In', desc: 'Gestión de turnos y citas online.', tech: 'Next.js, TypeScript', img: '/images/Turnos In.png', url: '', status: 'En desarrollo' },
     { name: 'Magnificent Monstera', desc: 'Aplicación web con diseño responsivo.', tech: 'React, Tailwind', img: '/images/Magnificent Monstera.png', url: 'https://magnificent-monstera-92ea1e.netlify.app/', status: '' },
+    { name: 'Rocío Cerdá', desc: 'Portfolio web interactivo para comunicadora, trabajo realizado junto a diseñador.', tech: 'WordPress, Figma, HTML, CSS', img: '/images/rocio.png', url: '', status: 'En desarrollo' },
   ]
 
   return (
