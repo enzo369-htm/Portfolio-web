@@ -108,9 +108,9 @@ export default function Portfolio() {
           {/* Photo side — full frame on desktop, no bottom clip */}
           <div className="relative h-[52vh] min-h-[240px] sm:min-h-[280px] md:h-[48vh] lg:h-full lg:min-h-0 overflow-hidden">
             <img
-              src="/images/foto.jpg"
+              src="/images/fotocom.jpg"
               alt="Enzo Federico"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-center brightness-[0.82]"
               style={{ objectPosition: "center 28%" }}
             />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #0A0A0A 100%)' }} />
