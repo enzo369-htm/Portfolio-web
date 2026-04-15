@@ -110,7 +110,7 @@ export default function Portfolio() {
             <img
               src="/images/fotocom.jpg"
               alt="Enzo Federico"
-              className="w-full h-full object-cover object-center brightness-[0.88]"
+              className="w-full h-full object-cover object-center"
               style={{ objectPosition: "center 28%" }}
             />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #0A0A0A 100%)' }} />
