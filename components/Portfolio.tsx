@@ -192,7 +192,7 @@ export default function Portfolio() {
       </section>
 
       {/* ═══════════════════ PROJECTS — editorial grid ═══════════════════ */}
-      <section id="portfolio" className="relative py-32 md:py-40 px-6 md:px-16 lg:px-24">
+      <section id="portfolio" className="relative pt-24 pb-14 md:py-40 px-6 md:px-16 lg:px-24">
         <div className="w-full max-w-[1400px] mx-auto">
           <h2 className="font-heading font-light text-[clamp(2.5rem,6vw,5rem)] text-white leading-[0.95] uppercase mb-16">
             Proyectos
@@ -251,16 +251,16 @@ export default function Portfolio() {
       </section>
 
       {/* ═══════════════════ CONTACT — hero style ═══════════════════ */}
-      <section id="contacto" className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24">
+      <section id="contacto" className="relative flex flex-col justify-start lg:min-h-screen lg:justify-center px-6 md:px-16 lg:px-24 pt-8 pb-16 md:pt-12 md:pb-24 lg:py-24">
         <div className="w-full max-w-[1400px] mx-auto">
-          <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] mb-12" style={{ color: '#A78BFA' }}>
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] mb-8 md:mb-12" style={{ color: '#A78BFA' }}>
             Contacto
           </p>
           <h2 className="leading-[0.9] tracking-[-0.03em]">
             <span className="font-heading font-light block text-[clamp(2.14rem,6.65vw,6.175rem)] uppercase mb-6" style={{ color: '#FFC400' }}>
               ¿Hablamos?
             </span>
-            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-12" style={{ color: '#A78BFA' }}>
+            <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-8 md:mb-12" style={{ color: '#A78BFA' }}>
               &mdash;&mdash;
             </span>
           </h2>
