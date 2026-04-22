@@ -80,14 +80,11 @@ export default function Portfolio() {
           </p>
           <h1 className="leading-[0.9] tracking-[-0.03em]">
             <span className="font-heading font-light block text-[clamp(2.25rem,7vw,6.5rem)] uppercase mb-6">
-              <span className="text-white">AI-Assisted </span>
-              <span style={{ color: '#FFC400' }}>Fullstack Builder</span>
+              <span className="block text-white">Creador</span>
+              <span className="block" style={{ color: '#FFC400' }}>Desarrollador</span>
             </span>
             <span className="block text-[clamp(1rem,2.5vw,1.5rem)] font-heading font-light uppercase tracking-[0.2em] mb-6" style={{ color: '#A78BFA' }}>
               &mdash;&mdash;
-            </span>
-            <span className="font-heading font-medium block text-[clamp(1.5rem,4vw,3.5rem)] text-white/90 tracking-[-0.02em]">
-              Growth Operator
             </span>
           </h1>
         </div>
