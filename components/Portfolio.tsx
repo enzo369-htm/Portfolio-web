@@ -125,6 +125,13 @@ export default function Portfolio() {
               <span className="text-white">Sistemas robustos en desarrollo Full Stack y estrategias de crecimiento </span>
               <span style={{ color: '#FFC400' }}>para transformar ideas en Realidades</span>
             </h2>
+            <Link
+              href="/quien-soy"
+              className="mt-8 md:mt-10 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.12em] transition-all duration-300 hover:gap-3 border-b pb-1 w-fit"
+              style={{ color: '#A78BFA', borderColor: 'rgba(167, 139, 250, 0.4)' }}
+            >
+              Ver más
+            </Link>
           </div>
         </div>
       </section>

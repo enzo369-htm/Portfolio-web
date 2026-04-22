@@ -9,10 +9,10 @@ type NavEntry =
   | { kind: "route"; href: string; label: string; matchPrefix?: boolean }
 
 const navEntries: NavEntry[] = [
-  { kind: "section", id: "inicio", label: "Inicio" },
   { kind: "section", id: "sobre-mi", label: "Sobre Mí" },
+  { kind: "route", href: "/quien-soy", label: "Quién soy" },
   { kind: "section", id: "servicios", label: "Servicios" },
-  { kind: "section", id: "socios", label: "Colaboraciones" },
+  { kind: "section", id: "socios", label: "Colabs" },
   { kind: "section", id: "portfolio", label: "Proyectos" },
   { kind: "route", href: "/relatos", label: "Relatos", matchPrefix: true },
   { kind: "section", id: "contacto", label: "Contacto" },
@@ -56,7 +56,7 @@ export default function Navbar() {
   const SHOW_OFFER_BANNER = false
 
   const linkClassDesktop = (active: boolean) =>
-    `text-xs uppercase tracking-[0.15em] font-medium transition-colors duration-300 ${
+    `text-[10px] lg:text-xs uppercase tracking-[0.12em] lg:tracking-[0.15em] font-medium transition-colors duration-300 ${
       active ? "text-[#FFC400]" : "text-white/40 hover:text-white/80"
     }`
 
@@ -66,6 +66,11 @@ export default function Navbar() {
     }`
 
   const isRelatosActive = pathname === "/relatos" || pathname.startsWith("/relatos/")
+
+  const routeIsActive = (entry: Extract<NavEntry, { kind: "route" }>) => {
+    if (entry.matchPrefix) return isRelatosActive
+    return pathname === entry.href
+  }
 
   return (
     <>
@@ -92,7 +97,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-          <Link href="/" className="group" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/#inicio" className="group" onClick={() => setIsMenuOpen(false)}>
             <span
               className="font-heading font-light text-xl uppercase tracking-wider transition-opacity duration-300 hover:opacity-80"
               style={{ color: "#A78BFA" }}
@@ -101,7 +106,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4 lg:gap-5 shrink-0">
             {navEntries.map((entry) => {
               if (entry.kind === "section") {
                 const active = isHome && activeSection === entry.id
@@ -111,7 +116,7 @@ export default function Navbar() {
                   </Link>
                 )
               }
-              const active = entry.matchPrefix ? isRelatosActive : pathname === entry.href
+              const active = routeIsActive(entry)
               return (
                 <Link key={entry.href} href={entry.href} className={linkClassDesktop(active)}>
                   {entry.label}
@@ -139,7 +144,7 @@ export default function Navbar() {
 
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
-            isMenuOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+            isMenuOpen ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="px-6 py-4 pb-6 bg-[#0A0A0A] border-t border-white/5 flex flex-col gap-1">
@@ -157,7 +162,7 @@ export default function Navbar() {
                   </Link>
                 )
               }
-              const active = entry.matchPrefix ? isRelatosActive : pathname === entry.href
+              const active = routeIsActive(entry)
               return (
                 <Link
                   key={entry.href}
