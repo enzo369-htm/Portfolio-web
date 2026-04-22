@@ -2,9 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Link from "next/link"
 import { ArrowRight, Code, TrendingUp, Zap, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
+import { projects } from "@/lib/projects"
 
 const SHOW_OFFER_LANDING = false
 
@@ -21,6 +23,19 @@ export default function Portfolio() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
+
+  useEffect(() => {
+    const hash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : ""
+    if (!hash) return
+    requestAnimationFrame(() => {
+      const el = document.getElementById(hash)
+      if (el) {
+        const offset = 80
+        const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+        window.scrollTo({ top, behavior: "smooth" })
+      }
+    })
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,16 +71,6 @@ export default function Portfolio() {
     { name: 'Ikigai Vivero Orgánico', desc: 'Viveros y jardinería, plantas nativas', stats: '7k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.58-w0rBkAAqeFsIFswE7SrpAc6LXupbac.png' },
     { name: 'Maxi Sanchez', desc: 'Bioconstrucción y permacultura', stats: '275k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.33.13-YD7yZMCUxQMSdlBMLXrO0dLzsfAJJO.png' },
     { name: 'Juan Pablo Francolini', desc: 'Mitología, simbología y arquitectura', stats: '154k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.01-rV9CYkNS11faZBYsy2ypnvzEkEWy3N.png' }
-  ]
-
-  const projects = [
-    { name: 'Cresciente', desc: 'Academia de composición musical online. Cursos, metodología propia y comunidad.', tech: 'WordPress, PHP', img: '/images/cresciente .png', url: 'https://cresciente.net/', status: '' },
-    { name: 'Sun Salvador Festival', desc: 'Landing para festival de música. Evento, artistas y entradas.', tech: 'Next.js, TypeScript', img: '/images/Sun-Salvador-festival.png', url: 'https://sun-salvador.vercel.app/', status: '' },
-    { name: 'Entramado', desc: 'Plataforma web para divulgadores de arte.', tech: 'Next.js, TypeScript', img: '/images/entramado.png', url: '', status: 'En desarrollo' },
-    { name: 'DIPLEMM', desc: 'Sistema de planeación y estructuración metodológica para proyectos.', tech: 'Next.js, TypeScript', img: '/images/diplemm.png', url: '', status: 'En desarrollo' },
-    { name: 'Turnos In', desc: 'Gestión de turnos y citas online.', tech: 'Next.js, TypeScript', img: '/images/Turnos In.png', url: '', status: 'En desarrollo' },
-    { name: 'Magnificent Monstera', desc: 'Aplicación web con diseño responsivo.', tech: 'React, Tailwind', img: '/images/Magnificent Monstera.png', url: 'https://magnificent-monstera-92ea1e.netlify.app/', status: '' },
-    { name: 'Rocío Cerdá', desc: 'Portfolio web interactivo para comunicadora, trabajo realizado junto a diseñador.', tech: 'WordPress, Figma, HTML, CSS', img: '/images/rocio.png', url: '', status: 'En desarrollo' },
   ]
 
   return (
@@ -206,19 +211,28 @@ export default function Portfolio() {
                   <h3 className="font-heading font-light text-2xl md:text-5xl text-white uppercase">{projects[0].name}</h3>
                   <p className="text-xs md:text-sm mt-1 md:mt-2 max-w-md" style={{ color: '#C4B8D6' }}>{projects[0].desc}</p>
                 </div>
-                {projects[0].url && (
-                  <a href={projects[0].url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium shrink-0 transition-all duration-300 hover:gap-3 py-2" style={{ color: '#FFC400' }}>
-                    Ver proyecto <ArrowRight className="w-4 h-4" />
-                  </a>
-                )}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0">
+                  <Link
+                    href={`/relatos/${projects[0].slug}`}
+                    className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3 py-2 border-b pb-1"
+                    style={{ color: '#A78BFA', borderColor: 'rgba(167, 139, 250, 0.35)' }}
+                  >
+                    Leer más
+                  </Link>
+                  {projects[0].url && (
+                    <a href={projects[0].url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3 py-2" style={{ color: '#FFC400' }}>
+                      Ver proyecto <ArrowRight className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           {/* Rest — 2+1 alternating */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {projects.slice(1).map((project, i) => (
-              <div key={i} className="group relative overflow-hidden cursor-default">
+            {projects.slice(1).map((project) => (
+              <div key={project.slug} className="group relative overflow-hidden cursor-default">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img src={project.img} alt={project.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                 </div>
@@ -232,13 +246,22 @@ export default function Portfolio() {
                     )}
                   </div>
                   <p className="text-xs mt-1" style={{ color: '#B8ADCC' }}>{project.desc}</p>
-                  <div className="flex items-center justify-between mt-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mt-2">
                     <span className="text-[10px] uppercase tracking-wider" style={{ color: '#A78BFA' }}>{project.tech}</span>
-                    {project.url && (
-                      <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-xs transition-all duration-300 hover:underline" style={{ color: '#FFC400' }}>
-                        Ver →
-                      </a>
-                    )}
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/relatos/${project.slug}`}
+                        className="text-xs transition-all duration-300 hover:underline"
+                        style={{ color: '#A78BFA' }}
+                      >
+                        Leer más
+                      </Link>
+                      {project.url && (
+                        <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-xs transition-all duration-300 hover:underline" style={{ color: '#FFC400' }}>
+                          Ver →
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
