@@ -109,6 +109,34 @@ export const projects: Project[] = [
       "Al estar en desarrollo activo, cada decisión de UI se contrasta con talleres reales y consultorios: el relato del proyecto es tan importante como el código — es la historia de recuperar horas para lo que importa.",
     ],
   },
+  {
+    slug: "diana-villabona-ceramica",
+    name: "Diana Villabona Cerámica",
+    desc: "Sitio para la ceramista en Colombia: piezas en vitrina, bitácora, talleres presenciales y un espacio creativo alrededor de raku, saggar y obvara.",
+    tech: "Next.js, TypeScript",
+    img: "/images/diana-villabona-ceramica.png",
+    url: "https://diana-villabona.vercel.app/",
+    status: "",
+    relato: [
+      "Diana Villabona necesitaba un sitio que sintiera como su estudio: tierras, humo del horno y piezas que cuentan proceso, no solo catálogo. La web plantea un refugio para la exploración — así lo dice el propio proyecto — con una parrilla visual que mezcla cocción al aire libre, piezas en sala y detalle de pastas y esmaltes.",
+      "La estructura recorre lo esencial de su práctica: vitrina con obras emblemáticas, bitácora para el relato en curso, talleres con fechas e inscripción, y un hilo narrativo que nombra técnicas como Raku, Saggar y Obvara para quien ya habla el idioma del barro.",
+      "Construido en Next.js y desplegado en Vercel, el sitio prioriza lectura clara y fotografía protagonista; el texto incorpora su mirada — que la cerámica sea medio para que la naturaleza se exprese — y deja abierto el crecimiento del catálogo y la agenda de encuentros en el estudio.",
+    ],
+  },
+  {
+    slug: "mutuo-agencia",
+    name: "Mutuo Agencia",
+    desc: "Sitio de la agencia Mutuo: comunicación integral, mirada de profesionales creativos y piezas destacadas —incluye proyectos como la pieza visual para Vesta Estudio.",
+    tech: "Next.js, TypeScript",
+    img: "/images/mutuo-agencia.png",
+    url: "https://mutuo-five.vercel.app/",
+    status: "",
+    relato: [
+      "Mutuo se presenta como una agencia que reúne la mirada de distintos profesionales creativos para ofrecer soluciones integrales en comunicación; la web tenía que transmitir esa idea de equipo y calidad sin recurrir a un brochure plano.",
+      "El sitio combina secciones claras —qué hacen, proyectos, servicios, contacto— con una estética muy cinematográfica: fondos oscuros, tipografía contundente y piezas destacadas donde cada proyecto puede ocupar el mismo nivel de importancia que en una presentación a cliente.",
+      "En el despliegue en Vercel, el foco está en rendimiento y una navegación que invite a explorar; el contacto público (como hola@mutuoagencia.com) cierra el circuito para quien busca una agencia con lectura integral del mensaje y la imagen.",
+    ],
+  },
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {
