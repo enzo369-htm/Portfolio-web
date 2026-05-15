@@ -8,6 +8,12 @@ export type Project = {
   status: string
   /** Párrafos del relato (historia detrás del proyecto) */
   relato: string[]
+  /** Si es true, en /relatos/[slug] la imagen se muestra entera (object-contain) sin recorte fijo */
+  relatoImageContain?: boolean
+  /** Fondo detrás de la imagen cuando `relatoImageContain` es true */
+  relatoImageContainBg?: string
+  /** Solo en /relatos/[slug]; el home y /relatos siguen usando `img` */
+  relatoDetailImg?: string
 }
 
 export const projects: Project[] = [
@@ -40,17 +46,36 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "sun-salvador-festival",
-    name: "Sun Salvador Festival",
-    desc: "Landing para festival de música. Evento, artistas y entradas.",
-    tech: "Next.js, TypeScript",
-    img: "/images/Sun-Salvador-festival.png",
-    url: "https://sun-salvador.vercel.app/",
-    status: "",
+    slug: "cardinal-sur",
+    name: "Cardinal Sur",
+    desc: "Plataforma de dirección musical creativa para shows en vivo (Buenos Aires): manifiesto, equipo, casos con artistas, talleres con inscripción y contacto. Experiencia pensada para pantalla ancha.",
+    tech: "Next.js, TypeScript, Tailwind CSS",
+    img: "/images/cardinal-sur-cover.png",
+    relatoDetailImg: "/images/cardinal-sur-relato.png",
+    url: "https://cardinal-sur.vercel.app/",
+    status: "En desarrollo",
+    relatoImageContain: true,
+    relatoImageContainBg: "#000000",
     relato: [
-      "Un festival necesita una primera impresión que compita con el ruido de las redes: fecha, lineup y sensación tienen que leerse en segundos, con un diseño que invite a comprar o guardar el evento.",
-      "Elegimos Next.js para una landing ultrarrápida, buena SEO social al compartir y despliegue estable en cada pico de visitas antes del show.",
-      "La pieza cuenta la historia del evento como experiencia: no solo información, sino el clima que el público va a encontrar cuando llegue a la puerta.",
+      "Estado: esta web figura como en desarrollo en el portfolio; contenidos, secciones y detalle de interacción pueden seguir evolucionando mientras el equipo ajusta la versión pública.",
+      "Cardinal Sur define la dirección musical creativa como identificar y señalar posibles direcciones para cada idea y ayudar a recorrer los caminos: el contenido define la forma de la obra y no al revés. Afirman que las obras se revelan por experimentación y lectura colectiva del proceso, y que su rol es acompañar sin imponer una estética cerrada, como puente entre técnica y práctica artesanal frente a la hiper-especialización.",
+      "El sitio en cardinal-sur.vercel.app articula servicios, artistas con los que trabajan, un bloque Universo con el manifiesto (Est. 2024, Buenos Aires), talleres con formulario de inscripción y vías de contacto como hola@cardinalsur.com y redes. La experiencia está pensada para computadora, con mínimo sugerido de ancho y video en el hero.",
+      "Técnicamente es una aplicación Next.js con App Router, React, TypeScript, Tailwind CSS, Framer Motion, scroll suavizado con Lenis cuando aplica, formularios validados y API para inscripciones a talleres; la estética refuerza marca, textura y motion alineados con el nivel de cuidado de los shows que diseñan.",
+    ],
+  },
+  {
+    slug: "diana-villabona-ceramica",
+    name: "Diana Villabona Cerámica",
+    desc: "Sitio para la ceramista en Colombia: piezas en vitrina, bitácora, talleres presenciales y un espacio creativo alrededor de raku, saggar y obvara.",
+    tech: "Next.js, TypeScript",
+    img: "/images/diana-villabona-ceramica.png",
+    url: "https://diana-villabona.vercel.app/",
+    status: "En desarrollo",
+    relato: [
+      "Estado: el sitio público se considera en desarrollo; pueden sumarse secciones, textos o ajustes visuales a medida que Diana consolida la presencia digital del estudio.",
+      "Diana Villabona necesitaba una web que sintiera como su estudio: tierras, humo del horno y piezas que cuentan proceso, no solo catálogo. La web plantea un refugio para la exploración, con una parrilla visual que mezcla cocción al aire libre, piezas en sala y detalle de pastas y esmaltes.",
+      "La estructura recorre lo esencial de su práctica: vitrina con obras emblemáticas, bitácora para el relato en curso, talleres con fechas e inscripción, y un hilo narrativo que nombra técnicas como Raku, Saggar y Obvara para quien ya habla el idioma del barro.",
+      "Construido en Next.js y desplegado en Vercel, el sitio prioriza lectura clara y fotografía protagonista; el texto incorpora su mirada de que la cerámica es medio para que la naturaleza se exprese, con margen para crecer en catálogo y agenda.",
     ],
   },
   {
@@ -68,17 +93,17 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "diana-villabona-ceramica",
-    name: "Diana Villabona Cerámica",
-    desc: "Sitio para la ceramista en Colombia: piezas en vitrina, bitácora, talleres presenciales y un espacio creativo alrededor de raku, saggar y obvara.",
+    slug: "sun-salvador-festival",
+    name: "Sun Salvador Festival",
+    desc: "Landing para festival de música. Evento, artistas y entradas.",
     tech: "Next.js, TypeScript",
-    img: "/images/diana-villabona-ceramica.png",
-    url: "https://diana-villabona.vercel.app/",
+    img: "/images/Sun-Salvador-festival.png",
+    url: "https://sun-salvador.vercel.app/",
     status: "",
     relato: [
-      "Diana Villabona necesitaba un sitio que sintiera como su estudio: tierras, humo del horno y piezas que cuentan proceso, no solo catálogo. La web plantea un refugio para la exploración — así lo dice el propio proyecto — con una parrilla visual que mezcla cocción al aire libre, piezas en sala y detalle de pastas y esmaltes.",
-      "La estructura recorre lo esencial de su práctica: vitrina con obras emblemáticas, bitácora para el relato en curso, talleres con fechas e inscripción, y un hilo narrativo que nombra técnicas como Raku, Saggar y Obvara para quien ya habla el idioma del barro.",
-      "Construido en Next.js y desplegado en Vercel, el sitio prioriza lectura clara y fotografía protagonista; el texto incorpora su mirada — que la cerámica sea medio para que la naturaleza se exprese — y deja abierto el crecimiento del catálogo y la agenda de encuentros en el estudio.",
+      "Un festival necesita una primera impresión que compita con el ruido de las redes: fecha, lineup y sensación tienen que leerse en segundos, con un diseño que invite a comprar o guardar el evento.",
+      "Elegimos Next.js para una landing ultrarrápida, buena SEO social al compartir y despliegue estable en cada pico de visitas antes del show.",
+      "La pieza cuenta la historia del evento como experiencia: no solo información, sino el clima que el público va a encontrar cuando llegue a la puerta.",
     ],
   },
   {
@@ -102,8 +127,9 @@ export const projects: Project[] = [
     tech: "Next.js, TypeScript",
     img: "/images/mutuo-agencia.png",
     url: "https://mutuo-five.vercel.app/",
-    status: "",
+    status: "En desarrollo",
     relato: [
+      "Estado: la web de Mutuo también se muestra en el portfolio como en desarrollo; proyectos destacados, copy y secciones pueden actualizarse mientras la agencia cierra el mensaje y el tono con el que salen al mercado.",
       "Mutuo se presenta como una agencia que reúne la mirada de distintos profesionales creativos para ofrecer soluciones integrales en comunicación; la web tenía que transmitir esa idea de equipo y calidad sin recurrir a un brochure plano.",
       "El sitio combina secciones claras —qué hacen, proyectos, servicios, contacto— con una estética muy cinematográfica: fondos oscuros, tipografía contundente y piezas destacadas donde cada proyecto puede ocupar el mismo nivel de importancia que en una presentación a cliente.",
       "En el despliegue en Vercel, el foco está en rendimiento y una navegación que invite a explorar; el contacto público (como hola@mutuoagencia.com) cierra el circuito para quien busca una agencia con lectura integral del mensaje y la imagen.",

@@ -26,6 +26,8 @@ export default async function RelatoPage({ params }: Props) {
   const project = getProjectBySlug(slug)
   if (!project) notFound()
 
+  const detailSrc = project.relatoDetailImg ?? project.img
+
   return (
     <article className="min-h-screen bg-[#0A0A0A] text-white overflow-x-hidden pt-24 md:pt-28 pb-20 px-6 md:px-16 lg:px-24">
       <div className="w-full max-w-[800px] mx-auto">
@@ -51,15 +53,38 @@ export default async function RelatoPage({ params }: Props) {
           {project.tech}
         </p>
 
-        <div className="relative aspect-[21/11] w-full overflow-hidden rounded-lg mb-12 md:mb-14 bg-black">
-          <Image
-            src={project.img}
-            alt={project.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 800px) 100vw, 800px"
-            priority
-          />
+        <div
+          className={
+            project.relatoImageContain
+              ? "w-full rounded-lg mb-12 md:mb-14 overflow-hidden"
+              : "relative aspect-[21/11] w-full overflow-hidden rounded-lg mb-12 md:mb-14 bg-black"
+          }
+          style={
+            project.relatoImageContain
+              ? { backgroundColor: project.relatoImageContainBg ?? "#e8e6e2" }
+              : undefined
+          }
+        >
+          {project.relatoImageContain ? (
+            <Image
+              src={detailSrc}
+              alt={project.name}
+              width={1920}
+              height={1200}
+              className="w-full h-auto object-contain"
+              sizes="(max-width: 800px) 100vw, 800px"
+              priority
+            />
+          ) : (
+            <Image
+              src={detailSrc}
+              alt={project.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 800px) 100vw, 800px"
+              priority
+            />
+          )}
         </div>
 
         <div className="space-y-6 text-base md:text-lg leading-relaxed" style={{ color: "#C4B8D6" }}>
