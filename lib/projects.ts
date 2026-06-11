@@ -26,9 +26,9 @@ export const projects: Project[] = [
     url: "https://cresciente.net/",
     status: "",
     relato: [
-      "Cresciente nació como la necesidad de llevar una enseñanza musical seria al entorno digital: no bastaba con subir videos; hacía falta una estructura de cursos, una identidad clara y un sitio que transmitiera la misma rigurosidad que las clases presenciales.",
-      "Trabajamos en una arquitectura pensada para crecer: páginas de programa, funnel hacia la matrícula y espacio para la comunidad. WordPress y PHP permitieron iterar con rapidez mientras el negocio definía nuevas ofertas y formatos.",
-      "El resultado es una academia viva: quien entra entiende de inmediato el valor del método, puede recorrer el catálogo y confiar en la plataforma como base de su aprendizaje a largo plazo.",
+      "Cresciente, teoría musical: una academia online increíble. En este proyecto se combinaron dos mundos, lo digital y la música, ya que trabajaba con WordPress (que aprendí a usar en este trabajo), Reaper, Gimp y Notion.",
+      "Específicamente me contrataron para hacer una actualización inmensa en el sitio: actualizar los ciclos de estudio de la academia, es decir, actualizar cientos de clases en menos de un año. Lo que hacía era subir las clases de texto, y eso incluía: Revisar las tareas manuales en Notion donde hay todo un sistema creado con el equipo, de ahí extraer el material y procesar imágenes en Gimp en donde preparaba cada parte de las partituras, luego tenía que leer las partitura y procesar audio en Reaper uniendo cada audio con cada figura de partitura teniendo un orden muy claro en las carpetas de mi mac (ya que sí alguna partitura no tenía su audio correspondiente se desordenaba todo), y por último subir todo el texto + las partituras + los audios, en donde ahí agregaba los custom post types en los diferentes elementos de la clase de texto para el diseño final en la web.",
+      "La experiencia fue genial y, de hecho, en el transcurso nos volvimos grandes amigos con los creadores de Cresciente <3. Aprendí qué es la gestión y organización de lo que es literalmente una empresa, y la verdadera ganancia para mí en eso fue integrar en mi vida la organización y continuidad que tiene Cresciente.",
     ],
   },
   {
@@ -48,7 +48,7 @@ export const projects: Project[] = [
   {
     slug: "cardinal-sur",
     name: "Cardinal Sur",
-    desc: "Plataforma de dirección musical creativa para shows en vivo (Buenos Aires): manifiesto, equipo, casos con artistas, talleres con inscripción y contacto. Experiencia pensada para pantalla ancha.",
+    desc: "",
     tech: "Next.js, TypeScript, Tailwind CSS",
     img: "/images/cardinal-sur-cover.png",
     relatoDetailImg: "/images/cardinal-sur-relato.png",
@@ -58,7 +58,6 @@ export const projects: Project[] = [
     relatoImageContainBg: "#000000",
     relato: [
       "Estado: esta web figura como en desarrollo en el portfolio; contenidos, secciones y detalle de interacción pueden seguir evolucionando mientras el equipo ajusta la versión pública.",
-      "Cardinal Sur define la dirección musical creativa como identificar y señalar posibles direcciones para cada idea y ayudar a recorrer los caminos: el contenido define la forma de la obra y no al revés. Afirman que las obras se revelan por experimentación y lectura colectiva del proceso, y que su rol es acompañar sin imponer una estética cerrada, como puente entre técnica y práctica artesanal frente a la hiper-especialización.",
       "El sitio en cardinal-sur.vercel.app articula servicios, artistas con los que trabajan, un bloque Universo con el manifiesto (Est. 2024, Buenos Aires), talleres con formulario de inscripción y vías de contacto como hola@cardinalsur.com y redes. La experiencia está pensada para computadora, con mínimo sugerido de ancho y video en el hero.",
       "Técnicamente es una aplicación Next.js con App Router, React, TypeScript, Tailwind CSS, Framer Motion, scroll suavizado con Lenis cuando aplica, formularios validados y API para inscripciones a talleres; la estética refuerza marca, textura y motion alineados con el nivel de cuidado de los shows que diseñan.",
     ],
@@ -66,16 +65,18 @@ export const projects: Project[] = [
   {
     slug: "diana-villabona-ceramica",
     name: "Diana Villabona Cerámica",
-    desc: "Sitio para la ceramista en Colombia: piezas en vitrina, bitácora, talleres presenciales y un espacio creativo alrededor de raku, saggar y obvara.",
+    desc: "Diana conecta una visión muy sincera y natural con una estética profesional y cuidada. Eso es lo que representamos en su sitio, con lugares donde plasmar esos dos mundos.",
     tech: "Next.js, TypeScript",
     img: "/images/diana-villabona-ceramica.png",
     url: "https://diana-villabona.vercel.app/",
     status: "En desarrollo",
     relato: [
-      "Estado: el sitio público se considera en desarrollo; pueden sumarse secciones, textos o ajustes visuales a medida que Diana consolida la presencia digital del estudio.",
-      "Diana Villabona necesitaba una web que sintiera como su estudio: tierras, humo del horno y piezas que cuentan proceso, no solo catálogo. La web plantea un refugio para la exploración, con una parrilla visual que mezcla cocción al aire libre, piezas en sala y detalle de pastas y esmaltes.",
-      "La estructura recorre lo esencial de su práctica: vitrina con obras emblemáticas, bitácora para el relato en curso, talleres con fechas e inscripción, y un hilo narrativo que nombra técnicas como Raku, Saggar y Obvara para quien ya habla el idioma del barro.",
-      "Construido en Next.js y desplegado en Vercel, el sitio prioriza lectura clara y fotografía protagonista; el texto incorpora su mirada de que la cerámica es medio para que la naturaleza se exprese, con margen para crecer en catálogo y agenda.",
+      "Estado: el sitio público se considera en desarrollo; en su última fase, Diana debe agregar el material a su pagina y yo cargar algunos textos.",
+      "Digo que diana tiene que agregar el material ya que para está pagina web cree un sistema CMS custom, en pocas palabras en un sistema de autogestión a medida en donde ella actualiza su blog, fotos de su portfolio, talleres y tienda!",
+      "La estructura recorre lo esencial de su práctica: Portfolio con conjuntos de piezas, bitácora para los relatos de experiencias en su práctica, talleres con fechas y links y una tienda pequeña para concretar las ventas de piezas.",
+      "La combinación de una bitácora, un amplio portfolio, una tienda y los talleres hacen de está web una conjunción hermosa de todo lo que necesita Diana.",
+      "El trabajo en conjunto con Diana fue buenisimo desde el primer momento y en cada reunión que fuimos teniendo nos reíamos y charlabamos un poco más mientras íbamos diseñando lo que ella quería.",
+      "Está web me gusto mucho por que me adentre en el mundo de la cerámica, y eso es algo que cada vez disfruto más, describir nuevos artes más haya de lo que yo hago (Música) es muy enriquecedor.",
     ],
   },
   {
@@ -101,9 +102,11 @@ export const projects: Project[] = [
     url: "https://sun-salvador.vercel.app/",
     status: "",
     relato: [
-      "Un festival necesita una primera impresión que compita con el ruido de las redes: fecha, lineup y sensación tienen que leerse en segundos, con un diseño que invite a comprar o guardar el evento.",
-      "Elegimos Next.js para una landing ultrarrápida, buena SEO social al compartir y despliegue estable en cada pico de visitas antes del show.",
-      "La pieza cuenta la historia del evento como experiencia: no solo información, sino el clima que el público va a encontrar cuando llegue a la puerta.",
+      "Esté sitio me toca en particular ya que en la provincia en la que naci (Jujuy Argentina) no hay mucha música nueva, o lugares donde ir a escuchar música, y los organizadores de esté evento son gente que apunta a cambiar esa estructura y que desde jujuy llegaron a lugares que no cualquiera llega.",
+      "A ellos los conocí en la movida artística de jujuy, y sucede que un día ellos le habrían el show a la mítica banda \"Las pastillas del abuelo\", cuando yo era más joven y sacaba fotos, entonces me anime a ir con ellos a sacarles fotos, fue super divertido, el camarín, el show, todos lo técnicos e instrumentos que había ahí al costados del escenario, me encantaba ver todo eso de cerca cuando yo estaba en mis primeros pasos en la música con una banda que tenía con mis amigos del colegio. Años después y con muchísimo crecimiento de cada parte, los \"Hollywood Bungalows\" armaron esté festival, y yo puse mi grano de arena en lo que es un comienzo para toda la movida artística de Jujuy!",
+      "No hubo mucho tiempo para esté desarrollo, literalmente tuve una semana para tener la web lista. eso claramente marco limites a nivel de diseño, pero con lo que tenía considere esto: Un festival necesita una primera impresión que compita con el ruido de las redes: fecha, lineup y sensación tienen que leerse en segundos, con un diseño que invite a comprar o guardar el evento.",
+      "Elegí Next.js para una landing ultrarrápida, buena SEO social al compartir y despliegue estable en cada pico de visitas antes del show.",
+      "En los próximos meses empezaremos el desarrollo de la nueva pagina de Sun Salvador.",
     ],
   },
   {
@@ -121,21 +124,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "mutuo-agencia",
-    name: "Mutuo Agencia",
-    desc: "Sitio de la agencia Mutuo: comunicación integral, mirada de profesionales creativos y piezas destacadas —incluye proyectos como la pieza visual para Vesta Estudio.",
-    tech: "Next.js, TypeScript",
-    img: "/images/mutuo-agencia.png",
-    url: "https://mutuo-five.vercel.app/",
-    status: "En desarrollo",
-    relato: [
-      "Estado: la web de Mutuo también se muestra en el portfolio como en desarrollo; proyectos destacados, copy y secciones pueden actualizarse mientras la agencia cierra el mensaje y el tono con el que salen al mercado.",
-      "Mutuo se presenta como una agencia que reúne la mirada de distintos profesionales creativos para ofrecer soluciones integrales en comunicación; la web tenía que transmitir esa idea de equipo y calidad sin recurrir a un brochure plano.",
-      "El sitio combina secciones claras —qué hacen, proyectos, servicios, contacto— con una estética muy cinematográfica: fondos oscuros, tipografía contundente y piezas destacadas donde cada proyecto puede ocupar el mismo nivel de importancia que en una presentación a cliente.",
-      "En el despliegue en Vercel, el foco está en rendimiento y una navegación que invite a explorar; el contacto público (como hola@mutuoagencia.com) cierra el circuito para quien busca una agencia con lectura integral del mensaje y la imagen.",
-    ],
-  },
-  {
     slug: "catalogo-talleres",
     name: "Catálogo de talleres",
     desc: "PDF dinámico y editable, donde los usuarios eligen el taller que quieren tomar.",
@@ -147,20 +135,6 @@ export const projects: Project[] = [
       "Muchas ofertas de talleres viven en PDFs estáticos o en cadenas de mensajes: el alumno no elige con claridad y el equipo vuelve a explicar lo mismo en cada consulta.",
       "Este catálogo apuesta por un documento vivo en Gamma: estructura clara, fácil de actualizar cuando cambian fechas o contenidos, y una lectura pensada para que cada persona encuentre el taller que le encaja.",
       "El enlace público concentra “todos los talleres” en un solo lugar; el modo doc permite recorrer la información con la sensación de una guía, no de un archivo cerrado.",
-    ],
-  },
-  {
-    slug: "turnos-in",
-    name: "Turnos In",
-    desc: "Gestión de turnos y citas online.",
-    tech: "Next.js, TypeScript",
-    img: "/images/Turnos In.png",
-    url: "",
-    status: "En desarrollo",
-    relato: [
-      "Detrás de cada turno hay tiempo real de personas: recepciones saturadas, mensajes de WhatsApp perdidos y clientes que desisten. Turnos In apunta a devolver previsibilidad sin perder el trato humano.",
-      "El producto encarna una promesa simple: elegir horario, recibir confirmación y recordatorios, y que el negocio vea su agenda en un solo lugar. La complejidad técnica queda oculta detrás de flujos cortos.",
-      "Al estar en desarrollo activo, cada decisión de UI se contrasta con talleres reales y consultorios: el relato del proyecto es tan importante como el código — es la historia de recuperar horas para lo que importa.",
     ],
   },
 ]
