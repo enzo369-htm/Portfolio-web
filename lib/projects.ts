@@ -94,6 +94,16 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "nathalia-lasso",
+    name: "Nathalia Lasso",
+    desc: "",
+    tech: "Next.js, TypeScript",
+    img: "/images/nathalia-lasso.png",
+    url: "https://nathalia-lasso.vercel.app/",
+    status: "En desarrollo",
+    relato: [],
+  },
+  {
     slug: "sun-salvador-festival",
     name: "Sun Salvador Festival",
     desc: "Landing para festival de música. Evento, artistas y entradas.",

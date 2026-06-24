@@ -25,7 +25,7 @@ export default function RelatosIndexPage() {
         </p>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
+          {projects.filter((project) => project.relato.length > 0).map((project) => (
             <Link
               key={project.slug}
               href={`/relatos/${project.slug}`}

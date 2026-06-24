@@ -8,7 +8,7 @@ import { getProjectBySlug, projects } from "@/lib/projects"
 type Props = { params: Promise<{ slug: string }> }
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return projects.filter((p) => p.relato.length > 0).map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RelatoPage({ params }: Props) {
   const { slug } = await params
   const project = getProjectBySlug(slug)
-  if (!project) notFound()
+  if (!project || project.relato.length === 0) notFound()
 
   const detailSrc = project.relatoDetailImg ?? project.img
 

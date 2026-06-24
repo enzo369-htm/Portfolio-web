@@ -67,10 +67,10 @@ export default function Portfolio() {
   }
 
   const socios = [
-    { name: 'Cresciente', desc: 'Teoría Musical & Composición', stats: '115 k suscriptores · 443 videos', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.36.03-WM8iB5C8DxacSUyMH46aBPCmqRTnq4.png' },
-    { name: 'Ikigai Vivero Orgánico', desc: 'Viveros y jardinería, plantas nativas', stats: '7k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.58-w0rBkAAqeFsIFswE7SrpAc6LXupbac.png' },
-    { name: 'Maxi Sanchez', desc: 'Bioconstrucción y permacultura', stats: '275k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.33.13-YD7yZMCUxQMSdlBMLXrO0dLzsfAJJO.png' },
-    { name: 'Juan Pablo Francolini', desc: 'Mitología, simbología y arquitectura', stats: '154k+ seguidores', img: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20Pantalla%202025-08-18%20a%20la%28s%29%2000.34.01-rV9CYkNS11faZBYsy2ypnvzEkEWy3N.png' }
+    { name: 'Cresciente', desc: 'Teoría Musical & Composición', stats: '128 k suscriptores · 508 videos', img: '/images/cresciente.jpg' },
+    { name: 'Ikigai Vivero Orgánico', desc: 'Viveros y jardinería, plantas nativas', stats: '8.160 seguidores', img: '/images/ikigai.jpg' },
+    { name: 'Maxi Sanchez', desc: 'Bioconstrucción y permacultura', stats: '1,2 mill. seguidores', img: '/images/maxianchez.jpg' },
+    { name: 'Juan Pablo Francolini', desc: 'Mitología, simbología y arquitectura', stats: '169 mil seguidores', img: '/images/francolini.jpg' }
   ]
 
   return (
@@ -252,17 +252,18 @@ export default function Portfolio() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs mt-1" style={{ color: '#B8ADCC' }}>{project.desc}</p>
                   <div className="flex flex-wrap items-center justify-between gap-2 mt-2">
                     <span className="text-[10px] uppercase tracking-wider" style={{ color: '#A78BFA' }}>{project.tech}</span>
                     <div className="flex items-center gap-3">
-                      <Link
-                        href={`/relatos/${project.slug}`}
-                        className="text-xs transition-all duration-300 hover:underline"
-                        style={{ color: '#A78BFA' }}
-                      >
-                        Leer más
-                      </Link>
+                      {project.relato.length > 0 && (
+                        <Link
+                          href={`/relatos/${project.slug}`}
+                          className="text-xs transition-all duration-300 hover:underline"
+                          style={{ color: '#A78BFA' }}
+                        >
+                          Leer más
+                        </Link>
+                      )}
                       {project.url && (
                         <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-xs transition-all duration-300 hover:underline" style={{ color: '#FFC400' }}>
                           Ver →
