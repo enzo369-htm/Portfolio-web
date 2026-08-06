@@ -104,6 +104,16 @@ export const projects: Project[] = [
     relato: [],
   },
   {
+    slug: "ale-jimenez",
+    name: "Ale Jimenez",
+    desc: "",
+    tech: "Next.js, TypeScript",
+    img: "/images/ale-jimenez.png",
+    url: "",
+    status: "En desarrollo",
+    relato: [],
+  },
+  {
     slug: "sun-salvador-festival",
     name: "Sun Salvador Festival",
     desc: "Landing para festival de música. Evento, artistas y entradas.",
