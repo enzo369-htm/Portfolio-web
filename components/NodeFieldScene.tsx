@@ -5,6 +5,8 @@ import * as THREE from "three"
 
 const NODE_COUNT = 90
 const BOX = 13
+const LINK_DIST = 3.4
+const MAX_SEGS = NODE_COUNT * 8
 const PURPLE = [0.655, 0.545, 0.98]
 const YELLOW = [1, 0.769, 0]
 
@@ -60,15 +62,31 @@ export default function NodeFieldScene() {
     const points = new THREE.Points(
       pointGeo,
       new THREE.PointsMaterial({
-        size: 0.11,
+        size: 0.16,
         transparent: true,
-        opacity: 0.78,
+        opacity: 0.9,
         sizeAttenuation: true,
         depthWrite: false,
         vertexColors: true,
       })
     )
     scene.add(points)
+
+    const linePositions = new Float32Array(MAX_SEGS * 2 * 3)
+    const lineColors = new Float32Array(MAX_SEGS * 2 * 3)
+    const lineGeo = new THREE.BufferGeometry()
+    lineGeo.setAttribute("position", new THREE.BufferAttribute(linePositions, 3))
+    lineGeo.setAttribute("color", new THREE.BufferAttribute(lineColors, 3))
+    const lines = new THREE.LineSegments(
+      lineGeo,
+      new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.42,
+        depthWrite: false,
+      })
+    )
+    scene.add(lines)
 
     const mouse = { x: 0, y: 0 }
     const onMove = (e: MouseEvent) => {
@@ -93,6 +111,43 @@ export default function NodeFieldScene() {
         positions[i * 3 + 2] = n.z
       }
       pointGeo.attributes.position.needsUpdate = true
+
+      let seg = 0
+      const maxD2 = LINK_DIST * LINK_DIST
+      for (let i = 0; i < NODE_COUNT && seg < MAX_SEGS; i++) {
+        const ax = nodes[i].x
+        const ay = nodes[i].y
+        const az = nodes[i].z
+        for (let j = i + 1; j < NODE_COUNT && seg < MAX_SEGS; j++) {
+          const dx = ax - nodes[j].x
+          const dy = ay - nodes[j].y
+          const dz = az - nodes[j].z
+          const d2 = dx * dx + dy * dy + dz * dz
+          if (d2 > maxD2) continue
+
+          const fade = 1 - Math.sqrt(d2) / LINK_DIST
+          const o = seg * 6
+          linePositions[o] = ax
+          linePositions[o + 1] = ay
+          linePositions[o + 2] = az
+          linePositions[o + 3] = nodes[j].x
+          linePositions[o + 4] = nodes[j].y
+          linePositions[o + 5] = nodes[j].z
+
+          const ca = i % 2 === 0 ? PURPLE : YELLOW
+          const cb = j % 2 === 0 ? PURPLE : YELLOW
+          lineColors[o] = ca[0] * fade
+          lineColors[o + 1] = ca[1] * fade
+          lineColors[o + 2] = ca[2] * fade
+          lineColors[o + 3] = cb[0] * fade
+          lineColors[o + 4] = cb[1] * fade
+          lineColors[o + 5] = cb[2] * fade
+          seg += 1
+        }
+      }
+      lineGeo.setDrawRange(0, seg * 2)
+      lineGeo.attributes.position.needsUpdate = true
+      lineGeo.attributes.color.needsUpdate = true
     }
 
     writeNodes()
@@ -123,7 +178,9 @@ export default function NodeFieldScene() {
       window.removeEventListener("resize", onResize)
       renderer.dispose()
       pointGeo.dispose()
+      lineGeo.dispose()
       points.material.dispose()
+      lines.material.dispose()
       if (renderer.domElement.parentNode === host) host.removeChild(renderer.domElement)
     }
   }, [])

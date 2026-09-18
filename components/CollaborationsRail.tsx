@@ -58,30 +58,27 @@ export default function CollaborationsRail() {
             key={socio.name}
             data-collab-card
             className="collab-card"
-            style={{ ["--socio" as string]: socio.color }}
           >
             <div className="collab-card-bar" />
-            <div className="p-6 flex flex-col h-full">
-              <div className="flex items-start justify-between gap-4 mb-6">
+            <div className="px-5 pt-5 pb-6 flex flex-col items-center text-center">
+              <div className="relative w-full flex justify-center mb-4">
                 <div className="collab-avatar">
-                  <img src={socio.avatar} alt={socio.name} />
+                  <img src={`${socio.avatar}?v=6`} alt={socio.name} />
                 </div>
-                <span className="font-heading text-[10px] tracking-[0.32em] text-mute pt-1">
+                <span className="absolute top-0 right-0 font-heading text-[10px] tracking-[0.32em] text-bone pt-1">
                   {padIndex(index)}
                 </span>
               </div>
-              <h3 className="font-heading text-[1.35rem] md:text-[1.5rem] text-bone uppercase leading-[1.05] tracking-[0.02em]">
+              <h3 className="font-heading text-[1.15rem] md:text-[1.25rem] text-bone uppercase leading-[1.15] tracking-[0.02em]">
                 {socio.name}
               </h3>
-              <p className="text-[11px] uppercase tracking-[0.16em] mt-2" style={{ color: socio.color }}>
+              <p className="text-[11px] uppercase tracking-[0.16em] mt-1.5 text-bone/70">
                 {socio.role}
               </p>
-              <p className="font-heading text-[clamp(2.6rem,7vw,3.35rem)] leading-none mt-6" style={{ color: socio.color }}>
+              <p className="font-heading text-[clamp(1.41rem,3.8vw,1.82rem)] leading-none mt-4 text-bone">
                 {socio.followers}
               </p>
-              <p className="text-[10px] uppercase tracking-[0.22em] text-mute mt-2">{socio.unit}</p>
-              <div className="hairline my-5" />
-              <p className="text-sm text-mute leading-relaxed">{socio.bio}</p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-mute mt-1.5">{socio.unit}</p>
             </div>
           </article>
         ))}

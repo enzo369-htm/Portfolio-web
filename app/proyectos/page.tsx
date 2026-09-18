@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ProyectosPage() {
   return (
-    <div className="min-h-screen bg-void text-bone overflow-x-hidden pt-24 md:pt-28 pb-20 px-5 md:px-10 lg:px-14">
+    <div className="min-h-screen bg-transparent text-bone overflow-x-hidden pt-24 md:pt-28 pb-20 px-5 md:px-10 lg:px-14">
       <Navbar />
       <div className="w-full max-w-[1400px] mx-auto">
         <Link

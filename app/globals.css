@@ -400,20 +400,19 @@
 }
 
 .collab-card {
+  --socio: var(--bone);
   position: relative;
   scroll-snap-align: start;
-  flex: 0 0 min(78vw, 360px);
-  min-height: 430px;
+  flex: 0 0 min(72vw, 300px);
+  min-height: 0;
   overflow: hidden;
-  background: rgba(18, 18, 18, 0.88);
-  border: 1px solid var(--rule);
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--socio) 22%, transparent) 0%,
+      color-mix(in srgb, var(--bone) 16%, transparent) 0%,
       rgba(10, 10, 10, 0.72) 46%
     );
-  border: 1px solid color-mix(in srgb, var(--socio) 42%, var(--rule));
+  border: 1px solid color-mix(in srgb, var(--bone) 28%, var(--rule));
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   transition: border-color 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
@@ -431,8 +430,8 @@
 }
 
 .collab-avatar {
-  width: 92px;
-  height: 92px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -448,6 +447,37 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.bow-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.bow-svg {
+  display: block;
+  width: min(92vw, 720px);
+  height: 100%;
+  margin: 0 auto;
+  opacity: 0.72;
+}
+
+.bow-ember {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bow-ember 2.8s ease-in-out infinite;
+}
+
+@keyframes bow-ember {
+  0%,
+  100% {
+    opacity: 0.35;
+    filter: blur(0.4px);
+  }
+  50% {
+    opacity: 0.85;
+    filter: blur(1.6px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

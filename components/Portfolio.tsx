@@ -110,7 +110,7 @@ export default function Portfolio() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-void text-bone overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-bone overflow-x-hidden">
       <Navbar />
 
       <section id="inicio" className="page-section relative min-h-[100svh] flex flex-col items-center justify-center px-6 md:px-12 text-center">
