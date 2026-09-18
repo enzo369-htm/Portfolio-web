@@ -1,27 +1,18 @@
 import type { Metadata } from "next";
-import { Montserrat, Playfair_Display, Inter, Space_Grotesk } from "next/font/google";
+import { Orbitron, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
+import SiteBackdrop from "@/components/SiteBackdrop";
 
-const montserrat = Montserrat({
+const orbitron = Orbitron({
   subsets: ["latin"],
-  variable: "--font-montserrat",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-orbitron",
   display: "swap",
 });
 
-const inter = Inter({
+const shareTech = Share_Tech_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space",
+  weight: "400",
+  variable: "--font-share",
   display: "swap",
 });
 
@@ -36,9 +27,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${montserrat.variable} ${playfair.variable} ${inter.variable} ${spaceGrotesk.variable} dark`}>
-      <body className="antialiased bg-background text-foreground font-sans">{children}</body>
+    <html
+      lang="es"
+      className={`${orbitron.variable} ${shareTech.variable} dark`}
+      suppressHydrationWarning
+    >
+      <body className="antialiased bg-void text-bone font-body">
+        <SiteBackdrop />
+        <div className="relative z-10">{children}</div>
+      </body>
     </html>
   );
 }
-

@@ -11,7 +11,6 @@ type NavEntry =
 const navEntries: NavEntry[] = [
   { kind: "section", id: "sobre-mi", label: "Sobre Mí" },
   { kind: "route", href: "/quien-soy", label: "Quién soy" },
-  { kind: "section", id: "servicios", label: "Servicios" },
   { kind: "section", id: "socios", label: "Colabs" },
   { kind: "section", id: "portfolio", label: "Proyectos" },
   { kind: "route", href: "/relatos", label: "Relatos", matchPrefix: true },
@@ -27,11 +26,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 40)
 
       if (!isHome) return
 
-      const sections = ["inicio", "sobre-mi", "servicios", "socios", "portfolio", "contacto"]
+      const sections = ["inicio", "sobre-mi", "socios", "portfolio", "contacto"]
       const scrollPosition = window.scrollY + 100
 
       let current = "inicio"
@@ -56,13 +55,13 @@ export default function Navbar() {
   const SHOW_OFFER_BANNER = false
 
   const linkClassDesktop = (active: boolean) =>
-    `text-[10px] lg:text-xs uppercase tracking-[0.12em] lg:tracking-[0.15em] font-medium transition-colors duration-300 ${
-      active ? "text-[#FFC400]" : "text-white/40 hover:text-white/80"
+    `text-[10px] lg:text-[11px] uppercase tracking-[0.18em] font-medium transition-colors duration-300 ${
+      active ? "text-lake" : "text-mute hover:text-bone"
     }`
 
   const linkClassMobile = (active: boolean) =>
-    `text-left text-sm uppercase tracking-[0.15em] font-medium py-2 transition-colors duration-300 ${
-      active ? "text-[#FFC400]" : "text-white/60 hover:text-white"
+    `text-left text-sm uppercase tracking-[0.16em] font-medium py-2 transition-colors duration-300 ${
+      active ? "text-lake" : "text-mute hover:text-bone"
     }`
 
   const isRelatosActive = pathname === "/relatos" || pathname.startsWith("/relatos/")
@@ -75,13 +74,12 @@ export default function Navbar() {
   return (
     <>
       {SHOW_OFFER_BANNER && (
-        <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 text-white py-2 px-4">
+        <div className="fixed top-0 left-0 right-0 z-[60] bg-lake text-bone py-2 px-4">
           <div className="container mx-auto flex items-center justify-center">
             <a
               href="/oferta"
               className="text-sm md:text-base font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
             >
-              <span>✨</span>
               <span>Oferta activa: Landing pages a $100.000 hasta el 22 de febrero</span>
               <span className="font-bold">→ Ver más</span>
             </a>
@@ -90,23 +88,22 @@ export default function Navbar() {
       )}
 
       <nav
-        className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-out ${SHOW_OFFER_BANNER ? "top-10" : "top-0"} ${
-          isScrolled || isMenuOpen
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/5"
-            : "bg-transparent"
+        className={`fixed left-0 right-0 z-50 ${SHOW_OFFER_BANNER ? "top-10" : "top-0"} ${
+          isScrolled || isMenuOpen ? "bg-void/55 backdrop-blur-[2px]" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+        <div
+          className={`max-w-[1600px] mx-auto px-5 md:px-10 lg:px-14 py-4 md:py-5 flex items-center justify-between ${
+            isScrolled || isMenuOpen ? "border-b border-[var(--rule)]" : ""
+          }`}
+        >
           <Link href="/#inicio" className="group" onClick={() => setIsMenuOpen(false)}>
-            <span
-              className="font-heading font-light text-xl uppercase tracking-wider transition-opacity duration-300 hover:opacity-80"
-              style={{ color: "#A78BFA" }}
-            >
+            <span className="font-heading text-[1.15rem] md:text-xl tracking-wide text-bone transition-opacity duration-300 hover:opacity-70">
               Enzo Federico
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-4 lg:gap-5 shrink-0">
+          <div className="hidden md:flex items-center gap-5 lg:gap-7 shrink-0">
             {navEntries.map((entry) => {
               if (entry.kind === "section") {
                 const active = isHome && activeSection === entry.id
@@ -127,16 +124,16 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-white/60 hover:text-white transition-colors"
+            className="md:hidden p-2 text-mute hover:text-bone transition-colors"
             aria-label="Menú"
           >
             {isMenuOpen ? (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.25} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
@@ -147,7 +144,7 @@ export default function Navbar() {
             isMenuOpen ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-6 py-4 pb-6 bg-[#0A0A0A] border-t border-white/5 flex flex-col gap-1">
+          <div className="px-5 py-4 pb-6 bg-void/80 border-b border-[var(--rule)] flex flex-col gap-1">
             {navEntries.map((entry) => {
               if (entry.kind === "section") {
                 const active = isHome && activeSection === entry.id

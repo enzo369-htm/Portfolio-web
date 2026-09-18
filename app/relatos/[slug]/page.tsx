@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { notFound } from "next/navigation"
+import Navbar from "@/components/Navbar"
 import { getProjectBySlug, projects } from "@/lib/projects"
 
 type Props = { params: Promise<{ slug: string }> }
@@ -29,35 +30,29 @@ export default async function RelatoPage({ params }: Props) {
   const detailSrc = project.relatoDetailImg ?? project.img
 
   return (
-    <article className="min-h-screen bg-[#0A0A0A] text-white overflow-x-hidden pt-24 md:pt-28 pb-20 px-6 md:px-16 lg:px-24">
-      <div className="w-full max-w-[800px] mx-auto">
+    <article className="relato-enter min-h-screen bg-transparent text-bone overflow-x-hidden pt-24 md:pt-28 pb-20 px-5 md:px-10 lg:px-16">
+      <Navbar />
+      <div className="w-full max-w-[780px] md:ml-[10%] md:mr-auto">
         <Link
           href="/relatos"
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] mb-10 transition-opacity hover:opacity-80"
-          style={{ color: "#A78BFA" }}
+          className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] mb-10 text-cyan hover:text-bone transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Todos los relatos
         </Link>
 
-        <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6" style={{ color: "#A78BFA" }}>
-          Relato
-        </p>
-        <h1 className="font-heading font-light text-[clamp(2rem,5vw,3.25rem)] text-white leading-[1.05] uppercase mb-4">
+        <p className="text-[10px] md:text-[11px] uppercase tracking-[0.38em] mb-6 text-cyan">Relato</p>
+        <h1 className="font-heading font-normal text-[clamp(2.2rem,6vw,4.2rem)] text-bone leading-[1.02] uppercase mb-4">
           {project.name}
         </h1>
-        <p className="text-sm md:text-base mb-2" style={{ color: "#B8ADCC" }}>
-          {project.desc}
-        </p>
-        <p className="text-[10px] uppercase tracking-wider mb-10" style={{ color: "#A78BFA" }}>
-          {project.tech}
-        </p>
+        {project.desc ? <p className="text-sm md:text-base mb-2 text-mute">{project.desc}</p> : null}
+        <p className="text-[10px] uppercase tracking-[0.16em] mb-10 text-cyan">{project.tech}</p>
 
         <div
           className={
             project.relatoImageContain
-              ? "w-full rounded-lg mb-12 md:mb-14 overflow-hidden"
-              : "relative aspect-[21/11] w-full overflow-hidden rounded-lg mb-12 md:mb-14 bg-black"
+              ? "relato-plate w-full mb-12 md:mb-14 overflow-hidden"
+              : "relato-plate relative aspect-[21/11] w-full overflow-hidden mb-12 md:mb-14 bg-plate"
           }
           style={
             project.relatoImageContain
@@ -87,20 +82,19 @@ export default async function RelatoPage({ params }: Props) {
           )}
         </div>
 
-        <div className="space-y-6 text-base md:text-lg leading-relaxed" style={{ color: "#C4B8D6" }}>
+        <div className="space-y-6 text-base md:text-lg leading-[1.8] text-mute">
           {project.relato.map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6 border-t border-white/10 pt-10">
+        <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6 border-t border-[var(--rule)] pt-10">
           {project.url ? (
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3"
-              style={{ color: "#FFC400" }}
+              className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-lake hover:text-bone transition-colors"
             >
               Ver proyecto
               <ArrowRight className="h-4 w-4" />
@@ -108,8 +102,7 @@ export default async function RelatoPage({ params }: Props) {
           ) : null}
           <Link
             href="/#portfolio"
-            className="inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-80"
-            style={{ color: "#A78BFA" }}
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
           >
             Volver al portfolio
           </Link>
