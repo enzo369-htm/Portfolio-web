@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactoPage() {
   return (
-    <div className="min-h-screen bg-void text-bone overflow-x-hidden pt-24 md:pt-28 px-5 md:px-10 lg:px-14 flex flex-col">
+    <div className="min-h-screen bg-transparent text-bone overflow-x-hidden pt-24 md:pt-28 px-5 md:px-10 lg:px-14 flex flex-col">
       <Navbar />
       <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center pb-16">
         <Link

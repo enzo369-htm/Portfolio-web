@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ColaboracionesPage() {
   return (
-    <div className="min-h-screen bg-void text-bone overflow-x-hidden pt-24 md:pt-28 pb-20">
+    <div className="min-h-screen bg-transparent text-bone overflow-x-hidden pt-24 md:pt-28 pb-20">
       <Navbar />
       <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 lg:px-14 mb-8">
         <Link
