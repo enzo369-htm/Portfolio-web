@@ -22,7 +22,7 @@ export const projects: Project[] = [
     name: "Cresciente",
     desc: "Academia de composición musical online. Cursos, metodología propia y comunidad.",
     tech: "WordPress, PHP",
-    img: "/images/cresciente .png",
+    img: "/images/cresciente-web.jpg",
     url: "https://cresciente.net/",
     status: "",
     relato: [

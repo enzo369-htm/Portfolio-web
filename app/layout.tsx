@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Orbitron, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
-import SiteBackdrop from "@/components/SiteBackdrop";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -33,8 +32,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased bg-void text-bone font-body">
-        <SiteBackdrop />
-        <div className="relative z-10">{children}</div>
+        {children}
       </body>
     </html>
   );

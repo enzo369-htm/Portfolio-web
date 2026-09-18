@@ -15,11 +15,11 @@ export default function QuienSoyPage() {
       <Navbar />
       <div className="w-full max-w-[720px] md:ml-[12%] md:mr-auto">
         <Link
-          href="/#sobre-mi"
+          href="/"
           className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] mb-12 text-cyan hover:text-bone transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Volver a Sobre mí
+          Volver al inicio
         </Link>
 
         <p className="text-[10px] md:text-[11px] uppercase tracking-[0.38em] mb-6 text-cyan">Enzo Federico</p>
@@ -35,7 +35,7 @@ export default function QuienSoyPage() {
 
         <div className="mt-14 border-t border-[var(--rule)] pt-10">
           <Link
-            href="/#portfolio"
+            href="/proyectos"
             className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-lake hover:text-bone transition-colors"
           >
             Ver proyectos →

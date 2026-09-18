@@ -11,7 +11,7 @@ type NavEntry =
 const navEntries: NavEntry[] = [
   { kind: "section", id: "sobre-mi", label: "Sobre Mí" },
   { kind: "route", href: "/quien-soy", label: "Quién soy" },
-  { kind: "section", id: "socios", label: "Colabs" },
+  { kind: "route", href: "/colaboraciones", label: "Colabs" },
   { kind: "section", id: "portfolio", label: "Proyectos" },
   { kind: "route", href: "/relatos", label: "Relatos", matchPrefix: true },
   { kind: "section", id: "contacto", label: "Contacto" },
@@ -30,7 +30,7 @@ export default function Navbar() {
 
       if (!isHome) return
 
-      const sections = ["inicio", "sobre-mi", "socios", "portfolio", "contacto"]
+      const sections = ["inicio", "portfolio", "contacto"]
       const scrollPosition = window.scrollY + 100
 
       let current = "inicio"
