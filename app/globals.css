@@ -46,6 +46,7 @@
     background-color: var(--void) !important;
     color: var(--bone);
     overflow-x: hidden;
+    overscroll-behavior-x: none;
   }
 
   body {
@@ -188,15 +189,17 @@
 }
 
 .hero-desarrollador {
-  font-size: clamp(1.45rem, 6.6vw, 2.7rem);
-  letter-spacing: 0.015em;
+  font-size: clamp(1.12rem, 3.9vw, 2.15rem);
+  letter-spacing: 0.02em;
   white-space: nowrap;
   max-width: 100%;
+  padding-right: 0.2em;
+  overflow: visible;
 }
 
 @media (min-width: 1024px) {
   .hero-desarrollador {
-    font-size: clamp(1.5rem, 2.75vw, 2.65rem);
+    font-size: clamp(1.35rem, 2.4vw, 2.15rem);
   }
 }
 
@@ -212,6 +215,8 @@
   perspective-origin: 50% 50%;
   overflow: visible;
   padding: 0.5rem 0 1.25rem;
+  overscroll-behavior: none;
+  touch-action: pan-y;
 }
 
 .project-deck-stage {
@@ -222,7 +227,15 @@
   transform-style: preserve-3d;
   touch-action: pan-y;
   overflow: visible;
-  pointer-events: none;
+  pointer-events: auto;
+  overscroll-behavior: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.project-deck-stage:active {
+  cursor: grabbing;
 }
 
 .project-deck-card {
@@ -241,7 +254,7 @@
 }
 
 .project-deck-card.is-settling {
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
 }
 
 .project-deck-card.is-live {
@@ -256,12 +269,16 @@
   pointer-events: none;
 }
 
+.project-deck-card.is-front {
+  pointer-events: auto;
+  touch-action: none;
+}
+
 .project-deck-card.is-front .project-photo {
   pointer-events: auto;
   touch-action: none;
+  overscroll-behavior: none;
   cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .project-deck-card.is-front .project-photo:active {

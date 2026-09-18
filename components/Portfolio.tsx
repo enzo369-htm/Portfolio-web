@@ -12,12 +12,13 @@ import { useReveal } from "@/hooks/useReveal"
 const SHOW_OFFER_LANDING = false
 
 const HERO_LINES = [
-  "Creador · Desarrollador",
+  "Creador",
+  "Desarrollador",
   "Conecto creatividad y métodos robustos en desarrollo Full Stack",
 ]
 
 function HeroTypewriter() {
-  const [lines, setLines] = useState(["", ""])
+  const [lines, setLines] = useState(["", "", ""])
   const [activeLine, setActiveLine] = useState(0)
   const [done, setDone] = useState(false)
 
@@ -67,14 +68,20 @@ function HeroTypewriter() {
   }, [])
 
   return (
-    <div id="sobre-mi" className="mt-8 md:mt-10 max-w-[34rem] min-h-[11.5rem] md:min-h-[12.5rem] text-bone">
-      <h1 className="font-heading font-medium uppercase leading-[1.05] tracking-[0.04em] text-[clamp(1.35rem,4.2vw,2.15rem)]">
-        {lines[0]}
-        {!done && activeLine === 0 ? <span className="hero-caret" aria-hidden /> : null}
+    <div id="sobre-mi" className="mt-8 md:mt-10 w-full max-w-[42rem] min-h-[13.5rem] md:min-h-[14.5rem] text-bone">
+      <h1 className="hero-desarrollador font-heading font-medium uppercase leading-[1.08]">
+        <span className="block">
+          {activeLine > 0 || done ? HERO_LINES[0] : lines[0]}
+          {!done && activeLine === 0 ? <span className="hero-caret" aria-hidden /> : null}
+        </span>
+        <span className="block mt-1">
+          {activeLine > 1 || done ? HERO_LINES[1] : lines[1]}
+          {!done && activeLine === 1 ? <span className="hero-caret" aria-hidden /> : null}
+        </span>
       </h1>
       <p className="font-heading font-medium uppercase mt-5 leading-[1.25] tracking-[0.02em] text-[clamp(0.95rem,2.4vw,1.35rem)]">
-        {lines[1]}
-        {!done && activeLine === 1 ? <span className="hero-caret" aria-hidden /> : null}
+        {lines[2]}
+        {!done && activeLine === 2 ? <span className="hero-caret" aria-hidden /> : null}
       </p>
       <Link
         href="/quien-soy"
@@ -115,9 +122,9 @@ export default function Portfolio() {
 
       <section id="inicio" className="page-section relative min-h-[100svh] flex flex-col items-center justify-center px-6 md:px-12 text-center">
         <img
-          src="/images/hero-enzo.jpg"
+          src="/images/hero-enzo.jpg?v=4"
           alt="Enzo Federico"
-          className="w-[150px] md:w-[190px] lg:w-[210px] h-auto"
+          className="w-[218px] md:w-[276.5px] lg:w-[305.5px] h-auto"
         />
         <HeroTypewriter />
       </section>
@@ -138,8 +145,8 @@ export default function Portfolio() {
         id="contacto"
         className="page-section relative min-h-[100svh] flex flex-col justify-between px-5 md:px-10 lg:px-14 pt-24 pb-10 md:pt-28"
       >
-        <div className="w-full max-w-[1600px] mx-auto md:pl-[18%] flex-1 flex flex-col justify-center">
-          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
+        <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center">
+          <p className="text-[11px] md:text-[12px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
           <h2 className="leading-[0.84] tracking-[-0.04em]">
             <span className="font-heading font-normal block text-[clamp(3rem,10vw,8rem)] uppercase mb-6 text-lake">
               <span className="misregister misregister-lake" data-text="¿Hablamos?">
@@ -155,7 +162,7 @@ export default function Portfolio() {
               href="https://wa.me/5493885246095"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors"
+              className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors"
             >
               WhatsApp
               <ArrowRight className="w-4 h-4" />
@@ -175,15 +182,15 @@ export default function Portfolio() {
         <footer className="w-full max-w-[1600px] mx-auto pt-16">
           <div className="hairline mb-8" />
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <span className="font-heading text-lg tracking-wide text-bone">Enzo Federico</span>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-mute">&copy; 2024</p>
+            <span className="font-heading text-[20.7px] tracking-wide text-bone">Enzo Federico</span>
+            <p className="text-[11.5px] uppercase tracking-[0.2em] text-mute">&copy; 2024</p>
             <a
               href="https://www.instagram.com/enzo.z4?igsh=Mm05MnA0enB2eXlk&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
+              className="flex items-center gap-2 text-[12.65px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
             >
-              <Instagram className="w-4 h-4" />
+              <Instagram className="w-[18.4px] h-[18.4px]" />
               Instagram
             </a>
           </div>

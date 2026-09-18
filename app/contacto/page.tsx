@@ -12,7 +12,7 @@ export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-void text-bone overflow-x-hidden pt-24 md:pt-28 px-5 md:px-10 lg:px-14 flex flex-col">
       <Navbar />
-      <div className="w-full max-w-[1600px] mx-auto md:pl-[18%] flex-1 flex flex-col justify-center pb-16">
+      <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center pb-16">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-cyan hover:text-bone transition-colors mb-10 w-fit"
@@ -20,7 +20,7 @@ export default function ContactoPage() {
           <ArrowLeft className="h-4 w-4" />
           Volver al inicio
         </Link>
-        <p className="text-[10px] md:text-[11px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
+        <p className="text-[11px] md:text-[12px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
         <h1 className="leading-[0.84] tracking-[-0.04em]">
           <span className="font-heading font-normal block text-[clamp(3rem,10vw,8rem)] uppercase mb-6 text-lake">
             <span className="misregister misregister-lake" data-text="¿Hablamos?">
@@ -35,7 +35,7 @@ export default function ContactoPage() {
           href="https://wa.me/5493885246095"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors w-fit"
+          className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors w-fit"
         >
           WhatsApp
           <ArrowRight className="w-4 h-4" />
@@ -44,15 +44,15 @@ export default function ContactoPage() {
       <footer className="w-full max-w-[1600px] mx-auto pb-8">
         <div className="hairline mb-8" />
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <span className="font-heading text-lg tracking-wide text-bone">Enzo Federico</span>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-mute">&copy; 2024</p>
+          <span className="font-heading text-[20.7px] tracking-wide text-bone">Enzo Federico</span>
+          <p className="text-[11.5px] uppercase tracking-[0.2em] text-mute">&copy; 2024</p>
           <a
             href="https://www.instagram.com/enzo.z4?igsh=Mm05MnA0enB2eXlk&utm_source=qr"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
+            className="flex items-center gap-2 text-[12.65px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
           >
-            <Instagram className="w-4 h-4" />
+            <Instagram className="w-[18.4px] h-[18.4px]" />
             Instagram
           </a>
         </div>

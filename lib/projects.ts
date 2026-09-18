@@ -140,7 +140,7 @@ export const projects: Project[] = [
     name: "Catálogo de talleres",
     desc: "PDF dinámico y editable, donde los usuarios eligen el taller que quieren tomar.",
     tech: "Gamma.app",
-    img: "/images/catalogo-talleres.png",
+    img: "/images/catalogo-talleres.jpg",
     url: "https://gamma.app/docs/TODOS-LOS-TALLERES-b6dzbrh0fht9wvp?mode=doc",
     status: "",
     relato: [

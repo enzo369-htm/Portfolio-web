@@ -12,7 +12,7 @@ function wrapSlot(delta: number, total: number) {
   return d
 }
 
-function wheelPixels(event: WheelEvent) {
+function wheelDelta(event: WheelEvent) {
   let x = event.deltaX
   let y = event.deltaY
   if (event.deltaMode === 1) {
@@ -22,7 +22,7 @@ function wheelPixels(event: WheelEvent) {
     x *= 640
     y *= 640
   }
-  return x + y
+  return { x, y }
 }
 
 export default function ProjectDeck({ projects }: { projects: Project[] }) {
@@ -36,55 +36,33 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
   const indexRef = useRef(0)
   const moved = useRef(false)
   const liveRef = useRef(false)
-  const snapTimer = useRef<number | null>(null)
   const rafRef = useRef<number | null>(null)
   const velocityRef = useRef(0)
   const lastMoveAt = useRef(0)
   const lastDragAt = useRef(0)
-
-  const paint = useCallback(() => {
-    rafRef.current = null
-    let nextIndex = indexRef.current
-    let nextDrag = dragRef.current
-    while (nextDrag >= 1) {
-      nextDrag -= 1
-      nextIndex = (nextIndex + 1) % total
-    }
-    while (nextDrag <= -1) {
-      nextDrag += 1
-      nextIndex = (nextIndex - 1 + total) % total
-    }
-    dragRef.current = nextDrag
-    indexRef.current = nextIndex
-    setIndex(nextIndex)
-    setDrag(nextDrag)
-  }, [total])
-
-  const schedulePaint = useCallback(() => {
-    if (rafRef.current != null) return
-    rafRef.current = window.requestAnimationFrame(paint)
-  }, [paint])
+  const snapped = useRef(false)
+  const wheelIgnoreUntil = useRef(0)
 
   const setLiveMode = (value: boolean) => {
     liveRef.current = value
     setLive(value)
   }
 
-  const applyDrag = useCallback(
-    (value: number) => {
-      dragRef.current = value
-      schedulePaint()
-    },
-    [schedulePaint]
-  )
+  const paint = useCallback(() => {
+    rafRef.current = null
+    const nextDrag = Math.max(-0.95, Math.min(0.95, dragRef.current))
+    dragRef.current = nextDrag
+    setDrag(nextDrag)
+  }, [])
+
+  const schedulePaint = useCallback(() => {
+    if (rafRef.current != null) return
+    rafRef.current = window.requestAnimationFrame(paint)
+  }, [paint])
 
   const go = useCallback(
     (dir: number) => {
       if (!dir) return
-      if (snapTimer.current) {
-        window.clearTimeout(snapTimer.current)
-        snapTimer.current = null
-      }
       setLiveMode(false)
       const nextIndex = (indexRef.current + dir + total) % total
       indexRef.current = nextIndex
@@ -92,16 +70,31 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
       velocityRef.current = 0
       setIndex(nextIndex)
       setDrag(0)
+      wheelIgnoreUntil.current = performance.now() + 240
     },
     [total]
   )
 
   const snapFromDrag = useCallback(() => {
+    if (snapped.current) return
+    snapped.current = true
     const d = dragRef.current
-    const flick = Math.abs(velocityRef.current) > 0.55
-    if (d > 0.18 || (flick && d > 0.06)) go(1)
-    else if (d < -0.18 || (flick && d < -0.06)) go(-1)
-    else {
+    const flick = Math.abs(velocityRef.current) > 0.18
+    if (d > 0.05 || (flick && d > 0.02)) go(1)
+    else if (d < -0.05 || (flick && d < -0.02)) go(-1)
+    else if (!moved.current) {
+      const card = stageRef.current?.querySelector<HTMLElement>("[data-project-swipe]")
+      const rect = card?.getBoundingClientRect()
+      const rel = rect ? (startX.current - rect.left) / rect.width : 0.5
+      if (rel <= 0.32) go(-1)
+      else if (rel >= 0.68) go(1)
+      else {
+        setLiveMode(false)
+        dragRef.current = 0
+        velocityRef.current = 0
+        setDrag(0)
+      }
+    } else {
       setLiveMode(false)
       dragRef.current = 0
       velocityRef.current = 0
@@ -110,41 +103,59 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
   }, [go])
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    const photo = (e.target as HTMLElement).closest("[data-project-swipe]")
-    if (!photo) return
     if ((e.target as HTMLElement).closest("a")) return
-    if (snapTimer.current) window.clearTimeout(snapTimer.current)
+    if (e.button !== 0 && e.pointerType === "mouse") return
     try {
-      photo.setPointerCapture(e.pointerId)
+      e.currentTarget.setPointerCapture(e.pointerId)
     } catch {
       /* Safari */
     }
+    if (e.pointerType !== "mouse") e.preventDefault()
     startX.current = e.clientX
-    lastDragAt.current = dragRef.current
+    lastDragAt.current = 0
     lastMoveAt.current = performance.now()
     velocityRef.current = 0
     moved.current = false
+    snapped.current = false
+    dragRef.current = 0
+    setDrag(0)
     setLiveMode(true)
   }
 
-  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (!liveRef.current) return
-    if (e.buttons === 0 && e.pointerType !== "touch") return
-    const width = stageRef.current?.querySelector<HTMLElement>("[data-project-card]")?.offsetWidth ?? 560
-    const next = (startX.current - e.clientX) / Math.max(160, width * 0.42)
-    const now = performance.now()
-    const dt = Math.max(8, now - lastMoveAt.current)
-    velocityRef.current = (next - lastDragAt.current) / (dt / 16)
-    lastDragAt.current = next
-    lastMoveAt.current = now
-    if (Math.abs(startX.current - e.clientX) > 4) moved.current = true
-    applyDrag(next)
-  }
+  useEffect(() => {
+    const onMove = (event: globalThis.PointerEvent) => {
+      if (!liveRef.current) return
+      if (event.buttons === 0 && event.pointerType !== "touch") return
+      event.preventDefault()
+      const width = stageRef.current?.querySelector<HTMLElement>("[data-project-card]")?.offsetWidth ?? 560
+      const next = Math.max(-0.95, Math.min(0.95, (startX.current - event.clientX) / Math.max(90, width * 0.28)))
+      const now = performance.now()
+      const dt = Math.max(8, now - lastMoveAt.current)
+      velocityRef.current = (next - lastDragAt.current) / (dt / 16)
+      lastDragAt.current = next
+      lastMoveAt.current = now
+      if (Math.abs(startX.current - event.clientX) > 3) moved.current = true
+      dragRef.current = next
+      schedulePaint()
+    }
 
-  const onPointerUp = () => {
-    if (!liveRef.current) return
-    snapFromDrag()
-  }
+    const onUp = () => {
+      if (!liveRef.current) return
+      snapFromDrag()
+    }
+
+    window.addEventListener("pointermove", onMove, { passive: false })
+    window.addEventListener("pointerup", onUp)
+    window.addEventListener("pointercancel", onUp)
+    window.addEventListener("blur", onUp)
+    return () => {
+      window.removeEventListener("pointermove", onMove)
+      window.removeEventListener("pointerup", onUp)
+      window.removeEventListener("pointercancel", onUp)
+      window.removeEventListener("blur", onUp)
+      if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current)
+    }
+  }, [schedulePaint, snapFromDrag])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -156,48 +167,58 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
   }, [go])
 
   useEffect(() => {
-    const el = stageRef.current
-    if (!el) return
-
     const onWheel = (event: WheelEvent) => {
       if (event.ctrlKey) return
-      const overPhoto = event.target instanceof Element && event.target.closest("[data-project-swipe]")
-      if (!overPhoto) return
+      const target = event.target
+      if (!(target instanceof Element)) return
+      const overDeck = Boolean(target.closest(".project-deck"))
+      const overCard = Boolean(target.closest("[data-project-swipe]"))
+      if (!overDeck) return
 
-      const pixels = wheelPixels(event)
-      if (Math.abs(pixels) < 14) return
-      event.preventDefault()
-      if (snapTimer.current) window.clearTimeout(snapTimer.current)
+      const { x, y } = wheelDelta(event)
+      const horizontal = Math.abs(x) >= Math.abs(y) * 0.65
+      const delta = horizontal ? x : overCard ? y : 0
+
+      if (overCard || horizontal) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      if (liveRef.current) return
+      if (delta === 0 || Math.abs(delta) < 8) return
 
       const now = performance.now()
-      const dt = Math.min(48, Math.max(8, now - lastMoveAt.current || 16))
-      lastMoveAt.current = now
-      const width = el.querySelector<HTMLElement>("[data-project-card]")?.offsetWidth ?? 560
-      const step = pixels / Math.max(200, width * 0.5)
-      velocityRef.current = step / (dt / 16)
-      setLiveMode(true)
-      applyDrag(dragRef.current + step)
-      snapTimer.current = window.setTimeout(snapFromDrag, 150)
+      if (now < wheelIgnoreUntil.current) {
+        if (Math.abs(delta) < 70) {
+          wheelIgnoreUntil.current = Math.max(wheelIgnoreUntil.current, now + 90)
+          return
+        }
+      }
+
+      go(delta > 0 ? 1 : -1)
     }
 
-    el.addEventListener("wheel", onWheel, { passive: false })
-    return () => {
-      el.removeEventListener("wheel", onWheel)
-      if (snapTimer.current) window.clearTimeout(snapTimer.current)
-      if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current)
+    const onTouchMove = (event: TouchEvent) => {
+      const target = event.target
+      if (!(target instanceof Element)) return
+      if (!target.closest(".project-deck")) return
+      if (target.closest("[data-project-swipe]") || liveRef.current) {
+        event.preventDefault()
+      }
     }
-  }, [applyDrag, snapFromDrag])
+
+    const wheelOpts: AddEventListenerOptions = { passive: false, capture: true }
+    window.addEventListener("wheel", onWheel, wheelOpts)
+    window.addEventListener("touchmove", onTouchMove, wheelOpts)
+    return () => {
+      window.removeEventListener("wheel", onWheel, wheelOpts)
+      window.removeEventListener("touchmove", onTouchMove, wheelOpts)
+    }
+  }, [go])
 
   return (
     <div className="project-deck">
-      <div
-        ref={stageRef}
-        className="project-deck-stage"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-      >
+      <div ref={stageRef} className="project-deck-stage" onPointerDown={onPointerDown}>
         {projects.map((project, i) => {
           const slot = wrapSlot(i - index - drag, total)
           const abs = Math.abs(slot)
@@ -215,6 +236,7 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
             <article
               key={project.slug}
               data-project-card
+              {...(isFront ? { "data-project-swipe": true } : {})}
               className={`project-deck-card ${live ? "is-live" : "is-settling"}${isFront ? " is-front" : ""}`}
               style={{
                 zIndex: Math.round(80 - abs * 10),
@@ -222,7 +244,7 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
                 transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`,
               }}
             >
-              <div className="project-photo" {...(isFront ? { "data-project-swipe": true } : {})}>
+              <div className="project-photo">
                 <img src={project.img} alt={project.name} draggable={false} />
               </div>
               {isFront ? (
