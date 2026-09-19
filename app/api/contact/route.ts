@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server"
 import { formatContactEmail, parseContactPayload, validateContact } from "@/lib/contact"
 
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+function env(name: string) {
+  const value = process.env[name]
+  return typeof value === "string" ? value.trim() : ""
+}
+
 export async function POST(request: Request) {
   let body: unknown
   try {
@@ -19,14 +27,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, errors }, { status: 400 })
   }
 
-  const apiKey = process.env.RESEND_API_KEY?.trim()
-  const to = process.env.CONTACT_TO_EMAIL?.trim() || "enzofede2004@gmail.com"
+  const apiKey = env("RESEND_API_KEY")
+  const to = env("CONTACT_TO_EMAIL") || "enzofede2004@gmail.com"
   if (!apiKey) {
     console.error("Contact form missing RESEND_API_KEY")
     return NextResponse.json({ ok: false, error: "El envío no está configurado todavía." }, { status: 503 })
   }
 
-  const from = process.env.RESEND_FROM_EMAIL || "Enzo Federico <hola@enzfederico.com>"
+  const from = env("RESEND_FROM_EMAIL") || "Enzo Federico <hola@enzfederico.com>"
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
