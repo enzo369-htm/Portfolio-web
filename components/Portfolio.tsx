@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar"
 import ProjectDeck from "@/components/ProjectDeck"
 import EarthGlobe from "@/components/EarthGlobe"
 import ContactForm from "@/components/ContactForm"
+import WhatsAppLink from "@/components/WhatsAppLink"
 import { projects } from "@/lib/projects"
 import { useReveal } from "@/hooks/useReveal"
 
@@ -174,15 +175,10 @@ export default function Portfolio() {
             </span>
           </h2>
           <div className="flex flex-wrap items-center gap-8 mb-12 md:mb-16">
-            <a
-              href="https://wa.me/5493885246095"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors"
-            >
+            <WhatsAppLink className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors">
               WhatsApp
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </WhatsAppLink>
             {SHOW_OFFER_LANDING && (
               <a
                 href="/oferta"

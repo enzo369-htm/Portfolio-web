@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import ContactForm from "@/components/ContactForm"
+import WhatsAppLink from "@/components/WhatsAppLink"
 
 export const metadata: Metadata = {
   title: "Contacto | Enzo Federico",
@@ -32,15 +33,10 @@ export default function ContactoPage() {
             &mdash;&mdash;
           </span>
         </h1>
-        <a
-          href="https://wa.me/5493885246095"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors w-fit"
-        >
+        <WhatsAppLink className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors w-fit">
           WhatsApp
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </WhatsAppLink>
         <div className="w-full max-w-[720px] mt-12 md:mt-16">
           <ContactForm />
         </div>

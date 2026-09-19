@@ -2,6 +2,7 @@
 
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { parseContactPayload, validateContact, type ContactErrors } from "@/lib/contact"
+import { trackMetaEvent } from "@/lib/meta-pixel"
 
 const EMPTY = {
   name: "",
@@ -46,6 +47,7 @@ export default function ContactForm() {
       }
       setValues(EMPTY)
       setStatus("sent")
+      trackMetaEvent("Lead")
     } catch {
       setServerError("No se pudo enviar. Probá de nuevo o escribime por WhatsApp.")
       setStatus("error")

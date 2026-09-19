@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Orbitron, Share_Tech_Mono } from "next/font/google";
 import SiteBackdrop from "@/components/SiteBackdrop";
+import MetaPixel from "@/components/MetaPixel";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -33,6 +34,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased bg-void text-bone font-body">
+        <MetaPixel />
         <SiteBackdrop />
         <div className="relative z-10">{children}</div>
       </body>
