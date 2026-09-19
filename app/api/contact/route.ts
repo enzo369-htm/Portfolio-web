@@ -19,10 +19,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, errors }, { status: 400 })
   }
 
-  const apiKey = process.env.RESEND_API_KEY
-  const to = process.env.CONTACT_TO_EMAIL
-  if (!apiKey || !to) {
-    console.error("Contact form missing RESEND_API_KEY or CONTACT_TO_EMAIL")
+  const apiKey = process.env.RESEND_API_KEY?.trim()
+  const to = process.env.CONTACT_TO_EMAIL?.trim() || "enzofede2004@gmail.com"
+  if (!apiKey) {
+    console.error("Contact form missing RESEND_API_KEY")
     return NextResponse.json({ ok: false, error: "El envío no está configurado todavía." }, { status: 503 })
   }
 
