@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import Navbar from "@/components/Navbar"
-import { quienSoyParagraphs } from "@/lib/quien-soy-text"
+import { quienSoyParagraphs, quienSoyUpdateParagraphs, quienSoyUpdateTitle } from "@/lib/quien-soy-text"
 
 export const metadata: Metadata = {
   title: "Quién soy | Enzo Federico",
@@ -31,6 +31,16 @@ export default function QuienSoyPage() {
           {quienSoyParagraphs.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
+          <div className="pt-6">
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.38em] mb-6 text-cyan">
+              {quienSoyUpdateTitle}
+            </p>
+            <div className="space-y-6">
+              {quienSoyUpdateParagraphs.map((p, i) => (
+                <p key={`update-${i}`}>{p}</p>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="mt-14 border-t border-[var(--rule)] pt-10">
