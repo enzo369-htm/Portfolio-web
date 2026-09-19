@@ -11,10 +11,9 @@ type CountryProps = {
 
 type CountryFeature = {
   properties: CountryProps
-  geometry: {
-    type: "Polygon" | "MultiPolygon"
-    coordinates: number[][][] | number[][][][]
-  }
+  geometry:
+    | { type: "Polygon"; coordinates: number[][][] }
+    | { type: "MultiPolygon"; coordinates: number[][][][] }
 }
 
 const NAME_ES: Record<string, string> = {
