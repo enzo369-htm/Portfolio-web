@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "El envío no está configurado todavía." }, { status: 503 })
   }
 
-  const from = process.env.RESEND_FROM_EMAIL || "Portfolio Enzo <onboarding@resend.dev>"
+  const from = process.env.RESEND_FROM_EMAIL || "Enzo Federico <hola@enzfederico.com>"
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
