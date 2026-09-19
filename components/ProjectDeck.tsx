@@ -75,7 +75,10 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
       el.style.opacity = abs > 2.4 ? "0" : String(Math.max(0.35, 1 - abs * 0.2))
       el.style.zIndex = String(Math.round(80 - abs * 10))
       el.style.visibility = abs > 3.2 ? "hidden" : "visible"
-      el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${slot * -15}deg) scale(${Math.max(0.7, 1 - abs * 0.13)})`
+      const visual = el.querySelector<HTMLElement>(".project-photo")
+      if (visual) {
+        visual.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${slot * -15}deg) scale(${Math.max(0.7, 1 - abs * 0.13)})`
+      }
     })
     if (frontRef.current !== nextFront) {
       frontRef.current = nextFront
@@ -196,8 +199,14 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
       kickRef.current()
     }
 
-    const onUp = () => {
+    const onUp = (event: globalThis.PointerEvent) => {
       if (!inputRef.current) return
+      const hitLink = (event.target as HTMLElement | null)?.closest("a")
+      if (hitLink) {
+        inputRef.current = false
+        moved.current = false
+        return
+      }
       if (!moved.current) {
         inputRef.current = false
         lastWheelRef.current = 0
@@ -282,14 +291,18 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
                     {project.status ? <span className="project-status">{project.status}</span> : null}
                   </div>
                   <p className="text-[10px] uppercase tracking-[0.16em] mt-2 text-cyan">{project.tech}</p>
-                  <div className="flex items-center gap-4 mt-3" onPointerDown={(event) => event.stopPropagation()}>
+                  <div
+                    className="flex items-center gap-4 mt-3"
+                    onPointerDown={(event) => {
+                      event.stopPropagation()
+                      moved.current = false
+                      inputRef.current = false
+                    }}
+                  >
                     {project.relato.length > 0 && (
                       <Link
                         href={`/relatos/${project.slug}`}
-                        className="text-[11px] uppercase tracking-[0.16em] text-cyan hover:text-bone transition-colors"
-                        onClick={(event) => {
-                          if (moved.current) event.preventDefault()
-                        }}
+                        className="project-deck-link"
                       >
                         Leer más
                       </Link>
@@ -299,10 +312,7 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[11px] uppercase tracking-[0.16em] text-lake hover:text-bone transition-colors"
-                        onClick={(event) => {
-                          if (moved.current) event.preventDefault()
-                        }}
+                        className="project-deck-link project-deck-link-out"
                       >
                         Ver →
                       </a>
