@@ -124,7 +124,7 @@ export default function Portfolio() {
         <img
           src="/images/hero-enzo.jpg?v=4"
           alt="Enzo Federico"
-          className="w-[218px] md:w-[276.5px] lg:w-[305.5px] h-auto"
+          className="w-[250.5px] md:w-[318px] lg:w-[351.5px] h-auto"
         />
         <HeroTypewriter />
       </section>
