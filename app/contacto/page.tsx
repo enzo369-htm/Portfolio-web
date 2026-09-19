@@ -2,10 +2,11 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
+import ContactForm from "@/components/ContactForm"
 
 export const metadata: Metadata = {
   title: "Contacto | Enzo Federico",
-  description: "Hablemos por WhatsApp.",
+  description: "Hablemos por WhatsApp o por el formulario.",
 }
 
 export default function ContactoPage() {
@@ -40,6 +41,9 @@ export default function ContactoPage() {
           WhatsApp
           <ArrowRight className="w-4 h-4" />
         </a>
+        <div className="w-full max-w-[720px] mt-12 md:mt-16">
+          <ContactForm />
+        </div>
       </div>
       <footer className="w-full max-w-[1600px] mx-auto pb-8">
         <div className="hairline mb-8" />

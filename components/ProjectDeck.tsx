@@ -1,8 +1,15 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react"
 import Link from "next/link"
 import type { Project } from "@/lib/projects"
+
+const WHEEL_SCALE = 175
+const FRICTION = 0.965
+const IDLE_MS = 48
+const SETTLE_MS = 460
+const COAST_CUTOFF = 0.0014
+const SNAP_BIAS = 0.36
 
 function wrapSlot(delta: number, total: number) {
   const half = total / 2
@@ -12,7 +19,12 @@ function wrapSlot(delta: number, total: number) {
   return d
 }
 
-function wheelDelta(event: WheelEvent) {
+function easeOutCubic(t: number) {
+  const x = Math.min(1, Math.max(0, t))
+  return 1 - (1 - x) ** 3
+}
+
+function wheelPixels(event: WheelEvent) {
   let x = event.deltaX
   let y = event.deltaY
   if (event.deltaMode === 1) {
@@ -22,87 +34,133 @@ function wheelDelta(event: WheelEvent) {
     x *= 640
     y *= 640
   }
-  return { x, y }
+  if (event.shiftKey) return x || y
+  if (Math.abs(x) >= Math.abs(y) * 0.38) return x
+  return y
 }
+
+type Settle = { from: number; to: number; start: number }
 
 export default function ProjectDeck({ projects }: { projects: Project[] }) {
   const total = projects.length
-  const [index, setIndex] = useState(0)
-  const [drag, setDrag] = useState(0)
-  const [live, setLive] = useState(false)
+  const [front, setFront] = useState(0)
   const stageRef = useRef<HTMLDivElement>(null)
-  const startX = useRef(0)
-  const dragRef = useRef(0)
-  const indexRef = useRef(0)
-  const moved = useRef(false)
-  const liveRef = useRef(false)
-  const rafRef = useRef<number | null>(null)
+  const deckRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<(HTMLElement | null)[]>([])
+  const offsetRef = useRef(0)
   const velocityRef = useRef(0)
-  const lastMoveAt = useRef(0)
-  const lastDragAt = useRef(0)
-  const snapped = useRef(false)
-  const wheelIgnoreUntil = useRef(0)
+  const inputRef = useRef(false)
+  const settleRef = useRef<Settle | null>(null)
+  const gestureDirRef = useRef(0)
+  const lastWheelRef = useRef(0)
+  const frontRef = useRef(0)
+  const rafRef = useRef<number | null>(null)
+  const startX = useRef(0)
+  const startOffset = useRef(0)
+  const moved = useRef(false)
+  const totalRef = useRef(total)
+  totalRef.current = total
 
-  const setLiveMode = (value: boolean) => {
-    liveRef.current = value
-    setLive(value)
-  }
-
-  const paint = useCallback(() => {
-    rafRef.current = null
-    const nextDrag = Math.max(-0.95, Math.min(0.95, dragRef.current))
-    dragRef.current = nextDrag
-    setDrag(nextDrag)
+  const paint = useCallback((offset: number) => {
+    const count = totalRef.current
+    if (!count) return
+    const nextFront = ((Math.round(offset) % count) + count) % count
+    cardRefs.current.forEach((el, i) => {
+      if (!el) return
+      const slot = wrapSlot(i - offset, count)
+      const abs = Math.abs(slot)
+      const x = slot * 176
+      const y = abs * 12
+      const z = -abs * 210
+      el.style.opacity = abs > 2.4 ? "0" : String(Math.max(0.35, 1 - abs * 0.2))
+      el.style.zIndex = String(Math.round(80 - abs * 10))
+      el.style.visibility = abs > 3.2 ? "hidden" : "visible"
+      el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${slot * -15}deg) scale(${Math.max(0.7, 1 - abs * 0.13)})`
+    })
+    if (frontRef.current !== nextFront) {
+      frontRef.current = nextFront
+      setFront(nextFront)
+    }
   }, [])
 
-  const schedulePaint = useCallback(() => {
-    if (rafRef.current != null) return
-    rafRef.current = window.requestAnimationFrame(paint)
+  const tick = useCallback(() => {
+    const now = performance.now()
+    const wheelRecent = now - lastWheelRef.current < IDLE_MS
+
+    if (inputRef.current) {
+      // Pointer drag writes offset directly.
+    } else if (settleRef.current && !wheelRecent) {
+      const settle = settleRef.current
+      const t = (now - settle.start) / SETTLE_MS
+      offsetRef.current = settle.from + (settle.to - settle.from) * easeOutCubic(t)
+      velocityRef.current = 0
+      if (t >= 1) {
+        offsetRef.current = settle.to
+        settleRef.current = null
+      }
+    } else if (wheelRecent) {
+      velocityRef.current *= 0.988
+    } else {
+      offsetRef.current += velocityRef.current
+      velocityRef.current *= FRICTION
+      if (Math.abs(velocityRef.current) < COAST_CUTOFF) {
+        velocityRef.current = 0
+        const to = Math.round(offsetRef.current + gestureDirRef.current * SNAP_BIAS)
+        gestureDirRef.current = 0
+        if (Math.abs(to - offsetRef.current) < 0.0012) {
+          offsetRef.current = to
+          settleRef.current = null
+        } else {
+          settleRef.current = { from: offsetRef.current, to, start: now }
+        }
+      }
+    }
+
+    paint(offsetRef.current)
+
+    const unsettled = Math.abs(offsetRef.current - Math.round(offsetRef.current)) > 0.0012
+    const moving =
+      inputRef.current ||
+      wheelRecent ||
+      settleRef.current != null ||
+      Math.abs(velocityRef.current) > 0.0008 ||
+      unsettled
+    rafRef.current = moving ? window.requestAnimationFrame(tick) : null
+    if (!moving) {
+      const count = totalRef.current
+      const snapped = ((Math.round(offsetRef.current) % count) + count) % count
+      offsetRef.current = snapped
+      paint(snapped)
+    }
   }, [paint])
+
+  const kick = useCallback(() => {
+    if (rafRef.current == null) rafRef.current = window.requestAnimationFrame(tick)
+  }, [tick])
 
   const go = useCallback(
     (dir: number) => {
       if (!dir) return
-      setLiveMode(false)
-      const nextIndex = (indexRef.current + dir + total) % total
-      indexRef.current = nextIndex
-      dragRef.current = 0
+      inputRef.current = false
+      lastWheelRef.current = 0
+      const from = offsetRef.current
+      const to = Math.round(from) + dir
+      settleRef.current = { from, to, start: performance.now() }
       velocityRef.current = 0
-      setIndex(nextIndex)
-      setDrag(0)
-      wheelIgnoreUntil.current = performance.now() + 240
+      kick()
     },
-    [total]
+    [kick]
   )
 
-  const snapFromDrag = useCallback(() => {
-    if (snapped.current) return
-    snapped.current = true
-    const d = dragRef.current
-    const flick = Math.abs(velocityRef.current) > 0.18
-    if (d > 0.05 || (flick && d > 0.02)) go(1)
-    else if (d < -0.05 || (flick && d < -0.02)) go(-1)
-    else if (!moved.current) {
-      const card = stageRef.current?.querySelector<HTMLElement>("[data-project-swipe]")
-      const rect = card?.getBoundingClientRect()
-      const rel = rect ? (startX.current - rect.left) / rect.width : 0.5
-      if (rel <= 0.32) go(-1)
-      else if (rel >= 0.68) go(1)
-      else {
-        setLiveMode(false)
-        dragRef.current = 0
-        velocityRef.current = 0
-        setDrag(0)
-      }
-    } else {
-      setLiveMode(false)
-      dragRef.current = 0
-      velocityRef.current = 0
-      setDrag(0)
-    }
-  }, [go])
+  const paintRef = useRef(paint)
+  const kickRef = useRef(kick)
+  const goRef = useRef(go)
+  paintRef.current = paint
+  kickRef.current = kick
+  goRef.current = go
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (!(e.target as HTMLElement).closest("[data-project-swipe]")) return
     if ((e.target as HTMLElement).closest("a")) return
     if (e.button !== 0 && e.pointerType === "mouse") return
     try {
@@ -110,158 +168,121 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
     } catch {
       /* Safari */
     }
-    if (e.pointerType !== "mouse") e.preventDefault()
+    inputRef.current = true
+    settleRef.current = null
+    lastWheelRef.current = 0
     startX.current = e.clientX
-    lastDragAt.current = 0
-    lastMoveAt.current = performance.now()
+    startOffset.current = offsetRef.current
     velocityRef.current = 0
     moved.current = false
-    snapped.current = false
-    dragRef.current = 0
-    setDrag(0)
-    setLiveMode(true)
+    kickRef.current()
   }
+
+  useLayoutEffect(() => {
+    paintRef.current(offsetRef.current)
+  }, [front, paint, total])
 
   useEffect(() => {
     const onMove = (event: globalThis.PointerEvent) => {
-      if (!liveRef.current) return
+      if (!inputRef.current) return
       if (event.buttons === 0 && event.pointerType !== "touch") return
-      event.preventDefault()
       const width = stageRef.current?.querySelector<HTMLElement>("[data-project-card]")?.offsetWidth ?? 560
-      const next = Math.max(-0.95, Math.min(0.95, (startX.current - event.clientX) / Math.max(90, width * 0.28)))
-      const now = performance.now()
-      const dt = Math.max(8, now - lastMoveAt.current)
-      velocityRef.current = (next - lastDragAt.current) / (dt / 16)
-      lastDragAt.current = next
-      lastMoveAt.current = now
-      if (Math.abs(startX.current - event.clientX) > 3) moved.current = true
-      dragRef.current = next
-      schedulePaint()
+      const next = startOffset.current + (startX.current - event.clientX) / Math.max(160, width * 0.52)
+      velocityRef.current = next - offsetRef.current
+      if (Math.abs(velocityRef.current) > 0.0008) gestureDirRef.current = Math.sign(velocityRef.current)
+      offsetRef.current = next
+      if (Math.abs(startX.current - event.clientX) > 7) moved.current = true
+      paintRef.current(offsetRef.current)
+      kickRef.current()
     }
 
     const onUp = () => {
-      if (!liveRef.current) return
-      snapFromDrag()
+      if (!inputRef.current) return
+      if (!moved.current) {
+        inputRef.current = false
+        lastWheelRef.current = 0
+        const from = offsetRef.current
+        settleRef.current = { from, to: Math.round(from) + 1, start: performance.now() }
+        velocityRef.current = 0
+        kickRef.current()
+        return
+      }
+      inputRef.current = false
+      kickRef.current()
     }
 
-    window.addEventListener("pointermove", onMove, { passive: false })
+    window.addEventListener("pointermove", onMove)
     window.addEventListener("pointerup", onUp)
     window.addEventListener("pointercancel", onUp)
-    window.addEventListener("blur", onUp)
     return () => {
       window.removeEventListener("pointermove", onMove)
       window.removeEventListener("pointerup", onUp)
       window.removeEventListener("pointercancel", onUp)
-      window.removeEventListener("blur", onUp)
       if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current)
     }
-  }, [schedulePaint, snapFromDrag])
+  }, [kick, paint])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") go(1)
-      if (e.key === "ArrowLeft") go(-1)
+      if (e.key === "ArrowRight") goRef.current(1)
+      if (e.key === "ArrowLeft") goRef.current(-1)
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
   }, [go])
 
   useEffect(() => {
+    const deck = deckRef.current
+    if (!deck) return
+
     const onWheel = (event: WheelEvent) => {
       if (event.ctrlKey) return
-      const target = event.target
-      if (!(target instanceof Element)) return
-      const overDeck = Boolean(target.closest(".project-deck"))
-      const overCard = Boolean(target.closest("[data-project-swipe]"))
-      if (!overDeck) return
+      const hit = (event.target as HTMLElement | null)?.closest(".project-deck-card.is-front")
+      if (!hit) return
+      const pixels = wheelPixels(event)
+      if (Math.abs(pixels) < 0.6) return
+      event.preventDefault()
 
-      const { x, y } = wheelDelta(event)
-      const horizontal = Math.abs(x) >= Math.abs(y) * 0.65
-      const delta = horizontal ? x : overCard ? y : 0
-
-      if (overCard || horizontal) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      if (liveRef.current) return
-      if (delta === 0 || Math.abs(delta) < 8) return
-
-      const now = performance.now()
-      if (now < wheelIgnoreUntil.current) {
-        if (Math.abs(delta) < 70) {
-          wheelIgnoreUntil.current = Math.max(wheelIgnoreUntil.current, now + 90)
-          return
-        }
-      }
-
-      go(delta > 0 ? 1 : -1)
+      inputRef.current = false
+      settleRef.current = null
+      lastWheelRef.current = performance.now()
+      const impulse = pixels / WHEEL_SCALE
+      offsetRef.current += impulse
+      velocityRef.current = velocityRef.current * 0.38 + impulse * 0.78
+      if (Math.abs(impulse) > 0.0005) gestureDirRef.current = Math.sign(impulse)
+      paintRef.current(offsetRef.current)
+      kickRef.current()
     }
 
-    const onTouchMove = (event: TouchEvent) => {
-      const target = event.target
-      if (!(target instanceof Element)) return
-      if (!target.closest(".project-deck")) return
-      if (target.closest("[data-project-swipe]") || liveRef.current) {
-        event.preventDefault()
-      }
-    }
-
-    const wheelOpts: AddEventListenerOptions = { passive: false, capture: true }
-    window.addEventListener("wheel", onWheel, wheelOpts)
-    window.addEventListener("touchmove", onTouchMove, wheelOpts)
-    return () => {
-      window.removeEventListener("wheel", onWheel, wheelOpts)
-      window.removeEventListener("touchmove", onTouchMove, wheelOpts)
-    }
-  }, [go])
+    deck.addEventListener("wheel", onWheel, { passive: false })
+    return () => deck.removeEventListener("wheel", onWheel)
+  }, [kick, paint])
 
   return (
-    <div className="project-deck">
+    <div ref={deckRef} className="project-deck">
       <div ref={stageRef} className="project-deck-stage" onPointerDown={onPointerDown}>
         {projects.map((project, i) => {
-          const slot = wrapSlot(i - index - drag, total)
-          const abs = Math.abs(slot)
-          if (abs > 4.2) return null
-
-          const x = slot * 118
-          const y = abs * 6
-          const z = -abs * 280
-          const rotY = slot * -9
-          const scale = Math.max(0.72, 1 - abs * 0.09)
-          const opacity = abs > 3.2 ? 0 : 1 - abs * 0.08
-          const isFront = abs < 0.45
-
+          const isFront = i === front
           return (
             <article
               key={project.slug}
-              data-project-card
-              {...(isFront ? { "data-project-swipe": true } : {})}
-              className={`project-deck-card ${live ? "is-live" : "is-settling"}${isFront ? " is-front" : ""}`}
-              style={{
-                zIndex: Math.round(80 - abs * 10),
-                opacity,
-                transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`,
+              ref={(node) => {
+                cardRefs.current[i] = node
               }}
+              data-project-card
+              className={`project-deck-card is-live${isFront ? " is-front" : ""}`}
             >
-              <div className="project-photo">
+              <div className="project-photo" {...(isFront ? { "data-project-swipe": true } : {})}>
                 <img src={project.img} alt={project.name} draggable={false} />
               </div>
               {isFront ? (
                 <div className="project-deck-meta">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-heading text-lg md:text-2xl text-bone uppercase leading-none">{project.name}</h3>
-                    {project.status ? (
-                      <span className="project-status">
-                        {project.status}
-                      </span>
-                    ) : null}
+                    {project.status ? <span className="project-status">{project.status}</span> : null}
                   </div>
                   <p className="text-[10px] uppercase tracking-[0.16em] mt-2 text-cyan">{project.tech}</p>
-                  <div
-                    className="flex items-center gap-4 mt-3"
-                    onPointerDown={(event) => event.stopPropagation()}
-                  >
+                  <div className="flex items-center gap-4 mt-3" onPointerDown={(event) => event.stopPropagation()}>
                     {project.relato.length > 0 && (
                       <Link
                         href={`/relatos/${project.slug}`}

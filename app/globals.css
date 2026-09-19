@@ -83,6 +83,143 @@
   background: var(--rule);
 }
 
+.contact-form {
+  width: 100%;
+  position: relative;
+}
+
+.contact-grid {
+  display: grid;
+  gap: 1.35rem 1.75rem;
+}
+
+@media (min-width: 700px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.contact-item-full {
+  margin-top: 1.75rem;
+}
+
+.contact-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.contact-label em {
+  font-style: normal;
+  letter-spacing: 0.12em;
+  color: var(--mute);
+}
+
+.contact-prompt {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--mute);
+}
+
+.contact-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  color: var(--bone);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.65rem 0 0.7rem;
+  outline: none;
+}
+
+.contact-field:focus {
+  border-bottom-color: var(--cyan);
+}
+
+.contact-field:-webkit-autofill,
+.contact-field:-webkit-autofill:hover,
+.contact-field:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--bone);
+  box-shadow: 0 0 0 1000px var(--void) inset;
+  caret-color: var(--bone);
+  transition: background-color 9999s ease-out;
+}
+
+.contact-area {
+  min-height: 9.5rem;
+  resize: vertical;
+  border: 1px solid var(--rule);
+  border-bottom-width: 1px;
+  padding: 0.85rem 0.9rem;
+  margin-top: 0.35rem;
+}
+
+.contact-area:focus {
+  border-color: var(--cyan);
+}
+
+.contact-error {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--lake);
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  overflow: hidden;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.contact-submit {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lake) 50%, transparent);
+  color: var(--bone);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15.4px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.contact-submit:hover:not(:disabled) {
+  color: var(--lake);
+}
+
+.contact-submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.contact-note {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
 .plate-frame {
   position: relative;
 }
@@ -216,11 +353,12 @@
 .project-deck {
   -webkit-perspective: 2200px;
   perspective: 2200px;
-  perspective-origin: 50% 50%;
+  perspective-origin: 50% 46%;
   overflow: visible;
   padding: 0.5rem 0 1.25rem;
   overscroll-behavior: none;
   touch-action: pan-y;
+  pointer-events: none;
 }
 
 .project-deck-stage {
@@ -231,15 +369,8 @@
   transform-style: preserve-3d;
   touch-action: pan-y;
   overflow: visible;
-  pointer-events: auto;
+  pointer-events: none;
   overscroll-behavior: none;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.project-deck-stage:active {
-  cursor: grabbing;
 }
 
 .project-deck-card {
@@ -255,10 +386,11 @@
   background: transparent;
   overflow: visible;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .project-deck-card.is-settling {
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease;
 }
 
 .project-deck-card.is-live {
@@ -275,18 +407,13 @@
 
 .project-deck-card.is-front {
   pointer-events: auto;
-  touch-action: none;
 }
 
 .project-deck-card.is-front .project-photo {
   pointer-events: auto;
-  touch-action: none;
+  touch-action: pan-x;
   overscroll-behavior: none;
-  cursor: grab;
-}
-
-.project-deck-card.is-front .project-photo:active {
-  cursor: grabbing;
+  cursor: pointer;
 }
 
 .project-photo img {

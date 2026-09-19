@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import CollaborationsRail from "@/components/CollaborationsRail"
 import EarthGlobe from "@/components/EarthGlobe"
@@ -19,8 +18,7 @@ export default function ColaboracionesPage() {
           href="/#inicio"
           className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-cyan hover:text-bone transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Volver al inicio
+          ← Volver al inicio
         </Link>
       </div>
       <CollaborationsRail />

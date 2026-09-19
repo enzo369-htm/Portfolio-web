@@ -68,8 +68,8 @@ export default function Navbar() {
   }
 
   return (
-    <>
-      {SHOW_OFFER_BANNER && (
+    <header>
+      {SHOW_OFFER_BANNER ? (
         <div className="fixed top-0 left-0 right-0 z-[60] bg-lake text-bone py-2 px-4">
           <div className="container mx-auto flex items-center justify-center">
             <a
@@ -81,7 +81,7 @@ export default function Navbar() {
             </a>
           </div>
         </div>
-      )}
+      ) : null}
 
       <nav
         className={`fixed left-0 right-0 z-50 ${SHOW_OFFER_BANNER ? "top-10" : "top-0"} ${
@@ -170,6 +170,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-    </>
+    </header>
   )
 }

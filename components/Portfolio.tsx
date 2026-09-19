@@ -6,7 +6,8 @@ import Link from "next/link"
 import { ArrowRight, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import ProjectDeck from "@/components/ProjectDeck"
-import CollaborationsRail from "@/components/CollaborationsRail"
+import EarthGlobe from "@/components/EarthGlobe"
+import ContactForm from "@/components/ContactForm"
 import { projects } from "@/lib/projects"
 import { useReveal } from "@/hooks/useReveal"
 
@@ -125,7 +126,7 @@ export default function Portfolio() {
         <img
           src="/images/hero-enzo.jpg?v=4"
           alt="Enzo Federico"
-          className="w-[250.5px] md:w-[318px] lg:w-[351.5px] h-auto"
+          className="w-[288px] md:w-[366px] lg:w-[404px] h-auto"
         />
         <HeroTypewriter />
       </section>
@@ -144,9 +145,16 @@ export default function Portfolio() {
 
       <section
         id="colaboraciones"
-        className="page-section page-section-compact relative flex flex-col justify-center pt-6 pb-16 md:pt-8 md:pb-24"
+        className="page-section page-section-compact relative flex flex-col justify-center pt-20 pb-16 md:pt-24 md:pb-24"
       >
-        <CollaborationsRail />
+        <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 lg:px-14">
+          <Reveal>
+            <h2 className="font-heading font-normal text-[clamp(1.7rem,4vw,3rem)] text-bone leading-[1.05] uppercase">
+              Colaboraciones
+            </h2>
+          </Reveal>
+        </div>
+        <EarthGlobe />
       </section>
 
       <section
@@ -165,7 +173,7 @@ export default function Portfolio() {
               &mdash;&mdash;
             </span>
           </h2>
-          <div className="flex flex-wrap items-center gap-8">
+          <div className="flex flex-wrap items-center gap-8 mb-12 md:mb-16">
             <a
               href="https://wa.me/5493885246095"
               target="_blank"
@@ -184,6 +192,9 @@ export default function Portfolio() {
                 <ArrowRight className="w-4 h-4" />
               </a>
             )}
+          </div>
+          <div className="w-full max-w-[720px]">
+            <ContactForm />
           </div>
         </div>
 
