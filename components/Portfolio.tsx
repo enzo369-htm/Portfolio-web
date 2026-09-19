@@ -6,6 +6,7 @@ import Link from "next/link"
 import { ArrowRight, Instagram } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import ProjectDeck from "@/components/ProjectDeck"
+import CollaborationsRail from "@/components/CollaborationsRail"
 import { projects } from "@/lib/projects"
 import { useReveal } from "@/hooks/useReveal"
 
@@ -124,12 +125,12 @@ export default function Portfolio() {
         <img
           src="/images/hero-enzo.jpg?v=4"
           alt="Enzo Federico"
-          className="w-[218px] md:w-[276.5px] lg:w-[305.5px] h-auto"
+          className="w-[250.5px] md:w-[318px] lg:w-[351.5px] h-auto"
         />
         <HeroTypewriter />
       </section>
 
-      <section id="portfolio" className="page-section relative min-h-[100svh] flex flex-col justify-center pt-24 pb-16 md:py-28 px-5 md:px-10 lg:px-14">
+      <section id="portfolio" className="page-section page-section-compact relative flex flex-col justify-center pt-20 pb-6 md:pt-24 md:pb-8 px-5 md:px-10 lg:px-14">
         <div className="w-full max-w-[1400px] mx-auto">
           <Reveal>
             <h2 className="font-heading font-normal text-[clamp(1.7rem,4vw,3rem)] text-bone leading-[1.05] uppercase">
@@ -142,13 +143,20 @@ export default function Portfolio() {
       </section>
 
       <section
+        id="colaboraciones"
+        className="page-section page-section-compact relative flex flex-col justify-center pt-6 pb-16 md:pt-8 md:pb-24"
+      >
+        <CollaborationsRail />
+      </section>
+
+      <section
         id="contacto"
         className="page-section relative min-h-[100svh] flex flex-col justify-between px-5 md:px-10 lg:px-14 pt-24 pb-10 md:pt-28"
       >
         <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center">
           <p className="text-[11px] md:text-[12px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
           <h2 className="leading-[0.84] tracking-[-0.04em]">
-            <span className="font-heading font-normal block text-[clamp(3rem,10vw,8rem)] uppercase mb-6 text-lake">
+            <span className="font-heading font-normal block text-[clamp(2.4rem,8vw,6.4rem)] uppercase mb-6 text-lake">
               <span className="misregister misregister-lake" data-text="¿Hablamos?">
                 ¿Hablamos?
               </span>

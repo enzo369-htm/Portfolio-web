@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import CollaborationsRail from "@/components/CollaborationsRail"
+import EarthGlobe from "@/components/EarthGlobe"
 
 export const metadata: Metadata = {
   title: "Colaboraciones | Enzo Federico",
@@ -23,6 +24,7 @@ export default function ColaboracionesPage() {
         </Link>
       </div>
       <CollaborationsRail />
+      <EarthGlobe />
     </div>
   )
 }

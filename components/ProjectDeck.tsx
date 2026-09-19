@@ -249,10 +249,10 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
               </div>
               {isFront ? (
                 <div className="project-deck-meta">
-                  <div className="flex flex-wrap items-baseline gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-heading text-lg md:text-2xl text-bone uppercase leading-none">{project.name}</h3>
                     {project.status ? (
-                      <span className="text-[9px] uppercase tracking-[0.16em] text-lake border border-lake/40 px-2 py-0.5">
+                      <span className="project-status">
                         {project.status}
                       </span>
                     ) : null}

@@ -209,6 +209,10 @@
   scroll-snap-stop: always;
 }
 
+.page-section-compact {
+  min-height: unset;
+}
+
 .project-deck {
   -webkit-perspective: 2200px;
   perspective: 2200px;
@@ -298,6 +302,20 @@
 .project-deck-meta {
   padding: 0.85rem 0.4rem 0;
   pointer-events: auto;
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lake);
+  border: 1px solid color-mix(in srgb, var(--lake) 78%, transparent);
+  background: color-mix(in srgb, var(--lake) 14%, transparent);
+  padding: 0.32em 0.62em;
+  white-space: nowrap;
 }
 
 .plate-nudge {
@@ -466,35 +484,56 @@
   object-position: center;
 }
 
-.bow-stage {
+.earth-globe {
+  width: 100%;
+  margin-top: 2.5rem;
+  min-height: min(92vw, calc(100svh - 7.5rem));
+}
+
+.earth-globe-stage {
+  width: 100%;
+  height: min(92vw, calc(100svh - 7.5rem));
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.earth-globe-stage:active {
+  cursor: grabbing;
+}
+
+.earth-globe-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.earth-globe-tip {
+  font-family: var(--font-share), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e6e0d4;
+  background: rgba(10, 10, 10, 0.82);
+  border: 1px solid rgba(230, 224, 212, 0.22);
+  padding: 0.35em 0.6em;
+}
+
+.diamond-net {
   position: absolute;
   inset: 0;
-}
-
-.bow-svg {
-  display: block;
-  width: min(92vw, 720px);
-  height: 100%;
-  margin: 0 auto;
-  opacity: 0.72;
-}
-
-.bow-ember {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: bow-ember 2.8s ease-in-out infinite;
-}
-
-@keyframes bow-ember {
-  0%,
-  100% {
-    opacity: 0.35;
-    filter: blur(0.4px);
-  }
-  50% {
-    opacity: 0.85;
-    filter: blur(1.6px);
-  }
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 38px,
+      rgba(214, 214, 210, 0.11) 38px 39px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 38px,
+      rgba(214, 214, 210, 0.11) 38px 39px
+    );
 }
 
 @media (prefers-reduced-motion: reduce) {

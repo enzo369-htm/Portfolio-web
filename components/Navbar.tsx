@@ -10,7 +10,7 @@ type NavEntry =
 
 const navEntries: NavEntry[] = [
   { kind: "route", href: "/quien-soy", label: "Quién soy" },
-  { kind: "route", href: "/colaboraciones", label: "Colabs" },
+  { kind: "route", href: "/colaboraciones", label: "Colabs", matchPrefix: true },
   { kind: "route", href: "/relatos", label: "Relatos", matchPrefix: true },
   { kind: "section", id: "contacto", label: "Contacto" },
 ]
@@ -62,10 +62,8 @@ export default function Navbar() {
       active ? "text-lake" : "text-mute hover:text-bone"
     }`
 
-  const isRelatosActive = pathname === "/relatos" || pathname.startsWith("/relatos/")
-
   const routeIsActive = (entry: Extract<NavEntry, { kind: "route" }>) => {
-    if (entry.matchPrefix) return isRelatosActive
+    if (entry.matchPrefix) return pathname === entry.href || pathname.startsWith(`${entry.href}/`)
     return pathname === entry.href
   }
 

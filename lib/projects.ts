@@ -48,7 +48,7 @@ export const projects: Project[] = [
     tech: "Next.js, TypeScript",
     img: "/images/nathalia-lasso.png",
     url: "https://nathalia-lasso.vercel.app/",
-    status: "",
+    status: "En desarrollo",
     relato: [],
   },
   {
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     tech: "Next.js, TypeScript",
     img: "/images/diana-villabona-ceramica.png",
     url: "https://diana-villabona.vercel.app/",
-    status: "",
+    status: "En desarrollo",
     relato: [
       "Estado: el sitio público se considera en desarrollo; en su última fase, Diana debe agregar el material a su pagina y yo cargar algunos textos.",
       "Digo que diana tiene que agregar el material ya que para está pagina web cree un sistema CMS custom, en pocas palabras en un sistema de autogestión a medida en donde ella actualiza su blog, fotos de su portfolio, talleres y tienda!",
