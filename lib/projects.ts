@@ -94,9 +94,7 @@ export const projects: Project[] = [
     relatoImageContain: true,
     relatoImageContainBg: "#000000",
     relato: [
-      "Estado: esta web figura como en desarrollo en el portfolio; contenidos, secciones y detalle de interacción pueden seguir evolucionando mientras el equipo ajusta la versión pública.",
-      "El sitio en cardinal-sur.vercel.app articula servicios, artistas con los que trabajan, un bloque Universo con el manifiesto (Est. 2024, Buenos Aires), talleres con formulario de inscripción y vías de contacto como hola@cardinalsur.com y redes. La experiencia está pensada para computadora, con mínimo sugerido de ancho y video en el hero.",
-      "Técnicamente es una aplicación Next.js con App Router, React, TypeScript, Tailwind CSS, Framer Motion, scroll suavizado con Lenis cuando aplica, formularios validados y API para inscripciones a talleres; la estética refuerza marca, textura y motion alineados con el nivel de cuidado de los shows que diseñan.",
+      "Esta web es una web de prueba. La realicé porque me interesa especialmente el trabajo de Cardinal Sur, y quise volcar su mundo visual y creativo en una página demo. Me sirvió mucho para meterme  en el mundo del diseño! ",
     ],
   },
   {
