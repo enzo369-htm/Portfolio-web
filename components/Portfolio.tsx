@@ -9,6 +9,7 @@ import ProjectDeck from "@/components/ProjectDeck"
 import EarthGlobe from "@/components/EarthGlobe"
 import ContactForm from "@/components/ContactForm"
 import WhatsAppLink from "@/components/WhatsAppLink"
+import SectionViewTracker from "@/components/SectionViewTracker"
 import { projects } from "@/lib/projects"
 import { useReveal } from "@/hooks/useReveal"
 
@@ -122,6 +123,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-transparent text-bone overflow-x-hidden">
       <Navbar />
+      <SectionViewTracker />
 
       <section id="inicio" className="page-section relative min-h-[100svh] flex flex-col items-center justify-center px-6 md:px-12 text-center">
         <img

@@ -47,7 +47,7 @@ export default function ContactForm() {
       }
       setValues(EMPTY)
       setStatus("sent")
-      trackMetaEvent("Lead")
+      trackMetaEvent("Lead", { content_name: "Formulario enviado" })
     } catch {
       setServerError("No se pudo enviar. Probá de nuevo o escribime por WhatsApp.")
       setStatus("error")

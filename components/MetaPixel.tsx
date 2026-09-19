@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import Script from "next/script"
 import { usePathname } from "next/navigation"
-import { META_PIXEL_ID, trackMetaEvent } from "@/lib/meta-pixel"
+import { META_PIXEL_ID, pageLabel, trackMetaEvent } from "@/lib/meta-pixel"
 
 export default function MetaPixel() {
   const pathname = usePathname()
@@ -14,12 +14,18 @@ export default function MetaPixel() {
       isFirstLoad.current = false
       return
     }
-    trackMetaEvent("PageView")
+    trackMetaEvent("PageView", { content_name: pageLabel(pathname) })
   }, [pathname])
 
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
+      <Script
+        id="meta-pixel"
+        strategy="afterInteractive"
+        onLoad={() => {
+          trackMetaEvent("PageView", { content_name: pageLabel(pathname) })
+        }}
+      >
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -30,7 +36,6 @@ export default function MetaPixel() {
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '${META_PIXEL_ID}');
-          fbq('track', 'PageView');
         `}
       </Script>
       <noscript>

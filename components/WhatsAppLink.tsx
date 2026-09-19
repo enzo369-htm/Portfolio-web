@@ -18,7 +18,7 @@ export default function WhatsAppLink({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
-      onClick={() => trackMetaEvent("Contact")}
+      onClick={() => trackMetaEvent("Contact", { content_name: "Clic en WhatsApp" })}
     >
       {children}
     </a>

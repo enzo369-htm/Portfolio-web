@@ -15,7 +15,27 @@ declare global {
   }
 }
 
-export function trackMetaEvent(event: "PageView" | "Lead" | "Contact") {
+export function pageLabel(pathname: string) {
+  if (pathname === "/") return "Inicio"
+  if (pathname === "/quien-soy") return "Quién soy"
+  if (pathname === "/colaboraciones") return "Colaboraciones"
+  if (pathname === "/relatos") return "Relatos"
+  if (pathname.startsWith("/relatos/")) return `Relato: ${pathname.replace("/relatos/", "")}`
+  if (pathname === "/contacto") return "Contacto"
+  return pathname
+}
+
+export function trackMetaEvent(
+  event: "PageView" | "Lead" | "Contact",
+  params?: Record<string, string>
+) {
   if (typeof window === "undefined") return
-  window.fbq?.("track", event)
+  if (params) window.fbq?.("track", event, params)
+  else window.fbq?.("track", event)
+}
+
+export function trackMetaCustom(event: string, params?: Record<string, string>) {
+  if (typeof window === "undefined") return
+  if (params) window.fbq?.("trackCustom", event, params)
+  else window.fbq?.("trackCustom", event)
 }
