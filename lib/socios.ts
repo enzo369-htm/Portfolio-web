@@ -70,4 +70,11 @@ export const socios: Socio[] = [
     unit: "seguidores",
     avatar: "/images/socios/hollywood-bungalows.jpg",
   },
+  {
+    name: "Alei",
+    role: "Artista",
+    followers: "19,7K",
+    unit: "seguidores",
+    avatar: "/images/socios/alei.png",
+  },
 ]

@@ -18,6 +18,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "juan-tarraf",
+    name: "Juan Tarraf",
+    desc: "",
+    tech: "Next.js, TypeScript",
+    img: "/images/juan-tarraf.png",
+    url: "https://juan-manuel-tarraf-seven.vercel.app/",
+    status: "En desarrollo",
+    relato: [],
+  },
+  {
+    slug: "alei",
+    name: "Alei",
+    desc: "",
+    tech: "",
+    img: "/images/alei.jpg",
+    url: "",
+    status: "En desarrollo",
+    relato: [],
+  },
+  {
     slug: "cresciente",
     name: "Cresciente",
     desc: "Academia de composición musical online. Cursos, metodología propia y comunidad.",
@@ -30,16 +50,6 @@ export const projects: Project[] = [
       "Específicamente me contrataron para hacer una actualización inmensa en el sitio: actualizar los ciclos de estudio de la academia, es decir, actualizar cientos de clases en menos de un año. Lo que hacía era subir las clases de texto, y eso incluía: Revisar las tareas manuales en Notion donde hay todo un sistema creado con el equipo, de ahí extraer el material y procesar imágenes en Gimp en donde preparaba cada parte de las partituras, luego tenía que leer las partitura y procesar audio en Reaper uniendo cada audio con cada figura de partitura teniendo un orden muy claro en las carpetas de mi mac (ya que sí alguna partitura no tenía su audio correspondiente se desordenaba todo), y por último subir todo el texto + las partituras + los audios, en donde ahí agregaba los custom post types en los diferentes elementos de la clase de texto para el diseño final en la web.",
       "La experiencia fue genial y, de hecho, en el transcurso nos volvimos grandes amigos con los creadores de Cresciente <3. Aprendí qué es la gestión y organización de lo que es literalmente una empresa, y la verdadera ganancia para mí en eso fue integrar en mi vida la organización y continuidad que tiene Cresciente.",
     ],
-  },
-  {
-    slug: "juan-tarraf",
-    name: "Juan Tarraf",
-    desc: "",
-    tech: "Next.js, TypeScript",
-    img: "/images/juan-tarraf.png",
-    url: "https://juan-manuel-tarraf-seven.vercel.app/",
-    status: "En desarrollo",
-    relato: [],
   },
   {
     slug: "nathalia-lasso",

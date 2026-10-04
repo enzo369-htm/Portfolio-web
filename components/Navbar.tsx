@@ -12,6 +12,7 @@ const navEntries: NavEntry[] = [
   { kind: "route", href: "/quien-soy", label: "Quién soy" },
   { kind: "route", href: "/colaboraciones", label: "Colabs", matchPrefix: true },
   { kind: "route", href: "/relatos", label: "Relatos", matchPrefix: true },
+  { kind: "route", href: "/presupuestos", label: "Proceso", matchPrefix: true },
   { kind: "section", id: "contacto", label: "Contacto" },
 ]
 

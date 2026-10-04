@@ -21,6 +21,7 @@ export function pageLabel(pathname: string) {
   if (pathname === "/colaboraciones") return "Colaboraciones"
   if (pathname === "/relatos") return "Relatos"
   if (pathname.startsWith("/relatos/")) return `Relato: ${pathname.replace("/relatos/", "")}`
+  if (pathname === "/presupuestos") return "Presupuestos"
   if (pathname === "/contacto") return "Contacto"
   return pathname
 }

@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Orbitron, Share_Tech_Mono } from "next/font/google";
-import SiteBackdrop from "@/components/SiteBackdrop";
+import { Fraunces, Newsreader } from "next/font/google";
 import MetaPixel from "@/components/MetaPixel";
 import "./globals.css";
 
-const orbitron = Orbitron({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-orbitron",
+  weight: ["400", "500", "600"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
-const shareTech = Share_Tech_Mono({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-share",
+  weight: ["400", "500", "600"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
@@ -30,13 +30,12 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${orbitron.variable} ${shareTech.variable} dark`}
+      className={`${fraunces.variable} ${newsreader.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased bg-void text-bone font-body">
         <MetaPixel />
-        <SiteBackdrop />
-        <div className="relative z-10">{children}</div>
+        {children}
       </body>
     </html>
   );

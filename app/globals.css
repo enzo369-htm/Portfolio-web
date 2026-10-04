@@ -3,32 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --void: #0a0a0a;
-  --plate: #141414;
-  --bone: #e6e0d4;
-  --mute: #9a9388;
-  --cyan: #5b7f88;
+  --void: #ffffff;
+  --plate: #f3f1ec;
+  --bone: #161513;
+  --mute: #6a655c;
+  --cyan: #3f646d;
   --lake: #c45c48;
-  --rule: rgba(230, 224, 212, 0.16);
-  --background: 0 0% 4%;
-  --foreground: 40 18% 86%;
-  --card: 0 0% 8%;
-  --card-foreground: 40 18% 86%;
-  --popover: 0 0% 8%;
-  --popover-foreground: 40 18% 86%;
-  --primary: 192 20% 45%;
-  --primary-foreground: 40 18% 94%;
+  --rule: rgba(22, 21, 19, 0.14);
+  --background: 0 0% 100%;
+  --foreground: 30 8% 8%;
+  --card: 40 20% 96%;
+  --card-foreground: 30 8% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 30 8% 8%;
+  --primary: 192 28% 34%;
+  --primary-foreground: 0 0% 100%;
   --secondary: 10 48% 52%;
-  --secondary-foreground: 40 18% 94%;
-  --muted: 0 0% 12%;
-  --muted-foreground: 36 6% 58%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 40 14% 94%;
+  --muted-foreground: 30 6% 39%;
   --accent: 10 48% 52%;
-  --accent-foreground: 40 18% 94%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 16%;
-  --input: 0 0% 16%;
-  --ring: 192 20% 45%;
+  --border: 30 8% 86%;
+  --input: 30 8% 86%;
+  --ring: 192 28% 34%;
   --radius: 0;
 }
 
@@ -67,14 +67,14 @@
 
 .font-display,
 .font-heading {
-  font-family: var(--font-orbitron), sans-serif;
+  font-family: var(--font-fraunces), "Times New Roman", serif;
   font-style: normal;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
 }
 
 .font-body,
 .font-sans {
-  font-family: var(--font-share), ui-monospace, monospace;
+  font-family: var(--font-newsreader), "Georgia", serif;
 }
 
 .hairline {
@@ -162,14 +162,14 @@
   border-bottom-width: 1px;
   padding: 0.85rem 0.9rem;
   margin-top: 0.35rem;
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(22, 21, 19, 0.03);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 
 .contact-area:focus {
   border-color: var(--cyan);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(22, 21, 19, 0.05);
 }
 
 .contact-error {
@@ -466,6 +466,34 @@
   color: var(--bone);
 }
 
+.presupuesto-check {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.presupuesto-check li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--bone);
+}
+
+.presupuesto-check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  background: var(--lake);
+}
+
 .project-status {
   display: inline-flex;
   align-items: center;
@@ -597,33 +625,18 @@
 }
 
 .collab-card {
-  --socio: var(--bone);
   position: relative;
   scroll-snap-align: start;
-  flex: 0 0 min(72vw, 300px);
+  flex: 0 0 min(72vw, 260px);
   min-height: 0;
-  overflow: hidden;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--bone) 16%, transparent) 0%,
-      rgba(10, 10, 10, 0.72) 46%
-    );
-  border: 1px solid color-mix(in srgb, var(--bone) 28%, var(--rule));
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  transition: border-color 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
+  background: transparent;
+  border: none;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .collab-card:hover {
-  border-color: var(--socio);
-  transform: translateY(-4px);
-}
-
-.collab-card-bar {
-  height: 5px;
-  width: 100%;
-  background: var(--socio);
+  transform: translateY(-3px);
 }
 
 .collab-avatar {
@@ -632,10 +645,6 @@
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow:
-    0 0 0 3px var(--void),
-    0 0 0 6px var(--socio),
-    0 10px 28px color-mix(in srgb, var(--socio) 28%, transparent);
 }
 
 .collab-avatar img {
@@ -672,30 +681,14 @@
 }
 
 .earth-globe-tip {
-  font-family: var(--font-share), ui-monospace, monospace;
+  font-family: var(--font-newsreader), "Georgia", serif;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #e6e0d4;
-  background: rgba(10, 10, 10, 0.82);
-  border: 1px solid rgba(230, 224, 212, 0.22);
+  color: #161513;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(22, 21, 19, 0.16);
   padding: 0.35em 0.6em;
-}
-
-.diamond-net {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 38px,
-      rgba(214, 214, 210, 0.11) 38px 39px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0 38px,
-      rgba(214, 214, 210, 0.11) 38px 39px
-    );
 }
 
 @media (prefers-reduced-motion: reduce) {

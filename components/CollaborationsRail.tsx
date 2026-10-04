@@ -5,10 +5,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { socios } from "@/lib/socios"
 import { useReveal } from "@/hooks/useReveal"
 
-function padIndex(index: number) {
-  return String(index + 1).padStart(2, "0")
-}
-
 export default function CollaborationsRail() {
   const { ref: revealRef, visible } = useReveal<HTMLDivElement>()
   const scrollerRef = useRef<HTMLDivElement>(null)
@@ -53,21 +49,17 @@ export default function CollaborationsRail() {
       </div>
 
       <div ref={scrollerRef} className="collab-rail">
-        {socios.map((socio, index) => (
+        {socios.map((socio) => (
           <article
             key={socio.name}
             data-collab-card
             className="collab-card"
           >
-            <div className="collab-card-bar" />
-            <div className="px-5 pt-5 pb-6 flex flex-col items-center text-center">
-              <div className="relative w-full flex justify-center mb-4">
+            <div className="px-2 py-2 flex flex-col items-center text-center">
+              <div className="w-full flex justify-center mb-4">
                 <div className="collab-avatar">
                   <img src={`${socio.avatar}?v=6`} alt={socio.name} />
                 </div>
-                <span className="absolute top-0 right-0 font-heading text-[10px] tracking-[0.32em] text-bone pt-1">
-                  {padIndex(index)}
-                </span>
               </div>
               <h3 className="font-heading text-[1.15rem] md:text-[1.25rem] text-bone uppercase leading-[1.15] tracking-[0.02em]">
                 {socio.name}

@@ -11,6 +11,7 @@ import ContactForm from "@/components/ContactForm"
 import WhatsAppLink from "@/components/WhatsAppLink"
 import SectionViewTracker from "@/components/SectionViewTracker"
 import { projects } from "@/lib/projects"
+import { presupuestoTitle } from "@/lib/presupuesto-text"
 import { useReveal } from "@/hooks/useReveal"
 
 const SHOW_OFFER_LANDING = false
@@ -167,7 +168,7 @@ export default function Portfolio() {
         <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center">
           <p className="text-[11px] md:text-[12px] uppercase tracking-[0.38em] mb-8 md:mb-12 text-cyan">Contacto</p>
           <h2 className="leading-[0.84] tracking-[-0.04em]">
-            <span className="font-heading font-normal block text-[clamp(2.4rem,8vw,6.4rem)] uppercase mb-6 text-lake">
+            <span className="font-heading font-normal block text-[clamp(1.73rem,5.78vw,4.62rem)] uppercase mb-6 text-lake">
               <span className="misregister misregister-lake" data-text="¿Hablamos?">
                 ¿Hablamos?
               </span>
@@ -176,7 +177,7 @@ export default function Portfolio() {
               &mdash;&mdash;
             </span>
           </h2>
-          <div className="flex flex-wrap items-center gap-8 mb-12 md:mb-16">
+          <div className="flex flex-wrap items-center gap-8 mb-10 md:mb-12">
             <WhatsAppLink className="inline-flex items-center gap-2 text-[15.4px] font-medium uppercase tracking-[0.14em] text-bone border-b border-lake/50 pb-1 hover:text-lake transition-colors">
               WhatsApp
               <ArrowRight className="w-4 h-4" />
@@ -191,6 +192,15 @@ export default function Portfolio() {
               </a>
             )}
           </div>
+          <h3 className="font-heading font-normal text-[clamp(1.15rem,2.6vw,1.7rem)] text-bone leading-[1.15] uppercase max-w-[28ch] mb-3">
+            {presupuestoTitle}
+          </h3>
+          <Link
+            href="/presupuestos"
+            className="mb-8 md:mb-10 inline-flex items-center text-[11px] font-medium uppercase tracking-[0.18em] text-cyan border-b border-cyan/40 pb-1 hover:text-bone hover:border-bone/50 transition-colors w-fit"
+          >
+            Cómo trabajamos
+          </Link>
           <div className="w-full max-w-[720px]">
             <ContactForm />
           </div>

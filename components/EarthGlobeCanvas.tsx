@@ -75,9 +75,49 @@ const CITIES = [
 ]
 
 const RADIUS = 1
-const BONE = new THREE.Color("#e6e0d4")
-const CYAN = new THREE.Color("#5b7f88")
+const WATER = "#16355c"
+const LAND = "#f3e6cc"
+const COAST = "#dccdb4"
 const MARKER = new THREE.Color("#ffd56a")
+const MAP_W = 2048
+const MAP_H = 1024
+
+function lngLatToXy(lng: number, lat: number) {
+  return {
+    x: ((lng + 180) / 360) * MAP_W,
+    y: ((90 - lat) / 180) * MAP_H,
+  }
+}
+
+function drawRing(ctx: CanvasRenderingContext2D, ring: number[][]) {
+  if (ring.length < 3) return
+  const first = lngLatToXy(ring[0][0], ring[0][1])
+  ctx.moveTo(first.x, first.y)
+  for (let i = 1; i < ring.length; i++) {
+    const point = lngLatToXy(ring[i][0], ring[i][1])
+    // Antarctica is one ring cut at the antimeridian: (180,-90) then (-180,-90).
+    // That cut is the south pole, the bottom edge of this map, so it has to stay
+    // a single stroke. Breaking it there leaves the polar cap out of the fill.
+    ctx.lineTo(point.x, point.y)
+  }
+  ctx.closePath()
+}
+
+function paintLand(ctx: CanvasRenderingContext2D, features: CountryFeature[]) {
+  ctx.fillStyle = LAND
+  ctx.strokeStyle = COAST
+  ctx.lineWidth = 0.8
+  for (const feature of features) {
+    const polygons =
+      feature.geometry.type === "Polygon" ? [feature.geometry.coordinates] : feature.geometry.coordinates
+    for (const polygon of polygons) {
+      ctx.beginPath()
+      for (const ring of polygon) drawRing(ctx, ring)
+      ctx.fill("evenodd")
+      ctx.stroke()
+    }
+  }
+}
 
 function latLngToVec(lat: number, lng: number, r = RADIUS) {
   const phi = ((90 - lat) * Math.PI) / 180
@@ -87,11 +127,6 @@ function latLngToVec(lat: number, lng: number, r = RADIUS) {
     r * Math.cos(phi),
     r * Math.sin(phi) * Math.sin(theta)
   )
-}
-
-function ringsOf(feature: CountryFeature) {
-  if (feature.geometry.type === "Polygon") return feature.geometry.coordinates
-  return feature.geometry.coordinates.flatMap((poly) => poly)
 }
 
 function ringCentroid(ring: number[][]) {
@@ -108,14 +143,14 @@ function ringCentroid(ring: number[][]) {
   return new THREE.Vector3(x / n, y / n, z / n).normalize().multiplyScalar(RADIUS * 1.02)
 }
 
-function makeLabel(text: string, position: THREE.Vector3, size: number, weight = 500, fill = "rgba(230, 224, 212, 0.92)") {
+function makeLabel(text: string, position: THREE.Vector3, size: number, weight = 500, fill = "rgba(22, 21, 19, 0.82)") {
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
   if (!ctx) return null
   canvas.width = 512
   canvas.height = 128
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  ctx.font = `${weight} ${Math.round(42 * (size / 0.07))}px "Share Tech Mono", ui-monospace, monospace`
+  ctx.font = `${weight} ${Math.round(42 * (size / 0.07))}px Fraunces, "Times New Roman", serif`
   ctx.fillStyle = fill
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
@@ -173,33 +208,37 @@ export default function EarthGlobeCanvas() {
     }
     host.style.touchAction = "pan-y"
 
-    scene.add(new THREE.AmbientLight(0x9aa8b4, 0.55))
-    const sun = new THREE.DirectionalLight(0xf3efe6, 1.15)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.88))
+    const sun = new THREE.DirectionalLight(0xfff6f1, 0.42)
     sun.position.set(3.2, 1.4, 2.8)
     scene.add(sun)
 
+    const mapCanvas = document.createElement("canvas")
+    mapCanvas.width = MAP_W
+    mapCanvas.height = MAP_H
+    const mapCtx = mapCanvas.getContext("2d")
+    if (mapCtx) {
+      mapCtx.fillStyle = WATER
+      mapCtx.fillRect(0, 0, MAP_W, MAP_H)
+    }
+    const mapTexture = new THREE.CanvasTexture(mapCanvas)
+    mapTexture.colorSpace = THREE.SRGBColorSpace
+    mapTexture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+
     const ocean = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS, 80, 80),
-      new THREE.MeshPhongMaterial({
-        color: 0x10161c,
-        shininess: 18,
-        specular: new THREE.Color(0x24303a),
+      new THREE.SphereGeometry(RADIUS, 96, 96),
+      new THREE.MeshBasicMaterial({
+        map: mapTexture,
       })
     )
     scene.add(ocean)
 
-    const grid = new THREE.LineSegments(
-      new THREE.WireframeGeometry(new THREE.SphereGeometry(RADIUS * 1.001, 36, 18)),
-      new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.16 })
-    )
-    scene.add(grid)
-
     const atmo = new THREE.Mesh(
       new THREE.SphereGeometry(RADIUS * 1.08, 64, 64),
       new THREE.MeshBasicMaterial({
-        color: 0x5b7f88,
+        color: 0x16355c,
         transparent: true,
-        opacity: 0.09,
+        opacity: 0.12,
         side: THREE.BackSide,
       })
     )
@@ -252,34 +291,19 @@ export default function EarthGlobeCanvas() {
     fetch("/data/countries-110m.geojson", { signal: abort.signal })
       .then((res) => res.json())
       .then((data: { features: CountryFeature[] }) => {
-        const positions: number[] = []
-        for (const feature of data.features) {
-          for (const ring of ringsOf(feature)) {
-            for (let i = 0; i < ring.length - 1; i++) {
-              const a = latLngToVec(ring[i][1], ring[i][0], RADIUS * 1.004)
-              const b = latLngToVec(ring[i + 1][1], ring[i + 1][0], RADIUS * 1.004)
-              positions.push(a.x, a.y, a.z, b.x, b.y, b.z)
-            }
-          }
-          if (feature.properties.LABELRANK <= 2 && feature.properties.NAME !== "Antarctica") {
-            continue
-          }
+        if (mapCtx) {
+          paintLand(mapCtx, data.features)
+          mapTexture.needsUpdate = true
         }
 
-        const geo = new THREE.BufferGeometry()
-        geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3))
-        const lines = new THREE.LineSegments(
-          geo,
-          new THREE.LineBasicMaterial({ color: BONE, transparent: true, opacity: 0.78 })
-        )
-        scene.add(lines)
-        dispose.push(() => {
-          geo.dispose()
-          lines.material.dispose()
-        })
-
         for (const continent of CONTINENTS) {
-          const sprite = makeLabel(continent.name, latLngToVec(continent.lat, continent.lng, RADIUS * 1.03), continent.size, 600)
+          const sprite = makeLabel(
+            continent.name,
+            latLngToVec(continent.lat, continent.lng, RADIUS * 1.03),
+            continent.size,
+            600,
+            "rgba(22, 21, 19, 0.72)"
+          )
           if (sprite) {
             labels.push(sprite)
             scene.add(sprite)
@@ -314,8 +338,7 @@ export default function EarthGlobeCanvas() {
       renderer.dispose()
       ocean.geometry.dispose()
       ocean.material.dispose()
-      grid.geometry.dispose()
-      grid.material.dispose()
+      mapTexture.dispose()
       atmo.geometry.dispose()
       atmo.material.dispose()
       for (const fn of dispose) fn()
