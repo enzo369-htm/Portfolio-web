@@ -24,21 +24,6 @@ function easeOutCubic(t: number) {
   return 1 - (1 - x) ** 3
 }
 
-function wheelPixels(event: WheelEvent) {
-  let x = event.deltaX
-  let y = event.deltaY
-  if (event.deltaMode === 1) {
-    x *= 16
-    y *= 16
-  } else if (event.deltaMode === 2) {
-    x *= 640
-    y *= 640
-  }
-  if (event.shiftKey) return x || y
-  if (Math.abs(x) >= Math.abs(y) * 0.38) return x
-  return y
-}
-
 type Settle = { from: number; to: number; start: number }
 
 export default function ProjectDeck({ projects }: { projects: Project[] }) {
@@ -248,7 +233,18 @@ export default function ProjectDeck({ projects }: { projects: Project[] }) {
       if (event.ctrlKey) return
       const hit = (event.target as HTMLElement | null)?.closest(".project-deck-card.is-front")
       if (!hit) return
-      const pixels = wheelPixels(event)
+      let x = event.deltaX
+      let y = event.deltaY
+      if (event.deltaMode === 1) {
+        x *= 16
+        y *= 16
+      } else if (event.deltaMode === 2) {
+        x *= 640
+        y *= 640
+      }
+      const horizontal = event.shiftKey || Math.abs(x) >= Math.abs(y) * 0.38
+      if (!horizontal) return
+      const pixels = event.shiftKey ? x || y : x
       if (Math.abs(pixels) < 0.6) return
       event.preventDefault()
 

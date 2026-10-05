@@ -174,8 +174,25 @@ export default function EarthGlobeCanvas() {
     if (!host) return
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    const dpr = window.devicePixelRatio || 1
+    const pixelRatio = Math.min(dpr, 1.25)
+
+    let renderer: THREE.WebGLRenderer
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: pixelRatio <= 1,
+        alpha: true,
+        powerPreference: "low-power",
+      })
+    } catch {
+      return
+    }
+    renderer.setPixelRatio(pixelRatio)
+    const gl = renderer.getContext()
+    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info")
+    const gpuName = debugInfo ? String(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "") : ""
+    const software = /swiftshader|llvmpipe|softpipe|microsoft basic render/i.test(gpuName)
+    const segments = software || reduce ? 40 : 64
     renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     host.appendChild(renderer.domElement)
@@ -194,7 +211,7 @@ export default function EarthGlobeCanvas() {
     const viewDistance = camera.position.length()
     controls.minDistance = viewDistance
     controls.maxDistance = viewDistance
-    controls.autoRotate = !reduce
+    controls.autoRotate = !reduce && !software
     controls.autoRotateSpeed = 0.55
     controls.target.set(0, 0, 0)
     controls.mouseButtons = {
@@ -223,10 +240,10 @@ export default function EarthGlobeCanvas() {
     }
     const mapTexture = new THREE.CanvasTexture(mapCanvas)
     mapTexture.colorSpace = THREE.SRGBColorSpace
-    mapTexture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+    mapTexture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
 
     const ocean = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS, 96, 96),
+      new THREE.SphereGeometry(RADIUS, segments, segments),
       new THREE.MeshBasicMaterial({
         map: mapTexture,
       })
@@ -234,7 +251,7 @@ export default function EarthGlobeCanvas() {
     scene.add(ocean)
 
     const atmo = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS * 1.08, 64, 64),
+      new THREE.SphereGeometry(RADIUS * 1.08, Math.round(segments * 0.75), Math.round(segments * 0.75)),
       new THREE.MeshBasicMaterial({
         color: 0x16355c,
         transparent: true,
@@ -284,13 +301,18 @@ export default function EarthGlobeCanvas() {
       camera.updateProjectionMatrix()
     }
     applySize()
-    const ro = new ResizeObserver(applySize)
+    const ro = new ResizeObserver(() => {
+      applySize()
+      paintNow()
+    })
     ro.observe(host)
 
     const abort = new AbortController()
+    let paintNow = () => {}
     fetch("/data/countries-110m.geojson", { signal: abort.signal })
       .then((res) => res.json())
       .then((data: { features: CountryFeature[] }) => {
+        if (abort.signal.aborted) return
         if (mapCtx) {
           paintLand(mapCtx, data.features)
           mapTexture.needsUpdate = true
@@ -309,14 +331,19 @@ export default function EarthGlobeCanvas() {
             scene.add(sprite)
           }
         }
+        paintNow()
       })
       .catch(() => {})
 
+    let alive = true
+    let onScreen = false
+    let inFrame = false
     let raf = 0
-    const cameraDir = new THREE.Vector3()
-    const tick = () => {
-      controls.update()
-      camera.getWorldDirection(cameraDir)
+    const frame = () => {
+      raf = 0
+      if (!alive || document.hidden || !onScreen) return
+      inFrame = true
+      const moving = controls.update()
       for (const sprite of labels) {
         const facing = sprite.userData.worldPos.dot(camera.position) > 0
         sprite.material.opacity = facing ? 1 : 0
@@ -325,14 +352,46 @@ export default function EarthGlobeCanvas() {
         const facing = marker.userData.worldPos.dot(camera.position) > 0
         marker.visible = facing
       }
-      renderer.render(scene, camera)
-      raf = requestAnimationFrame(tick)
+      try {
+        renderer.render(scene, camera)
+      } catch {
+        alive = false
+        inFrame = false
+        return
+      }
+      inFrame = false
+      if (controls.autoRotate || moving) raf = requestAnimationFrame(frame)
     }
-    raf = requestAnimationFrame(tick)
+    const kick = () => {
+      if (!alive || raf || inFrame || document.hidden || !onScreen) return
+      raf = requestAnimationFrame(frame)
+    }
+    paintNow = kick
+    controls.addEventListener("change", kick)
+
+    const visibility = new IntersectionObserver(([entry]) => {
+      onScreen = Boolean(entry?.isIntersecting)
+      if (onScreen) kick()
+    })
+    visibility.observe(host)
+    const onVisibility = () => kick()
+    document.addEventListener("visibilitychange", onVisibility)
+    const onContextLost = (event: Event) => {
+      event.preventDefault()
+      alive = false
+      if (raf) cancelAnimationFrame(raf)
+      raf = 0
+    }
+    renderer.domElement.addEventListener("webglcontextlost", onContextLost)
 
     return () => {
+      alive = false
       abort.abort()
-      cancelAnimationFrame(raf)
+      if (raf) cancelAnimationFrame(raf)
+      visibility.disconnect()
+      document.removeEventListener("visibilitychange", onVisibility)
+      controls.removeEventListener("change", kick)
+      renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
       ro.disconnect()
       controls.dispose()
       renderer.dispose()
