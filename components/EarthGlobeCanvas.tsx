@@ -139,7 +139,12 @@ export default function EarthGlobeCanvas() {
     if (!host) return
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    let renderer: THREE.WebGLRenderer
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    } catch {
+      return
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
@@ -289,8 +294,16 @@ export default function EarthGlobeCanvas() {
       .catch(() => {})
 
     let raf = 0
+    let stopped = false
+    const onLost = (event: Event) => {
+      event.preventDefault()
+      stopped = true
+      cancelAnimationFrame(raf)
+    }
+    renderer.domElement.addEventListener("webglcontextlost", onLost)
     const cameraDir = new THREE.Vector3()
     const tick = () => {
+      if (stopped) return
       controls.update()
       camera.getWorldDirection(cameraDir)
       for (const sprite of labels) {
@@ -301,7 +314,12 @@ export default function EarthGlobeCanvas() {
         const facing = marker.userData.worldPos.dot(camera.position) > 0
         marker.visible = facing
       }
-      renderer.render(scene, camera)
+      try {
+        renderer.render(scene, camera)
+      } catch {
+        cancelAnimationFrame(raf)
+        return
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -309,6 +327,7 @@ export default function EarthGlobeCanvas() {
     return () => {
       abort.abort()
       cancelAnimationFrame(raf)
+      renderer.domElement.removeEventListener("webglcontextlost", onLost)
       ro.disconnect()
       controls.dispose()
       renderer.dispose()
