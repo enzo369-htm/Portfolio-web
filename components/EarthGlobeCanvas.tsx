@@ -75,49 +75,9 @@ const CITIES = [
 ]
 
 const RADIUS = 1
-const WATER = "#16355c"
-const LAND = "#f3e6cc"
-const COAST = "#dccdb4"
+const BONE = new THREE.Color("#e6e0d4")
+const CYAN = new THREE.Color("#5b7f88")
 const MARKER = new THREE.Color("#ffd56a")
-const MAP_W = 2048
-const MAP_H = 1024
-
-function lngLatToXy(lng: number, lat: number) {
-  return {
-    x: ((lng + 180) / 360) * MAP_W,
-    y: ((90 - lat) / 180) * MAP_H,
-  }
-}
-
-function drawRing(ctx: CanvasRenderingContext2D, ring: number[][]) {
-  if (ring.length < 3) return
-  const first = lngLatToXy(ring[0][0], ring[0][1])
-  ctx.moveTo(first.x, first.y)
-  for (let i = 1; i < ring.length; i++) {
-    const point = lngLatToXy(ring[i][0], ring[i][1])
-    // Antarctica is one ring cut at the antimeridian: (180,-90) then (-180,-90).
-    // That cut is the south pole, the bottom edge of this map, so it has to stay
-    // a single stroke. Breaking it there leaves the polar cap out of the fill.
-    ctx.lineTo(point.x, point.y)
-  }
-  ctx.closePath()
-}
-
-function paintLand(ctx: CanvasRenderingContext2D, features: CountryFeature[]) {
-  ctx.fillStyle = LAND
-  ctx.strokeStyle = COAST
-  ctx.lineWidth = 0.8
-  for (const feature of features) {
-    const polygons =
-      feature.geometry.type === "Polygon" ? [feature.geometry.coordinates] : feature.geometry.coordinates
-    for (const polygon of polygons) {
-      ctx.beginPath()
-      for (const ring of polygon) drawRing(ctx, ring)
-      ctx.fill("evenodd")
-      ctx.stroke()
-    }
-  }
-}
 
 function latLngToVec(lat: number, lng: number, r = RADIUS) {
   const phi = ((90 - lat) * Math.PI) / 180
@@ -127,6 +87,11 @@ function latLngToVec(lat: number, lng: number, r = RADIUS) {
     r * Math.cos(phi),
     r * Math.sin(phi) * Math.sin(theta)
   )
+}
+
+function ringsOf(feature: CountryFeature) {
+  if (feature.geometry.type === "Polygon") return feature.geometry.coordinates
+  return feature.geometry.coordinates.flatMap((poly) => poly)
 }
 
 function ringCentroid(ring: number[][]) {
@@ -143,14 +108,14 @@ function ringCentroid(ring: number[][]) {
   return new THREE.Vector3(x / n, y / n, z / n).normalize().multiplyScalar(RADIUS * 1.02)
 }
 
-function makeLabel(text: string, position: THREE.Vector3, size: number, weight = 500, fill = "rgba(22, 21, 19, 0.82)") {
+function makeLabel(text: string, position: THREE.Vector3, size: number, weight = 500, fill = "rgba(230, 224, 212, 0.92)") {
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
   if (!ctx) return null
   canvas.width = 512
   canvas.height = 128
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  ctx.font = `${weight} ${Math.round(42 * (size / 0.07))}px Fraunces, "Times New Roman", serif`
+  ctx.font = `${weight} ${Math.round(42 * (size / 0.07))}px "Share Tech Mono", ui-monospace, monospace`
   ctx.fillStyle = fill
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
@@ -174,25 +139,8 @@ export default function EarthGlobeCanvas() {
     if (!host) return
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const dpr = window.devicePixelRatio || 1
-    const pixelRatio = Math.min(dpr, 1.25)
-
-    let renderer: THREE.WebGLRenderer
-    try {
-      renderer = new THREE.WebGLRenderer({
-        antialias: pixelRatio <= 1,
-        alpha: true,
-        powerPreference: "low-power",
-      })
-    } catch {
-      return
-    }
-    renderer.setPixelRatio(pixelRatio)
-    const gl = renderer.getContext()
-    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info")
-    const gpuName = debugInfo ? String(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "") : ""
-    const software = /swiftshader|llvmpipe|softpipe|microsoft basic render/i.test(gpuName)
-    const segments = software || reduce ? 40 : 64
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     host.appendChild(renderer.domElement)
@@ -211,7 +159,7 @@ export default function EarthGlobeCanvas() {
     const viewDistance = camera.position.length()
     controls.minDistance = viewDistance
     controls.maxDistance = viewDistance
-    controls.autoRotate = !reduce && !software
+    controls.autoRotate = !reduce
     controls.autoRotateSpeed = 0.55
     controls.target.set(0, 0, 0)
     controls.mouseButtons = {
@@ -225,37 +173,33 @@ export default function EarthGlobeCanvas() {
     }
     host.style.touchAction = "pan-y"
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.88))
-    const sun = new THREE.DirectionalLight(0xfff6f1, 0.42)
+    scene.add(new THREE.AmbientLight(0x9aa8b4, 0.55))
+    const sun = new THREE.DirectionalLight(0xf3efe6, 1.15)
     sun.position.set(3.2, 1.4, 2.8)
     scene.add(sun)
 
-    const mapCanvas = document.createElement("canvas")
-    mapCanvas.width = MAP_W
-    mapCanvas.height = MAP_H
-    const mapCtx = mapCanvas.getContext("2d")
-    if (mapCtx) {
-      mapCtx.fillStyle = WATER
-      mapCtx.fillRect(0, 0, MAP_W, MAP_H)
-    }
-    const mapTexture = new THREE.CanvasTexture(mapCanvas)
-    mapTexture.colorSpace = THREE.SRGBColorSpace
-    mapTexture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
-
     const ocean = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS, segments, segments),
-      new THREE.MeshBasicMaterial({
-        map: mapTexture,
+      new THREE.SphereGeometry(RADIUS, 80, 80),
+      new THREE.MeshPhongMaterial({
+        color: 0x10161c,
+        shininess: 18,
+        specular: new THREE.Color(0x24303a),
       })
     )
     scene.add(ocean)
 
+    const grid = new THREE.LineSegments(
+      new THREE.WireframeGeometry(new THREE.SphereGeometry(RADIUS * 1.001, 36, 18)),
+      new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.16 })
+    )
+    scene.add(grid)
+
     const atmo = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS * 1.08, Math.round(segments * 0.75), Math.round(segments * 0.75)),
+      new THREE.SphereGeometry(RADIUS * 1.08, 64, 64),
       new THREE.MeshBasicMaterial({
-        color: 0x16355c,
+        color: 0x5b7f88,
         transparent: true,
-        opacity: 0.12,
+        opacity: 0.09,
         side: THREE.BackSide,
       })
     )
@@ -301,49 +245,54 @@ export default function EarthGlobeCanvas() {
       camera.updateProjectionMatrix()
     }
     applySize()
-    const ro = new ResizeObserver(() => {
-      applySize()
-      paintNow()
-    })
+    const ro = new ResizeObserver(applySize)
     ro.observe(host)
 
     const abort = new AbortController()
-    let paintNow = () => {}
     fetch("/data/countries-110m.geojson", { signal: abort.signal })
       .then((res) => res.json())
       .then((data: { features: CountryFeature[] }) => {
-        if (abort.signal.aborted) return
-        if (mapCtx) {
-          paintLand(mapCtx, data.features)
-          mapTexture.needsUpdate = true
+        const positions: number[] = []
+        for (const feature of data.features) {
+          for (const ring of ringsOf(feature)) {
+            for (let i = 0; i < ring.length - 1; i++) {
+              const a = latLngToVec(ring[i][1], ring[i][0], RADIUS * 1.004)
+              const b = latLngToVec(ring[i + 1][1], ring[i + 1][0], RADIUS * 1.004)
+              positions.push(a.x, a.y, a.z, b.x, b.y, b.z)
+            }
+          }
+          if (feature.properties.LABELRANK <= 2 && feature.properties.NAME !== "Antarctica") {
+            continue
+          }
         }
 
+        const geo = new THREE.BufferGeometry()
+        geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3))
+        const lines = new THREE.LineSegments(
+          geo,
+          new THREE.LineBasicMaterial({ color: BONE, transparent: true, opacity: 0.78 })
+        )
+        scene.add(lines)
+        dispose.push(() => {
+          geo.dispose()
+          lines.material.dispose()
+        })
+
         for (const continent of CONTINENTS) {
-          const sprite = makeLabel(
-            continent.name,
-            latLngToVec(continent.lat, continent.lng, RADIUS * 1.03),
-            continent.size,
-            600,
-            "rgba(22, 21, 19, 0.72)"
-          )
+          const sprite = makeLabel(continent.name, latLngToVec(continent.lat, continent.lng, RADIUS * 1.03), continent.size, 600)
           if (sprite) {
             labels.push(sprite)
             scene.add(sprite)
           }
         }
-        paintNow()
       })
       .catch(() => {})
 
-    let alive = true
-    let onScreen = false
-    let inFrame = false
     let raf = 0
-    const frame = () => {
-      raf = 0
-      if (!alive || document.hidden || !onScreen) return
-      inFrame = true
-      const moving = controls.update()
+    const cameraDir = new THREE.Vector3()
+    const tick = () => {
+      controls.update()
+      camera.getWorldDirection(cameraDir)
       for (const sprite of labels) {
         const facing = sprite.userData.worldPos.dot(camera.position) > 0
         sprite.material.opacity = facing ? 1 : 0
@@ -352,52 +301,21 @@ export default function EarthGlobeCanvas() {
         const facing = marker.userData.worldPos.dot(camera.position) > 0
         marker.visible = facing
       }
-      try {
-        renderer.render(scene, camera)
-      } catch {
-        alive = false
-        inFrame = false
-        return
-      }
-      inFrame = false
-      if (controls.autoRotate || moving) raf = requestAnimationFrame(frame)
+      renderer.render(scene, camera)
+      raf = requestAnimationFrame(tick)
     }
-    const kick = () => {
-      if (!alive || raf || inFrame || document.hidden || !onScreen) return
-      raf = requestAnimationFrame(frame)
-    }
-    paintNow = kick
-    controls.addEventListener("change", kick)
-
-    const visibility = new IntersectionObserver(([entry]) => {
-      onScreen = Boolean(entry?.isIntersecting)
-      if (onScreen) kick()
-    })
-    visibility.observe(host)
-    const onVisibility = () => kick()
-    document.addEventListener("visibilitychange", onVisibility)
-    const onContextLost = (event: Event) => {
-      event.preventDefault()
-      alive = false
-      if (raf) cancelAnimationFrame(raf)
-      raf = 0
-    }
-    renderer.domElement.addEventListener("webglcontextlost", onContextLost)
+    raf = requestAnimationFrame(tick)
 
     return () => {
-      alive = false
       abort.abort()
-      if (raf) cancelAnimationFrame(raf)
-      visibility.disconnect()
-      document.removeEventListener("visibilitychange", onVisibility)
-      controls.removeEventListener("change", kick)
-      renderer.domElement.removeEventListener("webglcontextlost", onContextLost)
+      cancelAnimationFrame(raf)
       ro.disconnect()
       controls.dispose()
       renderer.dispose()
       ocean.geometry.dispose()
       ocean.material.dispose()
-      mapTexture.dispose()
+      grid.geometry.dispose()
+      grid.material.dispose()
       atmo.geometry.dispose()
       atmo.material.dispose()
       for (const fn of dispose) fn()
